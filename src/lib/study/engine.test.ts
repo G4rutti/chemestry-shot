@@ -70,6 +70,14 @@ test("getNextQuestion: prefers unseen questions from other topics over repeating
   }
 });
 
+test("getNextQuestion: answered questions never come back unless repeat is asked", () => {
+  let p = emptyProgress();
+  for (const x of data.questions.filter((x) => x.topicId === "t2")) p = recordAnswer(p, x, "A", true, 0);
+  assert.equal(getNextQuestion(data, p, { mode: "topic", topicId: "t2", now: 1e12 }), null);
+  assert.equal(getNextQuestion(data, p, { mode: "topic", topicId: "t2", now: 1e12, repeat: true })?.topicId, "t2");
+  for (let i = 0; i < 10; i++) assert.equal(getNextQuestion(data, p, { mode: "cram", now: 1e12 })?.topicId, "t1");
+});
+
 test("recordAnswer: xp, streak, mistake upsert and resolution", () => {
   const x = data.questions[0];
   let p = recordAnswer(emptyProgress(), x, "B", false, 1000);

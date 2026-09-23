@@ -1,8 +1,9 @@
 import { createHash } from "node:crypto";
+import { z } from "zod";
 import type { MaterialChunk, OneShot, Question, StudyData, Topic } from "@/lib/types";
 import { getCachedStudy, getChunks, getOneShot, getStudy, saveChunks, saveCurrent, saveOneShot, saveStudy } from "@/lib/store";
 import { generateJson } from "./client";
-import { formatChunks, moreQuestionsPrompt, oneShotPrompt, topicContentPrompt, topicsPrompt } from "./prompts";
+import { askPrompt, formatChunks, moreQuestionsPrompt, oneShotPrompt, topicContentPrompt, topicsPrompt } from "./prompts";
 import {
   normalizeFlashcards,
   normalizeOneShot,
@@ -76,13 +77,13 @@ export async function processMaterials(chunks: MaterialChunk[]): Promise<StudyDa
   return data;
 }
 
-async function currentTopic(topicId: string) {
+async function currentTopic(topicId: string, cap = TOPIC_CAP) {
   const data = await getStudy();
   const topic = data?.topics.find((t) => t.id === topicId);
   if (!data || !topic) throw new Error("Tópico não encontrado.");
   const chunks = await getChunks(data.version);
   if (!chunks) throw new Error("Trechos do material não encontrados; reprocesse os materiais.");
-  return { data, topic, material: formatChunks(topicChunks(topic, chunks), TOPIC_CAP) };
+  return { data, topic, material: formatChunks(topicChunks(topic, chunks), cap) };
 }
 
 export async function oneShot(topicId: string): Promise<OneShot> {
@@ -105,4 +106,12 @@ export async function moreQuestions(topicId: string): Promise<Question[]> {
   const latest = (await getStudy()) ?? data;
   await saveStudy({ ...latest, questions: [...latest.questions, ...questions] });
   return questions;
+}
+
+/** Answers a student doubt from the topic material. Not stored server-side (Vercel is read-only): the client keeps it. */
+export async function askDoubt(topicId: string, question: string, context?: string, answered = false): Promise<string> {
+  // smaller slice of material: a doubt needs context, not the whole topic, and free fallbacks have low token limits
+  const { topic, material } = await currentTopic(topicId, 15_000);
+  const { answer } = await generateJson(askPrompt(topic, material, question, context, answered), z.object({ answer: z.string() }));
+  return answer.trim();
 }

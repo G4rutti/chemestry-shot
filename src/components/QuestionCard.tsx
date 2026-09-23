@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { checkAnswer } from "@/lib/study/engine";
 import type { Question } from "@/lib/types";
+import AskAI from "./AskAI";
 import Listen from "./Listen";
 import Mascot from "./Mascot";
 import TopicMedia from "./TopicMedia";
@@ -37,6 +38,7 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
   const [text, setText] = useState("");
   const [overridden, setOverridden] = useState(false);
   const [hint, setHint] = useState(false);
+  const [asking, setAsking] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   const hasOptions = !!q.options?.length;
@@ -72,6 +74,8 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
+      // shortcuts must not fire while typing (answer box, doubt box)
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (done) {
         if ((e.key === "Enter" || e.key === " ") && document.activeElement !== nextRef.current) {
           e.preventDefault();
@@ -179,6 +183,11 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
             ) : (
               <span />
             )}
+            {showFeedback && (
+              <button type="button" onClick={() => setAsking((a) => !a)} aria-expanded={asking} className="btn-3d rounded-xl border-2 border-zinc-200 bg-white px-4 py-2 text-sm text-sky-600 hover:bg-zinc-50">
+                🙋 Tirar dúvida
+              </button>
+            )}
             <button type="button" onClick={() => submit(DONT_KNOW)} className="btn-3d rounded-xl border-2 border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-500 hover:bg-zinc-50">
               🤷 Não sei
             </button>
@@ -207,6 +216,24 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
           </p>
           <Listen compact parts={[correct ? "" : `A resposta certa é ${q.correctAnswer}.`, q.explanation, q.memoryTip && `Dica pra lembrar: ${q.memoryTip}`]} />
         </div>
+      )}
+
+      {done && !asking && (
+        <button type="button" onClick={() => setAsking(true)} className="btn-3d w-full rounded-xl border-2 border-zinc-200 bg-white px-4 py-2 text-sm text-sky-600 hover:bg-zinc-50">
+          🙋 Ainda com dúvida? Pergunta pra IA
+        </button>
+      )}
+
+      {asking && (
+        <AskAI
+          compact
+          topicId={q.topicId}
+          answered={done}
+          placeholder="Qual a sua dúvida sobre essa questão?"
+          context={[q.question, q.options?.length ? `Alternativas: ${q.options.join(" | ")}` : "", done ? `Resposta correta: ${q.correctAnswer}. Explicação: ${q.explanation}` : ""]
+            .filter(Boolean)
+            .join("\n")}
+        />
       )}
 
       {done && !correct && <TopicMedia compact topicId={q.topicId} />}

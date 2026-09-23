@@ -29,6 +29,7 @@ function Study() {
   const raw = params.get("mode");
   const mode: StudyMode = raw === "topic" || raw === "mistakes" ? raw : "cram";
   const topicId = params.get("topic") ?? undefined;
+  const repeat = params.get("repeat") === "1";
   const { data, loading, error, reload, progress, answer } = useStudy();
 
   const [results, setResults] = useState<Record<string, boolean>>({});
@@ -53,7 +54,7 @@ function Study() {
   const target = mode === "cram" ? SESSION : Infinity;
   let q = current;
   if (!q && !ended && done < target) {
-    q = getNextQuestion(data, progress, { mode, topicId, exclude: answeredIds });
+    q = getNextQuestion(data, progress, { mode, topicId, exclude: answeredIds, repeat });
     if (q && q.id in results) q = null; // engine recycles when pool is exhausted
     if (q) setCurrent(q); // pin it so re-renders don't reshuffle
   }
@@ -105,17 +106,25 @@ function Study() {
 
   if (!q) {
     const total = answeredIds.length;
+    // engine returned nothing although the session wasn't over: every question here was already answered
+    const exhausted = mode !== "mistakes" && !repeat && !ended && done < target;
+    const openMistakes = progress.mistakes.filter((m) => !m.resolved).length;
     if (total === 0 && mode === "mistakes")
       return <main className="mx-auto max-w-xl p-4 space-y-6">{header}<Center><p className="text-xl">Nenhum erro pendente 🎉</p><p>Você está mandando bem. Que tal um modo revisão?</p><Link href="/study?mode=cram" className={`${btn} inline-block bg-brand-600 text-white`}>Revisão rápida</Link></Center></main>;
     return (
       <main className="mx-auto max-w-xl p-4 space-y-6">
         {header}
         <div className="tile p-6 text-center space-y-4">
-          <h1 className="text-3xl">Sessão concluída!</h1>
-          <div className="grid grid-cols-2 gap-3">
+          <h1 className="text-3xl">{exhausted ? "Você zerou as questões! 🎉" : "Sessão concluída!"}</h1>
+          {exhausted && (
+            <p className="text-zinc-600">
+              Já respondeu todas as questões {mode === "topic" ? "deste tópico" : "do app"}. Elas não voltam sozinhas: refaça seus erros ou treine tudo de novo.
+            </p>
+          )}
+          {total > 0 && <div className="grid grid-cols-2 gap-3">
             <div className="rounded-2xl bg-brand-50 p-4"><p className="text-3xl font-bold text-brand-600">{total ? Math.round((correctCount / total) * 100) : 0}%</p><p className="text-sm">acertos ({correctCount}/{total})</p></div>
             <div className="rounded-2xl bg-amber-50 p-4"><p className="text-3xl font-bold text-amber-500">+{xpGained}</p><p className="text-sm">XP</p></div>
-          </div>
+          </div>}
           {mode === "topic" && topicId && !ended && !process.env.NEXT_PUBLIC_VERCEL_ENV && (
             <div className="space-y-2">
               <p className="text-zinc-600">Acabaram as questões deste tópico.</p>
@@ -125,7 +134,15 @@ function Study() {
             </div>
           )}
           <div className="flex flex-col gap-2">
-            {mode !== "topic" && (
+            {exhausted && openMistakes > 0 && (
+              <Link href="/study?mode=mistakes" className={`${btn} bg-brand-600 text-white`}>Refazer meus erros ({openMistakes})</Link>
+            )}
+            {exhausted && (
+              <Link href={`/study?mode=${mode}${topicId ? `&topic=${topicId}` : ""}&repeat=1`} className={`${btn} border-2 border-zinc-200 bg-white text-sky-600`}>
+                Treinar de novo (repete questões)
+              </Link>
+            )}
+            {mode !== "topic" && !exhausted && (
               <button className={`${btn} bg-brand-600 text-white`} onClick={() => { setRound(answeredIds.length); setEnded(false); }}>Continuar</button>
             )}
             <Link href="/mistakes" className={`${btn} bg-rose-50 text-rose-700`}>Caderno de erros</Link>

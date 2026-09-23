@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { use, useCallback, useEffect, useState } from "react";
+import AskAI from "@/components/AskAI";
 import Listen, { type Episode } from "@/components/Listen";
 import TopicMedia from "@/components/TopicMedia";
 import podcasts from "@/lib/podcasts.json";
@@ -146,6 +147,7 @@ export default function OneShotPage({ params }: { params: Promise<{ topicId: str
             <p className="mt-2 rounded-lg bg-brand-50 px-3 py-2 font-semibold text-brand-700">Resposta: {shot.solvedExample.answer}</p>
           </Section>
 
+          <AskAI topicId={topicId} />
         </div>
       </div>
 

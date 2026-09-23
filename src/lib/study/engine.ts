@@ -146,7 +146,8 @@ function pickInPool(pool: Question[], p: Progress, now: number): Question | null
 export function getNextQuestion(
   data: StudyData,
   p: Progress,
-  opts: { mode: StudyMode; topicId?: string; exclude?: string[]; now?: number },
+  /** repeat: allow already-answered questions (explicit "treinar de novo"); otherwise only never-answered ones */
+  opts: { mode: StudyMode; topicId?: string; exclude?: string[]; now?: number; repeat?: boolean },
 ): Question | null {
   const now = opts.now ?? Date.now();
   const ex = new Set(opts.exclude ?? []);
@@ -160,13 +161,19 @@ export function getNextQuestion(
   const inScope = opts.mode === "topic" ? data.questions.filter((q) => q.topicId === opts.topicId) : data.questions;
   if (!inScope.length) return null;
   const notInSession = inScope.filter((q) => !ex.has(q.id));
-  const unrepeated = notInSession.length ? notInSession : inScope;
-  // never repeat an already-answered question while unseen ones (or due mistakes) exist anywhere in scope
-  const ready = unrepeated.filter((q) => {
-    const s = p.questions[q.id];
-    return !s || (!s.lastCorrect && s.due <= now);
-  });
-  const pool = ready.length ? ready : unrepeated;
+  let pool: Question[];
+  if (!opts.repeat) {
+    // answered questions never come back here; mistakes are retried in "mistakes" mode
+    pool = notInSession.filter((q) => !p.questions[q.id]);
+    if (!pool.length) return null;
+  } else {
+    const unrepeated = notInSession.length ? notInSession : inScope;
+    const ready = unrepeated.filter((q) => {
+      const s = p.questions[q.id];
+      return !s || (!s.lastCorrect && s.due <= now);
+    });
+    pool = ready.length ? ready : unrepeated;
+  }
   if (opts.mode === "topic") return pickInPool(pool, p, now);
 
   const ranked = data.topics
