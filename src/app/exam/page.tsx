@@ -57,7 +57,7 @@ export default function ExamPage() {
 
   if (!exam)
     return (
-      <main className="mx-auto max-w-xl p-4 space-y-6">
+      <main className="mx-auto max-w-xl py-2 sm:p-4 space-y-6">
         <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-800">← Início</Link>
         <div className="tile p-6 space-y-4 text-center">
           <h1 className="text-3xl">Simulado</h1>
@@ -77,7 +77,7 @@ export default function ExamPage() {
   if (!finished) {
     const q = exam[results.length];
     return (
-      <main className="mx-auto max-w-xl p-4 space-y-6">
+      <main className="mx-auto max-w-xl py-2 sm:p-4 space-y-6">
         <header className="flex items-center gap-3">
           <Link href="/" aria-label="Sair" className="text-2xl text-zinc-400 hover:text-zinc-700">×</Link>
           <div className="h-4 flex-1 rounded-full bg-zinc-200 overflow-hidden" role="progressbar" aria-valuemin={0} aria-valuemax={exam.length} aria-valuenow={results.length}>
@@ -111,7 +111,7 @@ export default function ExamPage() {
   const wrong = results.filter((r) => !r.correct);
 
   return (
-    <main className="mx-auto max-w-xl p-4 space-y-6">
+    <main className="mx-auto max-w-xl py-2 sm:p-4 space-y-6">
       <div className="tile p-6 text-center space-y-2">
         <h1 className="text-3xl">Resultado</h1>
         <p className={`text-5xl font-bold ${score / results.length >= 0.6 ? "text-brand-600" : "text-rose-600"}`}>

@@ -86,7 +86,7 @@ export default function PodcastCard({ topicId }: Readonly<{ topicId: string }>) 
             </span>
             <div>
               <h2 className="text-lg">🎙️ Podcast</h2>
-              <p className="text-sm font-semibold text-zinc-500">Lia e Beto gravam um episódio só pra você, focado no que você errou.</p>
+              <p className="text-sm font-semibold text-zinc-500">O Beto explica a matéria do zero e a Lia pergunta o que você perguntaria. Focado no que você errou.</p>
             </div>
           </div>
           {button}
@@ -97,7 +97,7 @@ export default function PodcastCard({ topicId }: Readonly<{ topicId: string }>) 
         <section className="tile space-y-3 p-5 text-center" role="status">
           <Mascot size={64} className="mx-auto animate-bounce" />
           <p className="font-extrabold">{WAITING[tick % WAITING.length]}</p>
-          <p className="text-sm font-semibold text-zinc-500">Leva uns 30 s a 2 min. Pode ir lendo o resumo enquanto isso.</p>
+          <p className="text-sm font-semibold text-zinc-500">Leva uns 1 a 3 min. Pode ir lendo o resumo enquanto isso.</p>
         </section>
       )}
 

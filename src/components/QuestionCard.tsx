@@ -107,11 +107,11 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start gap-4">
-        <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-zinc-200 bg-zinc-50">
-          <Mascot size={52} />
+      <div className="flex items-start gap-3 sm:gap-4">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-zinc-200 bg-zinc-50 sm:h-16 sm:w-16">
+          <Mascot size={52} className="h-9 w-9 sm:h-[52px] sm:w-[52px]" />
         </span>
-        <p className="tile bubble flex-1 px-5 py-4 text-xl font-extrabold leading-snug whitespace-pre-line">{q.question}</p>
+        <p className="tile bubble min-w-0 flex-1 px-4 py-3 text-lg font-extrabold sm:px-5 sm:py-4 sm:text-xl leading-snug whitespace-pre-line">{q.question}</p>
       </div>
 
       {hasOptions ? (
@@ -151,12 +151,12 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
             disabled={done}
             autoComplete="off"
             placeholder={q.type === "calculation" ? "Resultado (ex: 2,5 mol/L)" : "Sua resposta"}
-            className={`flex-1 rounded-2xl border-2 border-b-4 px-4 py-3 text-base font-bold bg-white focus:outline-none focus:border-sky-300 ${
+            className={`min-w-0 flex-1 rounded-2xl border-2 border-b-4 px-4 py-3 text-base font-bold bg-white focus:outline-none focus:border-sky-300 ${
               done ? (correct ? "border-brand-500 bg-brand-50" : "border-rose-400 bg-rose-50") : "border-zinc-200"
             }`}
           />
           {!done && (
-            <button type="submit" disabled={!text.trim()} className="btn-3d rounded-2xl bg-brand-600 px-5 py-3 font-semibold text-white disabled:opacity-40 hover:bg-brand-700">
+            <button type="submit" disabled={!text.trim()} className="btn-3d shrink-0 rounded-2xl bg-brand-600 px-4 py-3 font-semibold text-white disabled:opacity-40 hover:bg-brand-700">
               Responder
             </button>
           )}
@@ -175,20 +175,20 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
               </div>
             </div>
           )}
-          <div className="flex justify-between gap-2">
+          <div className="grid grid-cols-3 gap-2">
             {showFeedback && !hint ? (
-              <button type="button" onClick={() => setHint(true)} className="btn-3d rounded-xl border-2 border-zinc-200 bg-white px-4 py-2 text-sm text-amber-600 hover:bg-zinc-50">
+              <button type="button" onClick={() => setHint(true)} className="btn-3d rounded-xl border-2 border-zinc-200 bg-white px-1 py-2 text-xs sm:text-sm text-amber-600 hover:bg-zinc-50">
                 💡 Dica
               </button>
             ) : (
               <span />
             )}
             {showFeedback && (
-              <button type="button" onClick={() => setAsking((a) => !a)} aria-expanded={asking} className="btn-3d rounded-xl border-2 border-zinc-200 bg-white px-4 py-2 text-sm text-sky-600 hover:bg-zinc-50">
+              <button type="button" onClick={() => setAsking((a) => !a)} aria-expanded={asking} className="btn-3d rounded-xl border-2 border-zinc-200 bg-white px-1 py-2 text-xs sm:text-sm text-sky-600 hover:bg-zinc-50">
                 🙋 Tirar dúvida
               </button>
             )}
-            <button type="button" onClick={() => submit(DONT_KNOW)} className="btn-3d rounded-xl border-2 border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-500 hover:bg-zinc-50">
+            <button type="button" onClick={() => submit(DONT_KNOW)} className="col-start-3 btn-3d rounded-xl border-2 border-zinc-200 bg-white px-1 py-2 text-xs sm:text-sm text-zinc-500 hover:bg-zinc-50">
               🤷 Não sei
             </button>
           </div>

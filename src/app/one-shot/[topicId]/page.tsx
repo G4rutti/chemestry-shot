@@ -67,12 +67,13 @@ export default function OneShotPage({ params }: { params: Promise<{ topicId: str
         {practice}
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_22rem] lg:items-start">
-        <aside className="space-y-4 lg:order-2">
+      {/* mobile: podcast, summary, picture, doubts. desktop: summary + doubts on the left, podcast + picture on the right.
+          min-w-0 lets grid items shrink below their content (otherwise the player overflows a phone screen). */}
+      <div className="grid gap-4 lg:grid-cols-[1fr_22rem] lg:grid-rows-[auto_1fr_auto] lg:items-start">
+        <div className="min-w-0 lg:col-start-2 lg:row-start-1">
           <PodcastCard topicId={topicId} />
-          <TopicMedia topicId={topicId} topicName={shot.title} />
-        </aside>
-        <div className="space-y-4">
+        </div>
+        <div className="min-w-0 space-y-4 lg:col-start-1 lg:row-span-2 lg:row-start-1">
           <Section title="🎯 Essencial">
             <ul className="list-disc space-y-1 pl-5">
               {shot.essentials.map((e, i) => <li key={i}>{e}</li>)}
@@ -125,7 +126,11 @@ export default function OneShotPage({ params }: { params: Promise<{ topicId: str
             </ol>
             <p className="mt-2 rounded-lg bg-brand-50 px-3 py-2 font-semibold text-brand-700">Resposta: {shot.solvedExample.answer}</p>
           </Section>
-
+        </div>
+        <div className="min-w-0 lg:col-start-2 lg:row-start-2">
+          <TopicMedia topicId={topicId} topicName={shot.title} />
+        </div>
+        <div className="min-w-0 lg:col-start-1 lg:row-start-3">
           <AskAI topicId={topicId} />
         </div>
       </div>

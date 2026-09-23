@@ -4,7 +4,7 @@ import { z } from "zod";
 import type { OneShot } from "@/lib/types";
 import { generateJson } from "./client";
 
-// On-demand two-host podcast: a fresh AI script every time (random format, personalized with the
+// On-demand two-host podcast: a fresh AI lesson script every time (random explanation angle, personalized with the
 // student's mistakes), voiced by Gemini multi-speaker TTS and returned as MP3 bytes.
 
 const HOSTS = { Lia: "Leda", Beto: "Puck" } as const; // speaker -> Gemini prebuilt voice
@@ -16,17 +16,18 @@ const TTS_MODELS = [
   "gemini-2.5-pro-preview-tts",
   "gemini-2.5-flash-preview-tts",
 ];
-// all TTS attempts share this budget so the route (maxDuration 300s, script included) never gets killed mid-way
-const TTS_BUDGET_MS = 210_000;
+// the whole request (script + review + TTS) must finish before the route's maxDuration (300s) kills it
+const REQUEST_BUDGET_MS = 270_000;
 const RATE = 24000; // Gemini TTS returns 16-bit mono PCM at 24 kHz
 const BASE_STYLE = "podcast brasileiro, animado e descontraído, sorriso na voz, ritmo dinâmico, bem natural";
 
-const FORMATS = [
-  "bate-papo entre amigos, cheio de analogias do dia a dia (cozinha, futebol, balada, celular)",
-  "quiz show: Lia dispara perguntas-relâmpago, Beto responde e explica, com placar e vinheta",
-  "mitos e verdades: Lia traz afirmações que a galera acha, Beto desmonta ou confirma explicando",
-  "história e curiosidade: começam com um fato curioso ou história real da química e ligam ao conteúdo",
-  "treino pra prova: resolvem juntos, passo a passo, um exercício NOVO (diferente do exemplo do resumo)",
+// every episode is a lesson; the "angle" only changes HOW it's explained, so episodes differ without turning into quizzes
+const ANGLES = [
+  "analogias do dia a dia (cozinha, futebol, festa, celular) para cada conceito",
+  "começar por um fenômeno do cotidiano (ex.: por que o sal derrete o gelo) e explicar a química por trás dele",
+  "construir o raciocínio do zero, como se o aluno nunca tivesse visto a matéria, um degrau de cada vez",
+  "desenhar com palavras: descrever o que acontece com átomos e elétrons como se fosse um filme",
+  "partir do erro mais comum dos alunos nessa matéria e mostrar o raciocínio certo",
 ];
 
 const lineSchema = z.object({
@@ -34,34 +35,54 @@ const lineSchema = z.object({
   text: z.string(),
   emotion: z.string().describe('como falar essa fala, ex.: "rindo", "surpresa", "empolgado", "suspense"'),
 });
-const scriptSchema = z.object({ title: z.string(), lines: z.array(lineSchema).min(8) });
+const scriptSchema = z.object({ title: z.string(), lines: z.array(lineSchema).min(12) });
 export type PodcastLine = z.infer<typeof lineSchema>;
 
-const scriptPrompt = (s: OneShot, format: string, mistakes: string[]) => `Escreva o roteiro de um episódio curto de podcast em português do Brasil sobre "${s.title}", para um aluno que tem prova de Química HOJE.
-Apresentadores: Lia (animada, curiosa, faz piadas) e Beto (explica bem, também engraçado). Dois amigos gravando, energia de rádio, com risadas e reações naturais.
-Formato deste episódio: ${format}.
+const scriptPrompt = (s: OneShot, angle: string, mistakes: string[]) => `Escreva o roteiro de um episódio de podcast em português do Brasil que ENSINA "${s.title}" para um aluno que tem prova de Química HOJE e ainda não entendeu bem a matéria.
+Apresentadores: Beto (o professor: explica com clareza, paciência e humor) e Lia (a aluna curiosa e engraçada: interrompe com dúvidas de verdade como "pera, mas por quê?", "e como eu sei isso?", "então se eu mudar X, o que acontece?"). Dois amigos gravando, clima leve, com risadas e reações naturais.
+Jeito de explicar neste episódio: ${angle}.
+OBJETIVO: o aluno tem que ENTENDER a matéria. Isto é uma aula conversada, NÃO um quiz: não faça perguntas-relâmpago, placar, "verdadeiro ou falso" nem teste o ouvinte. Pelo menos 70% das falas são explicação.
+Estrutura:
+1. Gancho curto (1-2 falas) dizendo por que isso importa e cai na prova.
+2. Explicação do conceito principal do zero, em passos: o que é, por que acontece, como funciona. Beto explica em falas de 2-4 frases; Lia pergunta o que um aluno realmente perguntaria e Beto responde explicando.
+3. Os outros conceitos importantes do tópico, ligados entre si.
+4. Um exemplo resolvido NOVO, narrado passo a passo com o raciocínio (não só a resposta).
+5. Uma pegadinha de prova e como não cair nela.
+6. Lia resume o episódio em 3 frases com as palavras dela; Beto chama pra praticar no app.
 Regras:
-- 14 a 22 falas curtas, no máximo ~330 palavras (uns 2 minutos).
-- NÃO leia nem parafraseie o resumo abaixo: use-o só como fonte. Traga exemplos, analogias e perguntas NOVAS, diferentes das do resumo.
+- 18 a 28 falas, no máximo ~450 palavras (uns 3 minutos).
+- NÃO leia nem parafraseie o resumo abaixo: use-o só como fonte. Traga explicações, analogias e exemplos NOVOS, diferentes dos do resumo.
 - Química 100% correta: confira cada afirmação antes de escrever. Na dúvida sobre um detalhe, deixe de fora.
 - Não invente datas, nomes ou números históricos: só cite se tiver certeza absoluta.
 - Cada fala traz algo novo: nunca repita ou parafraseie a fala anterior.
 - Escreva fórmulas e símbolos por extenso como se fala ("um s dois", "H dois O", "mol por litro").
-- Cubra o que mais cai na prova e pelo menos uma pegadinha.${
+- Foque no que mais cai na prova.${
   mistakes.length
     ? `\n- Este aluno errou estas questões; explique esses pontos com carinho, sem dizer que ele errou:\n${mistakes.map((m) => `  • ${m}`).join("\n")}`
     : ""
 }
-- Dê um title criativo pro episódio. Comece com uma vinheta ("Tá no ar o Chemistry Shot!") e termine chamando pra praticar no app.
+- Dê um title criativo pro episódio. A primeira fala abre com a vinheta "Tá no ar o Chemistry Shot!".
 - emotion de cada fala: 1 a 3 palavras de como falar.
 
 RESUMO (fonte):
 ${JSON.stringify(s)}`;
 
+// second pass: free models write fluent scripts but slip on chemistry (wrong reasons, uncorrected student mistakes)
+const reviewPrompt = (s: OneShot, script: z.infer<typeof scriptSchema>) => `Você é um professor de Química rigoroso revisando o roteiro de um podcast didático sobre "${s.title}".
+Corrija TODO erro de química, explicação confusa ou contraditória e qualquer fala errada da Lia que o Beto deixou passar (o Beto deve corrigir na fala seguinte).
+Use a explicação padrão do ensino médio (ex.: ordem de preenchimento pela regra n + l / diagrama de Pauling).
+Escreva números e símbolos por extenso como se fala ("um s dois", "três d seis").
+Mantenha o tom, a estrutura, os apresentadores e o tamanho; mude só o necessário. Devolva o roteiro completo no mesmo formato.
+
+RESUMO (fonte confiável):
+${JSON.stringify(s)}
+
+ROTEIRO:
+${JSON.stringify(script)}`;
+
 const msg = (e: unknown) => (e instanceof Error ? e.message : String(e));
 
-async function speak(lines: PodcastLine[]): Promise<Int16Array> {
-  const deadline = Date.now() + TTS_BUDGET_MS;
+async function speak(lines: PodcastLine[], deadline: number): Promise<Int16Array> {
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY não configurada");
   let lastErr: unknown = new Error("TTS: tempo esgotado");
@@ -123,10 +144,19 @@ export type Podcast = { title: string; format: string; lines: PodcastLine[]; sec
 
 /** Script always comes back; audio is null when TTS is unavailable (the client then falls back to browser speech). */
 export async function makePodcast(shot: OneShot, mistakes: string[]): Promise<Podcast> {
-  const format = FORMATS[Math.floor(Math.random() * FORMATS.length)];
-  const { title, lines } = await generateJson(scriptPrompt(shot, format, mistakes), scriptSchema);
+  const format = ANGLES[Math.floor(Math.random() * ANGLES.length)];
+  const start = Date.now();
+  const draft = await generateJson(scriptPrompt(shot, format, mistakes), scriptSchema);
+  // review only if there's time left for it and the voices; a failed review keeps the draft rather than losing the episode
+  const { title, lines } =
+    Date.now() - start > 90_000
+      ? draft
+      : await generateJson(reviewPrompt(shot, draft), scriptSchema).catch((e) => {
+          console.warn("[podcast] revisão falhou, usando rascunho:", msg(e).slice(0, 120));
+          return draft;
+        });
   try {
-    const pcm = await speak(lines);
+    const pcm = await speak(lines, start + REQUEST_BUDGET_MS);
     return { title, format, lines, seconds: Math.round(pcm.length / RATE), mp3: mp3(pcm) };
   } catch (e) {
     const words = lines.reduce((n, l) => n + l.text.split(/\s+/).length, 0);

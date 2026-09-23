@@ -51,6 +51,8 @@ const isBusy = (e: unknown) =>
 const isQuota = (e: unknown) => /exceeded your current quota|quota exceeded|per.?day/i.test(msg(e));
 
 async function withBackoff<T>(fn: () => Promise<T>): Promise<T> {
+  // with a free fallback configured, waiting out a busy Gemini model is slower than just moving on
+  if (COMPAT.some((p) => process.env[p.key])) return fn();
   for (const wait of [2000, 5000]) {
     try {
       return await fn();
@@ -97,7 +99,8 @@ async function callGemini(prompt: string, responseJsonSchema: unknown): Promise<
       lastErr = e;
     }
   }
-  if (quotaHits >= 2) geminiOutUntil = Date.now() + 15 * 60_000;
+  // every model failed: skip Gemini for a while (long for exhausted quota, short for a demand spike)
+  geminiOutUntil = Date.now() + (quotaHits >= 2 ? 15 : 3) * 60_000;
   throw lastErr;
 }
 

@@ -53,12 +53,12 @@ export default function TopicMedia({ topicId, topicName, compact = false }: Prop
       )}
       <div className="space-y-4 p-5">
         <h2 className="text-lg">🖼️ Entenda de outro jeito</h2>
-        <p className="text-zinc-700">{m.extract}</p>
-        <div className="flex flex-wrap gap-2">
-          <a href={m.url} target="_blank" rel="noreferrer" className="btn-3d rounded-xl border-2 border-zinc-200 bg-white px-4 py-2 text-sm text-sky-600 hover:bg-zinc-50">
+        <p className="line-clamp-6 text-zinc-700">{m.extract}</p>
+        <div className="grid grid-cols-2 gap-2 text-center">
+          <a href={m.url} target="_blank" rel="noreferrer" className="btn-3d rounded-xl border-2 border-zinc-200 bg-white px-2 py-2 text-sm text-sky-600 hover:bg-zinc-50">
             📚 Ler na Wikipédia
           </a>
-          <a href={videos} target="_blank" rel="noreferrer" className="btn-3d rounded-xl bg-rose-600 px-4 py-2 text-sm text-white hover:bg-rose-700">
+          <a href={videos} target="_blank" rel="noreferrer" className="btn-3d rounded-xl bg-rose-600 px-2 py-2 text-sm text-white hover:bg-rose-700">
             ▶️ Vídeo-aulas
           </a>
         </div>

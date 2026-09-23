@@ -110,9 +110,9 @@ function Study() {
     const exhausted = mode !== "mistakes" && !repeat && !ended && done < target;
     const openMistakes = progress.mistakes.filter((m) => !m.resolved).length;
     if (total === 0 && mode === "mistakes")
-      return <main className="mx-auto max-w-xl p-4 space-y-6">{header}<Center><p className="text-xl">Nenhum erro pendente 🎉</p><p>Você está mandando bem. Que tal um modo revisão?</p><Link href="/study?mode=cram" className={`${btn} inline-block bg-brand-600 text-white`}>Revisão rápida</Link></Center></main>;
+      return <main className="mx-auto max-w-xl py-2 sm:p-4 space-y-6">{header}<Center><p className="text-xl">Nenhum erro pendente 🎉</p><p>Você está mandando bem. Que tal um modo revisão?</p><Link href="/study?mode=cram" className={`${btn} inline-block bg-brand-600 text-white`}>Revisão rápida</Link></Center></main>;
     return (
-      <main className="mx-auto max-w-xl p-4 space-y-6">
+      <main className="mx-auto max-w-xl py-2 sm:p-4 space-y-6">
         {header}
         <div className="tile p-6 text-center space-y-4">
           <h1 className="text-3xl">{exhausted ? "Você zerou as questões! 🎉" : "Sessão concluída!"}</h1>
@@ -154,7 +154,7 @@ function Study() {
   }
 
   return (
-    <main className="mx-auto max-w-xl p-4 space-y-6">
+    <main className="mx-auto max-w-xl py-2 sm:p-4 space-y-6">
       {header}
       <QuestionCard
         key={q.id}
