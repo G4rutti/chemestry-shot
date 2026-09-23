@@ -1,0 +1,98 @@
+{
+  "eletrosfera-e-camadas-eletronicas": {
+    "title": "Átomo de Bohr",
+    "url": "https://pt.wikipedia.org/wiki/%C3%81tomo_de_Bohr",
+    "extract": "Na física atômica, o átomo de Bohr é um modelo que descreve o átomo como um núcleo pequeno e carregado positivamente cercado por elétrons em órbita circular. Ernest Rutherford, no início do século XX, realiza o experimento conhecido como espalhamento de Rutherford, no qual ele incidiu um feixe de partículas alfa (α) sobre uma folha de ouro e observou que, ao contrário do que era esperado - que as partículas deveriam ser refletidas pelos átomos de ouro considerados maciços até então -, muitas partículas atravessaram a folha de ouro e outras sofreram desvios. A partir da análise dessa experiência, afirmou que átomos eram constituídos de uma nuvem difusa de elétrons carregados negativamente que circundavam um núcleo atômico denso, pequeno e carregado positivamente. A partir dessa descrição, é fácil deixar-se induzir por uma concepção de um modelo planetário para o átomo, com elétrons orbitando ao redor do \"núcleo-sol\".",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Bohr_atom_model_%28mul%29.svg/960px-Bohr_atom_model_%28mul%29.svg.png",
+    "imageFrom": "Átomo de Bohr",
+    "imageUrl": "https://pt.wikipedia.org/wiki/%C3%81tomo_de_Bohr"
+  },
+  "subniveis-de-energia-e-distribuicao-eletronica": {
+    "title": "Configuração eletrônica",
+    "url": "https://pt.wikipedia.org/wiki/Configura%C3%A7%C3%A3o_eletr%C3%B4nica",
+    "extract": "Na física atômica e na química quântica, a configuração eletrônica é a distribuição dos elétrons de um átomo ou molécula, ou de outra estrutura física, em orbitais atômicos ou moleculares. Por exemplo, a configuração eletrônica do átomo de neônio é 1s2 2s2 2p6, o que significa que os subníveis 1s, 2s e 2p são ocupados, respectivamente, por dois, dois e seis elétrons. As configurações eletrônicas descrevem cada elétron como se movendo de forma independente em um orbital, em um campo médio criado pelos núcleos e por todos os outros elétrons. Matematicamente, as configurações podem ser representadas por determinantes de Slater ou por funções de estado de configuração.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Electron_orbitals.svg/960px-Electron_orbitals.svg.png",
+    "imageFrom": "Configuração eletrônica",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Configura%C3%A7%C3%A3o_eletr%C3%B4nica"
+  },
+  "distribuicao-eletronica-de-ions": {
+    "title": "Íon",
+    "url": "https://pt.wikipedia.org/wiki/%C3%8Don",
+    "extract": "Um íon (português brasileiro) ou ião (português europeu) é uma espécie química eletricamente carregada, que resulta de um átomo ou molécula que perdeu ou ganhou elétrons. Íons, Iões carregados negativamente são conhecidos como ânionsPB, aniõesPE  ou até mesmo como íonsPB,iõesPE negativos (que são atraídos por ânodos), enquanto íons com carga positiva são denominados cátionsPB, catiõesPE, ou íon positivo (que são atraídos por cátodos).",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/89/SaltInWaterSolutionLiquid.jpg",
+    "imageFrom": "Íon",
+    "imageUrl": "https://pt.wikipedia.org/wiki/%C3%8Don"
+  },
+  "numeros-quanticos-e-regras-de-preenchimento": {
+    "title": "Número quântico",
+    "url": "https://pt.wikipedia.org/wiki/N%C3%BAmero_qu%C3%A2ntico",
+    "extract": "Os números quânticos descrevem valores de quantidades conservadas na dinâmica de um sistema quântico. No caso dos elétrons, os números quânticos podem ser definidos como \"os conjuntos de valores numéricos que dão soluções aceitáveis para a equação de onda de Schrödinger para o átomo de hidrogênio\", e são de enorme relevância quando se trata de descrever a posição dos elétrons nos átomos.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/cf/HAtomOrbitals.png",
+    "imageFrom": "Número quântico",
+    "imageUrl": "https://pt.wikipedia.org/wiki/N%C3%BAmero_qu%C3%A2ntico"
+  },
+  "tabela-periodica-e-sua-organizacao": {
+    "title": "Tabela periódica",
+    "url": "https://pt.wikipedia.org/wiki/Tabela_peri%C3%B3dica",
+    "extract": "Tabela periódica é uma disposição sistemática dos elementos químicos ordenados por seus números atômicos, configuração eletrônica, e recorrência das propriedades periódicas. Este ordenamento mostra tendências periódicas, tais como elementos com comportamentos similares na mesma coluna. Também mostra quatro blocos retangulares com propriedades químicas similares. Em geral, dentro de uma linha (período) os elementos são metálicos na esquerda e não metálicos na direita.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Periodic_table_large-pt_BR_impress14.svg/960px-Periodic_table_large-pt_BR_impress14.svg.png",
+    "imageFrom": "Tabela periódica",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Tabela_peri%C3%B3dica"
+  },
+  "substancias-puras-e-misturas": {
+    "title": "Mistura",
+    "url": "https://pt.wikipedia.org/wiki/Mistura",
+    "extract": "Uma mistura é uma porção de matéria constituída de duas ou mais substâncias chamadas de constituintes. Misturas são o produto da união mecânica de substâncias sem mudança na natureza química (ligações químicas), e portanto, cada constituinte retém suas propriedades. No entanto, as propriedades físico-químicas de uma mistura, tais como seu ponto de fusão e ebulição, podem diferir de seus componentes puros. As diferentes características dos constituintes permite em alguns casos a separação física.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Destilaria_conhaque.jpg",
+    "imageFrom": "Destilação",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Destila%C3%A7%C3%A3o"
+  },
+  "ligacoes-quimicas-e-propriedades-dos-materiais": {
+    "title": "Ligação química",
+    "url": "https://pt.wikipedia.org/wiki/Liga%C3%A7%C3%A3o_qu%C3%ADmica",
+    "extract": "Ligações químicas são conjunções estabelecidas entre átomos para formarem moléculas ou, no caso de ligações iônicas ou metálicas, agregados atômicos (superátomos) organizados de forma a constituírem a estrutura básica de uma substância ou composto. Na natureza existem por volta de uma centena de elementos químicos. Os átomos destes elementos, ao se unirem, formam a grande diversidade de substâncias. As ligações químicas podem ocorrer através da doação e recepção de elétrons entre os átomos, que se transformam em íons que se mantêm unidos via a denominada ligação iônica.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Legame_covalente.gif",
+    "imageFrom": "Ligação química",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Liga%C3%A7%C3%A3o_qu%C3%ADmica"
+  },
+  "forcas-intermoleculares-e-liquidos": {
+    "title": "Força intermolecular",
+    "url": "https://pt.wikipedia.org/wiki/For%C3%A7a_intermolecular",
+    "extract": "As forças intermoleculares influenciam a química de muitas formas: Elas são diretamente relacionadas às propriedades como ponto de fusão, ponto de ebulição e a energia necessária para converter um sólido em um líquido ou um líquido em vapor. As forças intermoleculares também são importantes na determinação da solubilidade de gases, líquidos e sólidos em vários solventes. As demais são cruciais na determinação de moléculas biologicamente importantes, como o DNA e proteína. Frequentemente são chamadas de forças de Van der Waals, em homenagem ao físico holandês Johannes Diederik van der Waals, que em 1873 obteve uma equação que, não somente incluiu a força de atração entre as partículas de um gás, mas que também corrigiu o fato que, em pressões altas, o volume das partículas se torna uma fração significativa do volume total do gás.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/3D_model_hydrogen_bonds_in_water.svg/960px-3D_model_hydrogen_bonds_in_water.svg.png",
+    "imageFrom": "Ligação de hidrogênio",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Liga%C3%A7%C3%A3o_de_hidrog%C3%AAnio"
+  },
+  "leis-ponderais-reacoes-e-estequiometria": {
+    "title": "Estequiometria",
+    "url": "https://pt.wikipedia.org/wiki/Estequiometria",
+    "extract": "Estequiometria (ou equações químicas) vem do grego stoikheion (elemento) e metriā (medida, de metron). O termo \"estequiométrico\" é usado com frequência em Termodinâmica para referir-se à \"mistura perfeita\" de um combustível e o ar. A estequiometria baseia-se na lei da conservação das massas, na lei das proporções definidas (ou lei da composição constante) e na lei das proporções múltiplas. Em geral, as reações químicas combinam proporções definidas de compostos químicos.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Hydrochloric_acid_ammonia.jpg",
+    "imageFrom": "Reação química",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Rea%C3%A7%C3%A3o_qu%C3%ADmica"
+  },
+  "solucoes-e-expressoes-de-concentracao": {
+    "title": "Concentração",
+    "url": "https://pt.wikipedia.org/wiki/Concentra%C3%A7%C3%A3o",
+    "extract": "Em Química, concentração é um indicativo de composição de uma mistura, geralmente expressa como sendo a razão entre a quantidade de uma substância, o soluto, dissolvido num solvente e o volume da solução. A descrição matemática pode ser feita em quatro classificações: concentração em massa, concentração em quantidade de matéria, concentração em volume e concentração em número de entidades. O termo concentração pode ser aplicado para quaisquer misturas, sendo empregado comumente para se referir à solução.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Potassium-permanganate-solution_cropped.png",
+    "imageFrom": "Solução",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Solu%C3%A7%C3%A3o"
+  },
+  "propriedades-coligativas": {
+    "title": "Propriedades coligativas",
+    "url": "https://pt.wikipedia.org/wiki/Propriedades_coligativas",
+    "extract": "Propriedades coligativas das soluções são propriedades físicas que se somam pela presença de um ou mais solutos e dependem única e exclusivamente do número relativo de partículas de soluto e solvente (concentração) das espécies (moléculas ou íons) que estão dispersas na solução, não dependendo da natureza do soluto. Isso significa dizer que a quantidade relativa, e não a natureza (como tamanho, estrutura molecular ou massa), das partículas que estão juntas na solução é que irá influenciar na formação das propriedades (ou efeitos) coligativas. Tonoscopia: diminuição da pressão máxima de vapor. Ebulioscopia: aumento da temperatura de ebulição.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/62/0307_Osmosis.jpg",
+    "imageFrom": "Osmose",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Osmose"
+  },
+  "equilibrio-quimico-e-principio-de-le-chatelier": {
+    "title": "Equilíbrio químico",
+    "url": "https://pt.wikipedia.org/wiki/Equil%C3%ADbrio_qu%C3%ADmico",
+    "extract": "O equilíbrio químico é uma condição em que as velocidades das reações direta e inversa são iguais, assim haverá proporção entre a quantidade de matéria dos reagentes e dos produtos de uma reação química, mantendo-se constante ao longo do tempo caso não haja perturbações ao meio. Foi estudado pela primeira vez pelo químico francês Claude Louis Berthollet em seu livro Essai de statique chimique de 1803. Teoricamente, toda a reação química ocorre nos dois sentidos: de reagentes se transformando em produtos e de produtos se transformando de volta em reagentes. Contudo, em certas reações, como a de combustão, praticamente 100% dos reagentes são convertidos em produtos, e não se observa ocorrer o contrário (ou pelo menos não em escala mensurável); tais reações são chamadas de irreversíveis.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Nitrogen-dioxide-2D-dimensions-vector.svg/960px-Nitrogen-dioxide-2D-dimensions-vector.svg.png",
+    "imageFrom": "Dióxido de nitrogénio",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Di%C3%B3xido_de_nitrog%C3%A9nio"
+  }
+}

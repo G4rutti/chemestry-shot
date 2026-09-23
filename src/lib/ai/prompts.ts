@@ -20,6 +20,7 @@ ${material}`;
 const QUESTION_RULES = `Regras das questões:
 - Misture os tipos: "multiple-choice" (4-5 options, correctAnswer = texto EXATO de uma option), "true-false" (options = ["Verdadeiro","Falso"]), "fill" (completar lacuna ___, options = []), "calculation" (resposta numérica curta com unidade, options = []).
 - difficulty de 1 a 5, variada; questões no estilo de prova.
+- Varie os exemplos: não use a mesma substância/elemento em mais de 2 questões e não repita a mesma pergunta com outras palavras.
 - explanation clara e curta; memoryTip = macete para memorizar.
 - source = { document: nome do documento, page: página/slide do trecho usado }.`;
 

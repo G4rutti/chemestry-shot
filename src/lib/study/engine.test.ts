@@ -45,6 +45,31 @@ test("checkAnswer: numeric tolerance, comma decimal, units, accents", () => {
   assert.ok(checkAnswer(q("m", "t1"), "A") && !checkAnswer(q("m", "t1"), "B"));
 });
 
+test("checkAnswer: lenient text for fill (typos, plural, extra words, alternatives)", () => {
+  const fill = (correctAnswer: string) => q("f", "t1", { type: "fill", correctAnswer });
+  assert.ok(checkAnswer(fill("polares"), "polar"));
+  assert.ok(checkAnswer(fill("polares"), "covalentes polares"));
+  assert.ok(checkAnswer(fill("ebullioscopia"), "ebulioscopia"));
+  assert.ok(checkAnswer(fill("reagente limitante"), "o reagente limitante"));
+  assert.ok(checkAnswer(fill("Le Chatelier"), "le chatelie"));
+  assert.ok(checkAnswer(fill("iônicas / eletrovalentes"), "eletrovalente"));
+  assert.ok(!checkAnswer(fill("polares"), "apolares"));
+  assert.ok(!checkAnswer(fill("K"), "L"));
+  assert.ok(!checkAnswer(fill("crescente"), "decrescente"));
+  assert.ok(!checkAnswer(fill("endotérmica"), "exotérmica") && !checkAnswer(fill("cátion"), "ânion"));
+  assert.ok(!checkAnswer(fill("polares"), "nao sei o que e isso polares talvez"));
+  assert.ok(checkAnswer(fill("4s2"), "4s2") && !checkAnswer(fill("4s2"), "4") && !checkAnswer(fill("3p6"), "3p5"));
+});
+
+test("getNextQuestion: prefers unseen questions from other topics over repeating answered ones", () => {
+  let p = emptyProgress();
+  for (const x of data.questions.filter((x) => x.topicId === "t1")) p = recordAnswer(p, x, "B", false, 0); // t1 all wrong
+  for (let i = 0; i < 20; i++) {
+    const next = getNextQuestion(data, p, { mode: "cram", now: 1000 }); // t1 mistakes not due yet
+    assert.equal(next?.topicId, "t2");
+  }
+});
+
 test("recordAnswer: xp, streak, mistake upsert and resolution", () => {
   const x = data.questions[0];
   let p = recordAnswer(emptyProgress(), x, "B", false, 1000);
@@ -52,7 +77,7 @@ test("recordAnswer: xp, streak, mistake upsert and resolution", () => {
   assert.equal(p.xp, 2);
   assert.equal(p.mistakes.length, 1);
   assert.equal(p.mistakes[0].resolved, false);
-  assert.equal(p.questions[x.id].due, 2000 + 60_000);
+  assert.equal(p.questions[x.id].due, 2000 + 10 * 60_000);
   p = recordAnswer(p, x, "A", true, 3000);
   assert.equal(p.xp, 2 + 10 + 2 * x.difficulty);
   assert.equal(p.streak, 1);

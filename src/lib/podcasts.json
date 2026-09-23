@@ -1,0 +1,324 @@
+{
+  "subniveis-de-energia-e-distribuicao-eletronica": {
+    "lines": [
+      {
+        "speaker": "Lia",
+        "text": "Tá no ar o Chemistry Shot! Eu sou a Lia."
+      },
+      {
+        "speaker": "Beto",
+        "text": "E eu sou o Beto! Hoje o papo é Subníveis de Energia e Distribuição Eletrônica. Prova hoje, então bora direto ao ponto!"
+      },
+      {
+        "speaker": "Lia",
+        "text": "Beleza, Beto, o que eu PRECISO saber?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Sommerfeld concluiu que os elétrons de um mesmo nível podem ter trajetórias circulares e elípticas."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Anotado! E o que mais?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Existem até 4 tipos de subníveis de energia (s, p, d, f)."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Isso cai, né? Manda mais!"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Os subníveis são preenchidos em ordem crescente de energia (ordem energética), conforme descoberto por Linus Pauling."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Me explica Subníveis de energia do jeito mais simples possível."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Regiões onde se encontram subgrupos de elétrons de um mesmo nível, cujas trajetórias podem ser circulares ou elípticas."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Me explica Ordem energética de preenchimento do jeito mais simples possível."
+      },
+      {
+        "speaker": "Beto",
+        "text": "A regra de Linus Pauling de que os subníveis devem ser preenchidos do menor para o maior nível de energia."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Agora a parte que o professor AMA: as pegadinhas!"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Cuidado: Acreditar que o subnível 3d é preenchido antes do 4s (o correto pela ordem energética é preencher o 4s e depois o 3d)."
+      },
+      {
+        "speaker": "Lia",
+        "text": "E como eu sei que a questão é desse assunto?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Questões que fornecem o número atômico (Z) de um elemento e pedem sua distribuição eletrônica em subníveis de energia."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Bora de exercício! Um átomo de Cobalto possui número atômico igual a 27. Qual é a sua distribuição eletrônica nos subníveis de energia?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "1. Identificar o número total de elétrons a serem distribuídos (Z = 27). 2. Seguir a ordem crescente de energia dos subníveis descoberta por Linus Pauling: 1s, 2s, 2p, 3s, 3p, 4s, 3d... 3. Preencher os subníveis respeitando suas capacidades até somar 27 elétrons: 1s2 (2), 2s2 (4), 2p6 (10), 3s2 (12), 3p6 (18), 4s2 (20), 3d7 (27)."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Então a resposta é: 1s2 2s2 2p6 3s2 3p6 4s2 3d7!"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Isso aí! Agora corre pro app e pratica esse tópico."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Valeu, galera! Boa prova!"
+      }
+    ],
+    "seconds": 143,
+    "script": "template"
+  },
+  "eletrosfera-e-camadas-eletronicas": {
+    "lines": [
+      {
+        "speaker": "Lia",
+        "text": "Tá no ar o Chemistry Shot! Eu sou a Lia."
+      },
+      {
+        "speaker": "Beto",
+        "text": "E eu sou o Beto! Hoje o papo é Eletrosfera e Camadas Eletrônicas. Prova hoje, então bora direto ao ponto!"
+      },
+      {
+        "speaker": "Lia",
+        "text": "Beleza, Beto, o que eu PRECISO saber?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "A eletrosfera é dividida em 7 camadas ou níveis de energia."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Anotado! E o que mais?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "As camadas são identificadas pelas letras K, L, M, N, O, P e Q."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Isso cai, né? Manda mais!"
+      },
+      {
+        "speaker": "Beto",
+        "text": "A contagem das camadas é feita do núcleo para fora."
+      },
+      {
+        "speaker": "Lia",
+        "text": "E tem mais?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Cada camada possui um limite máximo de elétrons."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Me explica Eletrosfera do jeito mais simples possível."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Região ao redor do núcleo atômico onde se localizam os elétrons."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Me explica Níveis de Energia do jeito mais simples possível."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Divisões da eletrosfera (camadas) que comportam elétrons com diferentes quantidades de energia."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Me explica Camadas K a Q do jeito mais simples possível."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Representação alfabética dos 7 níveis de energia, começando da mais próxima ao núcleo (K) até a mais distante (Q)."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Agora a parte que o professor AMA: as pegadinhas!"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Cuidado: Confundir a ordem das letras (sempre começa no K e segue o alfabeto)."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Cuidado: Achar que todas as camadas suportam a mesma quantidade de elétrons."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Cuidado: Esquecer que a camada K é a de menor energia por estar mais próxima do núcleo."
+      },
+      {
+        "speaker": "Lia",
+        "text": "E como eu sei que a questão é desse assunto?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Questões que pedem a localização de elétrons no átomo."
+      },
+      {
+        "speaker": "Lia",
+        "text": "E como eu sei que a questão é desse assunto?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Problemas que mencionam níveis de energia representados por letras."
+      },
+      {
+        "speaker": "Lia",
+        "text": "E como eu sei que a questão é desse assunto?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Exercícios sobre a estrutura básica do modelo atômico de Bohr."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Bora de exercício! Quantas camadas eletrônicas existem na eletrosfera de um átomo e qual é a letra que representa a camada mais próxima do núcleo?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Identificar que a eletrosfera é dividida em partes chamadas camadas ou níveis. Lembrar que o total de divisões é 7. Recordar a sequência alfabética iniciada do núcleo para fora: K, L, M, N, O, P, Q. Identificar a primeira letra da sequência."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Então a resposta é: Existem 7 camadas eletrônicas e a camada mais próxima do núcleo é representada pela letra K.!"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Isso aí! Agora corre pro app e pratica esse tópico."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Valeu, galera! Boa prova!"
+      }
+    ],
+    "seconds": 147,
+    "script": "template"
+  },
+  "distribuicao-eletronica-de-ions": {
+    "lines": [
+      {
+        "speaker": "Lia",
+        "text": "Tá no ar o Chemistry Shot! Eu sou a Lia."
+      },
+      {
+        "speaker": "Beto",
+        "text": "E eu sou o Beto! Hoje o papo é Distribuição Eletrônica de Íons. Prova hoje, então bora direto ao ponto!"
+      },
+      {
+        "speaker": "Lia",
+        "text": "Beleza, Beto, o que eu PRECISO saber?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "A distribuição de cátions e ânions segue regras diferentes para a remoção ou adição de elétrons."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Anotado! E o que mais?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Para cátions, primeiro faz-se a distribuição do átomo neutro e depois retiram-se os elétrons da última camada (camada de valência)."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Isso cai, né? Manda mais!"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Para ânions, somam-se os elétrons recebidos ao número atômico original e depois faz-se a distribuição eletrônica direta do total de elétrons."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Me explica Distribuição de Cátions do jeito mais simples possível."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Método onde o átomo é distribuído primeiramente em seu estado neutro. Em seguida, os elétrons que foram perdidos devem ser removidos obrigatoriamente da última camada (nível mais externo ou camada de valência), e não necessariamente do subnível mais energético."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Me explica Distribuição de Ânions do jeito mais simples possível."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Método onde os elétrons ganhos são somados diretamente ao número de prótons (Z) do átomo neutro, realizando-se em seguida a distribuição eletrônica normal do total de elétrons resultante."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Agora a parte que o professor AMA: as pegadinhas!"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Cuidado: Retirar elétrons do subnível mais energético (último escrito no diagrama de Pauling) em vez de retirar da última camada (camada de valência) ao fazer a distribuição de cátions."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Cuidado: Esquecer de somar os elétrons antes de fazer a distribuição eletrônica de um ânion."
+      },
+      {
+        "speaker": "Lia",
+        "text": "E como eu sei que a questão é desse assunto?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Questões que pedem a configuração eletrônica de espécies com cargas positivas (ex: Fe2+, Cu+) ou negativas (ex: S2-, O2-)."
+      },
+      {
+        "speaker": "Lia",
+        "text": "E como eu sei que a questão é desse assunto?"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Enunciados que mencionam a distribuição eletrônica de espécies carregadas ou íons no estado fundamental."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Bora de exercício! Faça a distribuição eletrônica para o cátion Fe2+ (Z = 26)."
+      },
+      {
+        "speaker": "Beto",
+        "text": "Passo 1: Fazer a distribuição eletrônica do átomo de ferro (Fe) em seu estado neutro com 26 elétrons: 1s2, 2s2, 2p6, 3s2, 3p6, 4s2, 3d6. Passo 2: Identificar a última camada (camada de valência), que neste caso é o nível 4 (subnível 4s2). Passo 3: Retirar os 2 elétrons perdidos (devido à carga 2+) exatamente desta última camada (nível 4). Passo 4: Escrever a configuração final resultante sem os elétrons do subnível 4s: 1s2, 2s2, 2p6, 3s2, 3p6, 3d6."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Então a resposta é: (1s2, 2s2, 2p6, 3s2, 3p6, 3d6) 2+!"
+      },
+      {
+        "speaker": "Beto",
+        "text": "Isso aí! Agora corre pro app e pratica esse tópico."
+      },
+      {
+        "speaker": "Lia",
+        "text": "Valeu, galera! Boa prova!"
+      }
+    ],
+    "seconds": 189,
+    "script": "template"
+  }
+}

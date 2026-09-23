@@ -14,11 +14,46 @@ const norm = (s: string) =>
     .trim()
     .replace(/[.,;:!?]+$/, "");
 
-// "1.5e-3", "1.5 x 10^-3", "-2" at the start of the string; trailing units are ignored
+// "1.5e-3", "1.5 x 10^-3", "-2" at the start of the string; trailing units are ignored,
+// but not trailing digits: "4s2" is a subshell, not the number 4
 const toNumber = (s: string): number | null => {
   const m = s.match(/^([-+]?\d*\.?\d+(?:e[-+]?\d+)?)(?:\s*[x*×·]\s*10\s*\^?\s*([-+]?\d+))?/);
-  return m ? Number(m[1]) * 10 ** Number(m[2] ?? 0) : null;
+  return m && !/\d/.test(s.slice(m[0].length)) ? Number(m[1]) * 10 ** Number(m[2] ?? 0) : null;
 };
+
+const STOP = new Set(["o", "a", "os", "as", "um", "uma", "de", "do", "da", "dos", "das", "e", "em", "no", "na", "ao", "pelo", "pela"]);
+// content words, singularized crudely ("polares" -> "polar", "ions" -> "ion") so plural/singular both match
+const words = (s: string) =>
+  norm(s)
+    .replace(/[()[\]"'`´]/g, " ")
+    .split(/[\s-]+/)
+    .filter((w) => w && !STOP.has(w))
+    .map((w) => (w.length > 4 ? w.replace(/(es|s)$/, "") : w));
+
+function editDistance(a: string, b: string): number {
+  let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    prev = cur;
+  }
+  return prev[b.length];
+}
+
+// A typo, not a different word: prefixes flip meaning in chemistry (polar/apolar, endo/exo, cátion/ânion),
+// so the first two letters must match and only 1 slip is allowed (2 in long words). Never on short keys like "K".
+const typo = (a: string, b: string) =>
+  b.length >= 4 && a.slice(0, 2) === b.slice(0, 2) && editDistance(a, b) <= (b.length >= 12 ? 2 : 1);
+
+function textMatches(answer: string, expected: string): boolean {
+  const a = words(answer);
+  const c = words(expected);
+  if (!a.length || !c.length) return false;
+  const [as, cs] = [a.join(" "), c.join(" ")];
+  if (as === cs || typo(as, cs)) return true;
+  // every expected word present, answer not padded with much else: "ligação covalente polar" for "polar"
+  return c.every((w) => a.some((x) => x === w || typo(x, w))) && a.length <= c.length + 2;
+}
 
 export function checkAnswer(q: Question, answer: string): boolean {
   if (q.type === "multiple-choice" || q.type === "true-false") return answer.trim() === q.correctAnswer.trim();
@@ -27,8 +62,9 @@ export function checkAnswer(q: Question, answer: string): boolean {
   if (a === c) return true;
   const na = toNumber(a);
   const nc = toNumber(c);
-  if (na === null || nc === null) return false;
-  return nc === 0 ? Math.abs(na) < 1e-9 : Math.abs(na - nc) <= 0.02 * Math.abs(nc);
+  if (na !== null && nc !== null) return nc === 0 ? Math.abs(na) < 1e-9 : Math.abs(na - nc) <= 0.02 * Math.abs(nc);
+  // "X / Y" or "X ou Y" in the key means either is accepted
+  return q.correctAnswer.split(/\s*(?:\/|;|\bou\b)\s*/i).some((alt) => textMatches(answer, alt));
 }
 
 export function recordAnswer(p: Progress, q: Question, answer: string, correct: boolean, now = Date.now()): Progress {
@@ -36,7 +72,7 @@ export function recordAnswer(p: Progress, q: Question, answer: string, correct: 
   // hard questions move mastery more when right, easy ones more when wrong
   const alpha = 0.3 * (correct ? 0.8 + 0.1 * q.difficulty : 1.2 - 0.1 * q.difficulty);
   const prev = p.questions[q.id];
-  const interval = correct && prev?.lastCorrect ? Math.max(5 * MIN, (prev.due - prev.lastSeen) * 2) : correct ? 5 * MIN : MIN;
+  const interval = correct && prev?.lastCorrect ? Math.max(5 * MIN, (prev.due - prev.lastSeen) * 2) : correct ? 5 * MIN : 10 * MIN;
   const streak = correct ? p.streak + 1 : 0;
   return {
     xp: p.xp + (correct ? 10 + 2 * q.difficulty : 1),
@@ -123,8 +159,14 @@ export function getNextQuestion(
 
   const inScope = opts.mode === "topic" ? data.questions.filter((q) => q.topicId === opts.topicId) : data.questions;
   if (!inScope.length) return null;
-  const fresh = inScope.filter((q) => !ex.has(q.id));
-  const pool = fresh.length ? fresh : inScope;
+  const notInSession = inScope.filter((q) => !ex.has(q.id));
+  const unrepeated = notInSession.length ? notInSession : inScope;
+  // never repeat an already-answered question while unseen ones (or due mistakes) exist anywhere in scope
+  const ready = unrepeated.filter((q) => {
+    const s = p.questions[q.id];
+    return !s || (!s.lastCorrect && s.due <= now);
+  });
+  const pool = ready.length ? ready : unrepeated;
   if (opts.mode === "topic") return pickInPool(pool, p, now);
 
   const ranked = data.topics

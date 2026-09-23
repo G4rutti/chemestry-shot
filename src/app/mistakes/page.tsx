@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useStudy } from "@/lib/use-study";
+import Listen from "@/components/Listen";
+import TopicMedia from "@/components/TopicMedia";
 import type { Mistake, Question } from "@/lib/types";
 
 const card = "tile p-5";
@@ -42,6 +44,8 @@ export default function MistakesPage() {
             Fonte: {q.source.document}
             {q.source.page != null && `, p. ${q.source.page}`}
           </p>
+          <Listen compact parts={[`A resposta certa é ${q.correctAnswer}.`, q.explanation, q.memoryTip && `Dica pra lembrar: ${q.memoryTip}`]} />
+          <TopicMedia compact topicId={q.topicId} />
         </article>
       ))}
 
