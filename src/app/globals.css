@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/* Duolingo (feather green, chunky 3D tiles) x Lifesum (cream canvas, big friendly headings) */
+@theme inline {
+  --font-sans: var(--font-nunito);
+  --font-mono: var(--font-geist-mono);
+
+  --color-brand-50: #f1fde6;
+  --color-brand-100: #d7ffb8;
+  --color-brand-200: #b8f28b;
+  --color-brand-300: #89e219;
+  --color-brand-400: #79d100;
+  --color-brand-500: #58cc02;
+  --color-brand-600: #58cc02;
+  --color-brand-700: #46a302;
+  --color-brand-800: #3a8a00;
+  --color-brand-900: #2b6b00;
+
+  --color-cream: #f9f6f1;
+  /* Stitch warm neutrals (surface / surface-variant) replace cold zinc */
+  --color-zinc-50: #f6f3ee;
+  --color-zinc-100: #f0ede9;
+  --color-zinc-200: #e5e2dd;
+  --color-zinc-300: #d6d1c9;
+  --color-zinc-800: #1c1c19;
+  --color-zinc-900: #1c1c19;
+  --color-sky-50: #ddf4ff;
+  --color-sky-300: #84d8ff;
+  --color-sky-600: #1cb0f6;
+  --color-amber-500: #ff9600;
+  --color-amber-600: #e58700;
+  --color-rose-600: #ff4b4b;
+  --color-rose-700: #ea2b2b;
+  --color-violet-500: #ce82ff;
+  --color-violet-700: #9c27b0;
+}
+
+/* Duolingo pressable: darker bottom edge that collapses on press */
+@utility btn-3d {
+  box-shadow: 0 4px 0 rgb(0 0 0 / 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  transition: transform 80ms, box-shadow 80ms;
+  &:active:not(:disabled) {
+    transform: translateY(4px);
+    box-shadow: none;
+  }
+}
+
+/* Duolingo tile: 2px border with a thicker bottom edge */
+@utility tile {
+  border-radius: 1rem;
+  border: 2px solid var(--color-zinc-200);
+  border-bottom-width: 4px;
+  background: white;
+}
+
+/* Stitch speech bubble: tile with a tail pointing left at the mascot */
+@utility bubble {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: 24px;
+    border-style: solid;
+    border-color: transparent var(--color-zinc-200) transparent transparent;
+    border-width: 10px 12px 10px 0;
+  }
+}
+
+body {
+  @apply bg-cream text-zinc-800 font-sans;
+}
+
+h1, h2 {
+  @apply font-extrabold tracking-tight text-zinc-900;
+}
+
+@media print {
+  nav, .no-print { display: none !important; }
+  body { background: white; }
+}

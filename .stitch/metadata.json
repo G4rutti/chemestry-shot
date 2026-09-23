@@ -1,0 +1,11 @@
+{
+  "projectId": "1757234987165722277",
+  "title": "Chemistry Shot - Duolingo x Lifesum",
+  "deviceType": "MOBILE",
+  "Last Sync Time": "2026-09-23T12:40:00Z",
+  "screens": {
+    "home": { "id": "4f9e8d024705437cb29b2d976b99d2a1", "label": "Chemistry Shot - Tela Inicial", "width": 780, "height": 1768, "route": "/" },
+    "question": { "id": "9bea4d62cc7a43b3a9b98b03aa7872ed", "label": "Chemistry Shot - Pergunta de Concentração Molar", "width": 780, "height": 1768, "route": "/study" },
+    "mascot": { "id": "5a31b680cdee4a5cb65d44af20a9e131", "label": "Mascote Frasco de Química", "width": 160, "height": 160, "asset": "public/mascot.svg, src/app/icon.svg" }
+  }
+}

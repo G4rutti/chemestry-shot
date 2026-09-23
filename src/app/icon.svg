@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <!-- Mascot gradient body -->
+    <linearGradient id="flaskLiquid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#58CC02"/>
+      <stop offset="100%" stop-color="#46A302"/>
+    </linearGradient>
+    <filter id="flaskShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient shadow under mascot -->
+  <ellipse cx="80" cy="148" rx="46" ry="7" fill="#E8DFD3" />
+
+  <!-- Flask Glass Outline & Background -->
+  <!-- Erlenmeyer Flask shape -->
+  <path d="M 64 24 
+           L 96 24 
+           A 4 4 0 0 1 100 28 
+           L 100 36 
+           A 4 4 0 0 1 96 40 
+           L 92 40 
+           L 92 56 
+           L 129 116 
+           A 18 18 0 0 1 114 142 
+           L 46 142 
+           A 18 18 0 0 1 31 116 
+           L 68 56 
+           L 68 40 
+           L 64 40 
+           A 4 4 0 0 1 60 36 
+           L 60 28 
+           A 4 4 0 0 1 64 24 Z" 
+        fill="#FFFFFF" 
+        stroke="#E2DCD2" 
+        stroke-width="5" 
+        stroke-linejoin="round" />
+
+  <!-- Liquid inside the flask -->
+  <path d="M 52 82 
+           Q 65 87, 80 82 
+           T 108 82 
+           L 122 118 
+           A 14 14 0 0 1 110 138 
+           L 50 138 
+           A 14 14 0 0 1 38 118 Z" 
+        fill="url(#flaskLiquid)" />
+
+  <!-- Liquid 3D bottom bevel -->
+  <path d="M 46 132 
+           A 10 10 0 0 0 52 138 
+           L 108 138 
+           A 10 10 0 0 0 114 132 
+           L 110 138 
+           L 50 138 Z" 
+        fill="#347C02" />
+
+  <!-- Bubbles floating inside -->
+  <circle cx="68" cy="118" r="4.5" fill="#8CEB38" opacity="0.8" />
+  <circle cx="94" cy="124" r="3" fill="#8CEB38" opacity="0.8" />
+  <circle cx="86" cy="98" r="4" fill="#A4F45E" opacity="0.9" />
+  <circle cx="74" cy="74" r="3" fill="#58CC02" opacity="0.8" />
+  <circle cx="82" cy="62" r="2" fill="#58CC02" opacity="0.6" />
+
+  <!-- Cute expressive Kawaii Face (Duolingo style) -->
+  <!-- Left Eye -->
+  <ellipse cx="68" cy="106" rx="5" ry="7" fill="#1C3D00" />
+  <circle cx="66" cy="103" r="2.2" fill="#FFFFFF" />
+
+  <!-- Right Eye (winking or open with sparkle) -->
+  <ellipse cx="92" cy="106" rx="5" ry="7" fill="#1C3D00" />
+  <circle cx="90" cy="103" r="2.2" fill="#FFFFFF" />
+
+  <!-- Cute rosy cheeks -->
+  <ellipse cx="58" cy="113" rx="4" ry="2.5" fill="#FFA3A3" opacity="0.8" />
+  <ellipse cx="102" cy="113" rx="4" ry="2.5" fill="#FFA3A3" opacity="0.8" />
+
+  <!-- Open happy mouth -->
+  <path d="M 75 111 Q 80 117 85 111 Z" fill="#1C3D00" />
+  <path d="M 77 113 Q 80 116 83 113 Z" fill="#FF4B4B" />
+
+  <!-- Glass reflection highlight -->
+  <path d="M 44 116 L 70 66" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.6" />
+  <path d="M 40 125 A 12 12 0 0 0 46 134" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.6" />
+</svg>
