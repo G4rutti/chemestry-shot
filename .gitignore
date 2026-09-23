@@ -43,5 +43,8 @@ next-env.d.ts
 
 # generated study data / cache
 /data/*
+!/data/cache
 !/data/study.json
 !/data/one-shots.json
+/data/cache/*
+!/data/cache/chunks-*.json

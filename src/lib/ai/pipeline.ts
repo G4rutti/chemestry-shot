@@ -86,9 +86,11 @@ async function currentTopic(topicId: string) {
 }
 
 export async function oneShot(topicId: string): Promise<OneShot> {
-  const { data, topic, material } = await currentTopic(topicId);
-  const cached = await getOneShot(data.version, topicId);
+  // cache first: serving a saved one-shot must not depend on the material chunks
+  const version = (await getStudy())?.version;
+  const cached = version && (await getOneShot(version, topicId));
   if (cached) return cached;
+  const { data, topic, material } = await currentTopic(topicId);
   const result = normalizeOneShot(await generateJson(oneShotPrompt(topic, material), oneShotSchema), topicId);
   await saveOneShot(data.version, result);
   return result;
