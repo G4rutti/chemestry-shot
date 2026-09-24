@@ -1,7 +1,7 @@
 import { hasKey } from "@/lib/ai/client";
 import { oneShot } from "@/lib/ai/pipeline";
 import { makePodcast } from "@/lib/ai/podcast";
-import { badSubject, subjectOf } from "@/lib/store";
+import { badSubject, getStudy, getSubject, subjectOf } from "@/lib/store";
 
 export const runtime = "nodejs";
 export const maxDuration = 300; // script + multi-speaker TTS for ~2 min of audio
@@ -15,7 +15,9 @@ export async function POST(request: Request) {
   // the student's recent wrong questions personalize the episode; capped so the prompt stays small
   const wrong = (Array.isArray(mistakes) ? mistakes : []).filter((m): m is string => typeof m === "string").slice(0, 5).map((m) => m.slice(0, 300));
   try {
-    const { mp3, ...rest } = await makePodcast(await oneShot(subject, topicId), wrong);
+    const shot = await oneShot(subject, topicId);
+    const { mp3, ...rest } = await makePodcast(await getSubject(subject, await getStudy(subject)), shot, wrong);
+
     return Response.json({ ...rest, audio: mp3?.toString("base64") ?? null });
   } catch (e) {
     console.error("[api/podcast]", e);

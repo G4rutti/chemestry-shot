@@ -1,7 +1,8 @@
 import { Mp3Encoder } from "@breezystack/lamejs";
 import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
-import type { OneShot } from "@/lib/types";
+import { hasPII } from "@/lib/materials/extract";
+import type { OneShot, Subject } from "@/lib/types";
 import { generateJson } from "./client";
 
 // On-demand two-host podcast: a fresh AI lesson script every time (random explanation angle, personalized with the
@@ -23,10 +24,10 @@ const BASE_STYLE = "podcast brasileiro, animado e descontraído, sorriso na voz,
 
 // every episode is a lesson; the "angle" only changes HOW it's explained, so episodes differ without turning into quizzes
 const ANGLES = [
-  "analogias do dia a dia (cozinha, futebol, festa, celular) para cada conceito",
-  "começar por um fenômeno do cotidiano (ex.: por que o sal derrete o gelo) e explicar a química por trás dele",
+  "analogias do dia a dia (cozinha, futebol, festa, celular; e, se for computação, servidor, API, app) para cada conceito",
+  "começar por uma situação do cotidiano (um app que trava, uma fila no mercado, o sal derretendo o gelo) e explicar a matéria por trás dela",
   "construir o raciocínio do zero, como se o aluno nunca tivesse visto a matéria, um degrau de cada vez",
-  "desenhar com palavras: descrever o que acontece com átomos e elétrons como se fosse um filme",
+  "desenhar com palavras: descrever o que acontece, passo a passo, como se fosse um filme",
   "partir do erro mais comum dos alunos nessa matéria e mostrar o raciocínio certo",
 ];
 
@@ -38,7 +39,7 @@ const lineSchema = z.object({
 const scriptSchema = z.object({ title: z.string(), lines: z.array(lineSchema).min(12) });
 export type PodcastLine = z.infer<typeof lineSchema>;
 
-const scriptPrompt = (s: OneShot, angle: string, mistakes: string[]) => `Escreva o roteiro de um episódio de podcast em português do Brasil que ENSINA "${s.title}" para um aluno que tem prova de Química HOJE e ainda não entendeu bem a matéria.
+const scriptPrompt = (subject: Subject, s: OneShot, angle: string, mistakes: string[]) => `Escreva o roteiro de um episódio de podcast em português do Brasil que ENSINA "${s.title}" para um aluno que tem prova de ${subject.name} HOJE e ainda não entendeu bem a matéria.
 Apresentadores: Beto (o professor: explica com clareza, paciência e humor) e Lia (a aluna curiosa e engraçada: interrompe com dúvidas de verdade como "pera, mas por quê?", "e como eu sei isso?", "então se eu mudar X, o que acontece?"). Dois amigos gravando, clima leve, com risadas e reações naturais.
 Jeito de explicar neste episódio: ${angle}.
 OBJETIVO: o aluno tem que ENTENDER a matéria. Isto é uma aula conversada, NÃO um quiz: não faça perguntas-relâmpago, placar, "verdadeiro ou falso" nem teste o ouvinte. Pelo menos 70% das falas são explicação.
@@ -52,26 +53,28 @@ Estrutura:
 Regras:
 - 18 a 28 falas, no máximo ~450 palavras (uns 3 minutos).
 - NÃO leia nem parafraseie o resumo abaixo: use-o só como fonte. Traga explicações, analogias e exemplos NOVOS, diferentes dos do resumo.
-- Química 100% correta: confira cada afirmação antes de escrever. Na dúvida sobre um detalhe, deixe de fora.
-- Não invente datas, nomes ou números históricos: só cite se tiver certeza absoluta.
+- Conteúdo de ${subject.name} 100% correto: confira cada afirmação antes de escrever. Na dúvida sobre um detalhe, deixe de fora.
+- Não invente datas, nomes ou números históricos: só cite se estiverem no resumo ou se tiver certeza absoluta.
 - Cada fala traz algo novo: nunca repita ou parafraseie a fala anterior.
-- Escreva fórmulas e símbolos por extenso como se fala ("um s dois", "H dois O", "mol por litro").
+- Escreva fórmulas, símbolos e código por extenso como se fala ("um s dois", "H dois O", "mol por litro"; μ = "mi", σ = "sigma", C(n, k) = "N escolhe K", norm.sf = "norm ponto sf").
+- Nunca leia código linha a linha: explique com palavras o que ele faz.
+- Nunca cite e-mail, telefone ou contato de ninguém.
 - Foque no que mais cai na prova.${
   mistakes.length
     ? `\n- Este aluno errou estas questões; explique esses pontos com carinho, sem dizer que ele errou:\n${mistakes.map((m) => `  • ${m}`).join("\n")}`
     : ""
 }
-- Dê um title criativo pro episódio. A primeira fala abre com a vinheta "Tá no ar o Chemistry Shot!".
+- Dê um title criativo pro episódio. A primeira fala abre com a vinheta "Tá no ar o Study Shot!".
 - emotion de cada fala: 1 a 3 palavras de como falar.
 
 RESUMO (fonte):
 ${JSON.stringify(s)}`;
 
-// second pass: free models write fluent scripts but slip on chemistry (wrong reasons, uncorrected student mistakes)
-const reviewPrompt = (s: OneShot, script: z.infer<typeof scriptSchema>) => `Você é um professor de Química rigoroso revisando o roteiro de um podcast didático sobre "${s.title}".
-Corrija TODO erro de química, explicação confusa ou contraditória e qualquer fala errada da Lia que o Beto deixou passar (o Beto deve corrigir na fala seguinte).
-Use a explicação padrão do ensino médio (ex.: ordem de preenchimento pela regra n + l / diagrama de Pauling).
-Escreva números e símbolos por extenso como se fala ("um s dois", "três d seis").
+// second pass: free models write fluent scripts but slip on the content (wrong reasons, uncorrected student mistakes)
+const reviewPrompt = (subject: Subject, s: OneShot, script: z.infer<typeof scriptSchema>) => `Você é um professor de ${subject.name} rigoroso revisando o roteiro de um podcast didático sobre "${s.title}".
+Corrija TODO erro de conteúdo, explicação confusa ou contraditória e qualquer fala errada da Lia que o Beto deixou passar (o Beto deve corrigir na fala seguinte).
+Use a explicação padrão do curso${subject.course ? ` (${subject.course})` : ""}, sem inventar nada fora do resumo.
+Escreva números, símbolos e código por extenso como se fala ("um s dois", "mi", "sigma", "norm ponto sf"); código nunca é lido linha a linha.
 Mantenha o tom, a estrutura, os apresentadores e o tamanho; mude só o necessário. Devolva o roteiro completo no mesmo formato.
 
 RESUMO (fonte confiável):
@@ -143,18 +146,21 @@ function mp3(pcm: Int16Array): Buffer {
 export type Podcast = { title: string; format: string; lines: PodcastLine[]; seconds: number; mp3: Buffer | null; ttsError?: string };
 
 /** Script always comes back; audio is null when TTS is unavailable (the client then falls back to browser speech). */
-export async function makePodcast(shot: OneShot, mistakes: string[]): Promise<Podcast> {
+export async function makePodcast(subject: Subject, shot: OneShot, mistakes: string[]): Promise<Podcast> {
   const format = ANGLES[Math.floor(Math.random() * ANGLES.length)];
   const start = Date.now();
-  const draft = await generateJson(scriptPrompt(shot, format, mistakes), scriptSchema);
+  const draft = await generateJson(scriptPrompt(subject, shot, format, mistakes), scriptSchema);
   // review only if there's time left for it and the voices; a failed review keeps the draft rather than losing the episode
-  const { title, lines } =
+  const reviewed =
     Date.now() - start > 90_000
       ? draft
-      : await generateJson(reviewPrompt(shot, draft), scriptSchema).catch((e) => {
+      : await generateJson(reviewPrompt(subject, shot, draft), scriptSchema).catch((e) => {
           console.warn("[podcast] revisão falhou, usando rascunho:", msg(e).slice(0, 120));
           return draft;
         });
+  const { title } = reviewed;
+  const lines = reviewed.lines.filter((l) => !hasPII(l.text)); // no phone/e-mail spoken, ever
+
   try {
     const pcm = await speak(lines, start + REQUEST_BUDGET_MS);
     return { title, format, lines, seconds: Math.round(pcm.length / RATE), mp3: mp3(pcm) };

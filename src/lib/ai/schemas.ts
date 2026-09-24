@@ -12,6 +12,7 @@ export const topicsSchema = z.object({
       chunkIds: z.array(z.string()),
     }),
   ),
+  subject: z.object({ name: z.string(), course: z.string(), profile: z.string() }).optional(),
 });
 
 const questionSchema = z.object({
@@ -23,9 +24,11 @@ const questionSchema = z.object({
   memoryTip: z.string(),
   difficulty: z.number(),
   source: z.object({ document: z.string(), page: z.number().optional() }),
+  code: z.string().optional(),
 });
 
-const flashcardSchema = z.object({ front: z.string(), back: z.string() });
+const flashcardSchema = z.object({ front: z.string(), back: z.string(), code: z.string().optional() });
+
 
 export const questionsSchema = z.object({ questions: z.array(questionSchema) });
 export const topicContentSchema = z.object({ questions: z.array(questionSchema), flashcards: z.array(flashcardSchema) });

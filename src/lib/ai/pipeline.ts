@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
 import { z } from "zod";
-import type { MaterialChunk, OneShot, Question, StudyData, Topic } from "@/lib/types";
-import { getCachedStudy, getChunks, getOneShot, getStudy, saveChunks, saveCurrent, saveOneShot, saveStudy } from "@/lib/store";
+import type { MaterialChunk, OneShot, Question, StudyData, Subject, Topic } from "@/lib/types";
+import { getCachedStudy, getChunks, getOneShot, getStudy, getSubject, saveChunks, saveCurrent, saveOneShot, saveStudy } from "@/lib/store";
+
 import { generateJson } from "./client";
 import { askPrompt, formatChunks, moreQuestionsPrompt, oneShotPrompt, topicContentPrompt, topicsPrompt } from "./prompts";
 import {
@@ -52,14 +53,24 @@ export async function processMaterials(subject: string, chunks: MaterialChunk[])
 
   // administrative slides (contacts, grading, activities) never become topics or questions
   const content = chunks.filter((c) => !c.admin);
-  const rawTopics = await generateJson(topicsPrompt(formatChunks(content, 200_000)), topicsSchema);
+  const folder = await getSubject(subject);
+  const rawTopics = await generateJson(topicsPrompt(folder, formatChunks(content, 200_000)), topicsSchema);
   const topics = normalizeTopics(rawTopics, new Set(content.map((c) => c.id)));
+  // the AI profile is always kept; its name/course only fill in what docs/<subject>/subject.json doesn't say
+  const ai = rawTopics.subject;
+  const subj: Subject = {
+    ...folder,
+    name: folder.name === subject && ai?.name ? ai.name : folder.name,
+    course: folder.course ?? ai?.course,
+    profile: ai?.profile,
+  };
   if (!topics.length) throw new Error("Não foi possível identificar tópicos no material.");
 
   const data: StudyData = {
     version,
     createdAt: new Date().toISOString(),
     demo: false,
+    subject: subj,
     documents: [...new Map(chunks.map((c) => [c.documentId, { id: c.documentId, name: c.documentName }])).values()],
     topics,
     questions: [],
@@ -68,7 +79,7 @@ export async function processMaterials(subject: string, chunks: MaterialChunk[])
   // publish partial results so studying can start as soon as the first topic is ready
   let saving = saveCurrent(subject, data);
   const results = await mapLimit(topics, 3, async (topic) => {
-    const raw = await generateJson(topicContentPrompt(topic, formatChunks(topicChunks(topic, chunks), TOPIC_CAP)), topicContentSchema);
+    const raw = await generateJson(topicContentPrompt(subj, topic, formatChunks(topicChunks(topic, chunks), TOPIC_CAP)), topicContentSchema);
     data.questions.push(...normalizeQuestions(raw.questions, topic.id));
     data.flashcards.push(...normalizeFlashcards(raw.flashcards, topic.id));
     saving = saving.then(() => saveCurrent(subject, data));
@@ -85,7 +96,7 @@ async function currentTopic(subject: string, topicId: string, cap = TOPIC_CAP) {
   if (!data || !topic) throw new Error("Tópico não encontrado.");
   const chunks = await getChunks(subject, data.version);
   if (!chunks) throw new Error("Trechos do material não encontrados; reprocesse os materiais.");
-  return { data, topic, material: formatChunks(topicChunks(topic, chunks), cap) };
+  return { data, topic, subj: await getSubject(subject, data), material: formatChunks(topicChunks(topic, chunks), cap) };
 }
 
 export async function oneShot(subject: string, topicId: string): Promise<OneShot> {
@@ -93,16 +104,16 @@ export async function oneShot(subject: string, topicId: string): Promise<OneShot
   const version = (await getStudy(subject))?.version;
   const cached = version && (await getOneShot(subject, version, topicId));
   if (cached) return cached;
-  const { data, topic, material } = await currentTopic(subject, topicId);
-  const result = normalizeOneShot(await generateJson(oneShotPrompt(topic, material), oneShotSchema), topicId);
+  const { data, topic, subj, material } = await currentTopic(subject, topicId);
+  const result = normalizeOneShot(await generateJson(oneShotPrompt(subj, topic, material), oneShotSchema), topicId);
   await saveOneShot(subject, data.version, result);
   return result;
 }
 
 export async function moreQuestions(subject: string, topicId: string): Promise<Question[]> {
-  const { data, topic, material } = await currentTopic(subject, topicId);
+  const { data, topic, subj, material } = await currentTopic(subject, topicId);
   const existing = data.questions.filter((q) => q.topicId === topicId).map((q) => q.question);
-  const raw = await generateJson(moreQuestionsPrompt(topic, material, existing), questionsSchema);
+  const raw = await generateJson(moreQuestionsPrompt(subj, topic, material, existing), questionsSchema);
   const questions = normalizeQuestions(raw.questions, topicId);
   // re-read to reduce clobbering concurrent appends
   const latest = (await getStudy(subject)) ?? data;
@@ -113,7 +124,7 @@ export async function moreQuestions(subject: string, topicId: string): Promise<Q
 /** Answers a student doubt from the topic material. Not stored server-side (Vercel is read-only): the client keeps it. */
 export async function askDoubt(subject: string, topicId: string, question: string, context?: string, answered = false): Promise<string> {
   // smaller slice of material: a doubt needs context, not the whole topic, and free fallbacks have low token limits
-  const { topic, material } = await currentTopic(subject, topicId, 15_000);
-  const { answer } = await generateJson(askPrompt(topic, material, question, context, answered), z.object({ answer: z.string() }));
+  const { topic, subj, material } = await currentTopic(subject, topicId, 15_000);
+  const { answer } = await generateJson(askPrompt(subj, topic, material, question, context, answered), z.object({ answer: z.string() }));
   return answer.trim();
 }

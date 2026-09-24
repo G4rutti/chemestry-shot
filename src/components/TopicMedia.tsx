@@ -1,8 +1,13 @@
+"use client";
 /* eslint-disable @next/next/no-img-element -- remote Wikimedia images, no need for next/image config */
 import Link from "next/link";
-import media from "@/lib/topic-media.json";
+import quimica from "@/lib/topic-media/quimica.json";
+import { useSubject } from "@/lib/use-study";
 
 type Media = { title: string; url: string; extract: string; image: string | null; imageFrom: string | null; imageUrl: string | null };
+
+// one file per subject (src/lib/topic-media/<subject>.json); a subject without one just shows no media
+const MEDIA: Record<string, Record<string, Media>> = { quimica };
 
 type Props = Readonly<{
   topicId: string;
@@ -13,8 +18,10 @@ type Props = Readonly<{
 
 /** Picture + plain explanation from pt.wikipedia (fetched once by scripts/fetch-topic-media.mjs) and video lessons. */
 export default function TopicMedia({ topicId, topicName, compact = false }: Props) {
-  const m = (media as Record<string, Media>)[topicId];
-  const videos = `https://www.youtube.com/results?search_query=${encodeURIComponent(`${topicName ?? m?.title ?? ""} química aula`)}`;
+  const subject = useSubject();
+  const m = subject ? MEDIA[subject]?.[topicId] : undefined;
+  const videos = `https://www.youtube.com/results?search_query=${encodeURIComponent(`${topicName ?? m?.title ?? ""} aula`)}`;
+
 
   if (compact)
     return (

@@ -1,4 +1,4 @@
-// One-off: pulls a pt.wikipedia explanation + image per topic into src/lib/topic-media.json.
+// One-off: pulls a pt.wikipedia explanation + image per topic into src/lib/topic-media/quimica.json (chemistry topic ids).
 // Run: node scripts/fetch-topic-media.mjs  (slow on purpose: Wikipedia rate-limits bursts)
 import { readFile, writeFile } from "node:fs/promises";
 
@@ -34,7 +34,7 @@ async function page(search) {
   }
 }
 
-const out = JSON.parse(await readFile("src/lib/topic-media.json", "utf8").catch(() => "{}"));
+const out = JSON.parse(await readFile("src/lib/topic-media/quimica.json", "utf8").catch(() => "{}"));
 for (const [id, [textTitle, imageTitle]] of Object.entries(ARTICLES)) {
   if (out[id]) continue; // resumable
   const p = await page(textTitle);
@@ -50,5 +50,5 @@ for (const [id, [textTitle, imageTitle]] of Object.entries(ARTICLES)) {
     imageUrl: img?.fullurl ?? null,
   };
   console.log(id, "|", p.title, "|", out[id].image ? "img" : "no-img");
-  await writeFile("src/lib/topic-media.json", JSON.stringify(out, null, 2) + "\n");
+  await writeFile("src/lib/topic-media/quimica.json", JSON.stringify(out, null, 2) + "\n");
 }
