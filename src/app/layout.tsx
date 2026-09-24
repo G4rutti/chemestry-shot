@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Nunito, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -18,6 +20,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <NavBar />
         {/* pb-24 leaves room for the mobile bottom tab bar */}
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 pt-6 pb-24 lg:pb-10">{children}</main>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
