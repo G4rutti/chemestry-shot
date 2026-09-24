@@ -20,11 +20,21 @@ export default function OneShotPage({ params }: { params: Promise<{ topicId: str
     if (!subject) return;
     setError(null);
     setShot(null);
+    // Vercel can't save the server cache: keep each generated one-shot in this browser
+    // ponytail: never invalidated if the subject is reprocessed; key on data version if that matters
+    const key = `one-shot:${subject}:${topicId}`;
+    try {
+      const saved = localStorage.getItem(key);
+      if (saved) return setShot(JSON.parse(saved));
+    } catch {}
     try {
       const res = await fetch(withSubject(`/api/one-shot?topicId=${encodeURIComponent(topicId)}`, subject));
       const json = await res.json().catch(() => null);
       if (!res.ok || !json || json.error) throw new Error(json?.error ?? res.statusText);
       setShot(json);
+      try {
+        localStorage.setItem(key, JSON.stringify(json));
+      } catch {}
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     }
