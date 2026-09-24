@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { hasPII } from "@/lib/materials/extract";
 import type { Flashcard, OneShot, Question, Topic } from "@/lib/types";
 
 export const topicsSchema = z.object({
@@ -72,6 +73,7 @@ export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicI
     };
     const ans = q.correctAnswer.trim();
     if (!base.question || !ans) return [];
+    if (hasPII([q.question, ...q.options, ans, q.explanation, q.memoryTip].join("\n"))) return []; // no phone/e-mail in study content
     if (q.type === "true-false") {
       const v = /^(v|verdadeir|true|certo|c$)/i.test(ans) ? TF[0] : /^(f|fals|errado|e$)/i.test(ans) ? TF[1] : null;
       return v ? [{ ...base, options: TF, correctAnswer: v }] : [];
@@ -87,6 +89,6 @@ export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicI
 }
 
 export const normalizeFlashcards = (raw: z.infer<typeof flashcardSchema>[], topicId: string): Flashcard[] =>
-  raw.filter((f) => f.front.trim() && f.back.trim()).map((f) => ({ id: `${topicId}-fc-${rid()}`, topicId, ...f }));
+  raw.filter((f) => f.front.trim() && f.back.trim() && !hasPII(`${f.front}\n${f.back}`)).map((f) => ({ id: `${topicId}-fc-${rid()}`, topicId, ...f }));
 
 export const normalizeOneShot = (raw: z.infer<typeof oneShotSchema>, topicId: string): OneShot => ({ topicId, ...raw });

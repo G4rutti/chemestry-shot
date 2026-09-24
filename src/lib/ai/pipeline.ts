@@ -20,7 +20,7 @@ const TOPIC_CAP = 60_000;
 const versionOf = (chunks: MaterialChunk[]) =>
   createHash("sha1").update([...new Set(chunks.map((c) => c.documentId))].sort().join("|")).digest("hex").slice(0, 12);
 
-const topicChunks = (topic: Topic, chunks: MaterialChunk[]) => chunks.filter((c) => topic.chunkIds.includes(c.id));
+const topicChunks = (topic: Topic, chunks: MaterialChunk[]) => chunks.filter((c) => !c.admin && topic.chunkIds.includes(c.id));
 
 async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>) {
   const out: PromiseSettledResult<R>[] = new Array(items.length);
@@ -50,8 +50,10 @@ export async function processMaterials(subject: string, chunks: MaterialChunk[])
   }
   await saveChunks(subject, version, chunks);
 
-  const rawTopics = await generateJson(topicsPrompt(formatChunks(chunks, 200_000)), topicsSchema);
-  const topics = normalizeTopics(rawTopics, new Set(chunks.map((c) => c.id)));
+  // administrative slides (contacts, grading, activities) never become topics or questions
+  const content = chunks.filter((c) => !c.admin);
+  const rawTopics = await generateJson(topicsPrompt(formatChunks(content, 200_000)), topicsSchema);
+  const topics = normalizeTopics(rawTopics, new Set(content.map((c) => c.id)));
   if (!topics.length) throw new Error("Não foi possível identificar tópicos no material.");
 
   const data: StudyData = {

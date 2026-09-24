@@ -2,7 +2,7 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { hasKey } from "@/lib/ai/client";
 import { processMaterials } from "@/lib/ai/pipeline";
-import { extractChunks } from "@/lib/materials/extract";
+import { EXTENSIONS as EXT, extractChunks } from "@/lib/materials/extract";
 import { mockStudy } from "@/lib/mock";
 import { badSubject, subjectOf } from "@/lib/store";
 
@@ -10,12 +10,15 @@ export const runtime = "nodejs";
 const READ_ONLY = "Online o conteúdo é só leitura. Processe os materiais localmente e faça deploy de data/.";
 export const maxDuration = 300;
 
-const EXT = /\.(pdf|pptx|txt|md)$/i;
-
+/** docs/<subject>/** — the name keeps the subfolder ("Códigos e datasets/regressao.py") so question sources are clear. */
 async function readFolder(subject: string) {
   const root = path.join(/*turbopackIgnore: true*/ process.cwd(), "docs", subject);
-  const names = (await readdir(/*turbopackIgnore: true*/ root, { withFileTypes: true })).filter((e) => e.isFile() && EXT.test(e.name)).map((e) => e.name);
-  return Promise.all(names.map(async (name) => ({ name, data: new Uint8Array(await readFile(path.join(/*turbopackIgnore: true*/ root, name))) })));
+  const paths = (await readdir(/*turbopackIgnore: true*/ root, { withFileTypes: true, recursive: true }))
+    .filter((e) => e.isFile() && EXT.test(e.name))
+    .map((e) => path.join(/*turbopackIgnore: true*/ e.parentPath, e.name));
+  return Promise.all(
+    paths.map(async (p) => ({ name: path.relative(root, p).split(path.sep).join("/"), data: new Uint8Array(await readFile(/*turbopackIgnore: true*/ p)) })),
+  );
 }
 
 export async function POST(request: Request) {
@@ -32,7 +35,7 @@ export async function POST(request: Request) {
             .filter((f): f is File => f instanceof File && EXT.test(f.name))
             .map(async (f) => ({ name: f.name, data: new Uint8Array(await f.arrayBuffer()) })),
         );
-    if (!files.length) return Response.json({ error: "Nenhum arquivo .pdf, .pptx, .txt ou .md enviado." }, { status: 400 });
+    if (!files.length) return Response.json({ error: "Nenhum arquivo .pdf, .pptx, .txt, .md, .py, .ipynb ou .csv enviado." }, { status: 400 });
     const running = jobs.get(subject);
     if (running?.running) return Response.json(running, { status: 202 });
     const current: Job = { running: true, startedAt: Date.now() };

@@ -212,11 +212,11 @@ export default function Home() {
           }}
           className={`block cursor-pointer rounded-xl border-2 border-dashed p-6 text-center text-sm ${drag ? "border-brand-600 bg-brand-50" : "border-zinc-300"}`}
         >
-          Arraste PDFs, PPTX, TXT ou MD aqui, ou <span className="text-brand-600 underline">escolha arquivos</span>
+          Arraste PDF, PPTX, TXT, MD, PY, IPYNB ou CSV aqui, ou <span className="text-brand-600 underline">escolha arquivos</span>
           <input
             type="file"
             multiple
-            accept=".pdf,.pptx,.txt,.md"
+            accept=".pdf,.pptx,.txt,.md,.py,.ipynb,.csv"
             className="sr-only"
             disabled={busy}
             onChange={(e) => {
