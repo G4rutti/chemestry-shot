@@ -36,7 +36,14 @@ export const oneShotSchema = z.object({
   title: z.string(),
   essentials: z.array(z.string()),
   concepts: z.array(z.object({ name: z.string(), explanation: z.string() })),
-  formulas: z.array(z.object({ formula: z.string(), meaning: z.string(), whenToUse: z.string() })),
+  formulas: z.array(
+    z.object({
+      formula: z.string(),
+      meaning: z.string(),
+      whenToUse: z.string(),
+      variables: z.array(z.object({ symbol: z.string(), meaning: z.string() })),
+    }),
+  ),
   traps: z.array(z.string()),
   recognitionPatterns: z.array(z.string()),
   solvedExample: z.object({ question: z.string(), steps: z.array(z.string()), answer: z.string() }),

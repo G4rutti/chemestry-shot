@@ -53,7 +53,8 @@ export type OneShot = {
   title: string;
   essentials: string[];
   concepts: { name: string; explanation: string }[];
-  formulas: { formula: string; meaning: string; whenToUse: string }[];
+  // variables: legend for each symbol; missing in one-shots generated before it existed
+  formulas: { formula: string; meaning: string; whenToUse: string; variables?: { symbol: string; meaning: string }[] }[];
   traps: string[];
   recognitionPatterns: string[];
   solvedExample: { question: string; steps: string[]; answer: string };

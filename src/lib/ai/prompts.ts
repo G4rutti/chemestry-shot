@@ -61,7 +61,7 @@ ${material}${courseCode(code)}`;
 
 export const oneShotPrompt = (s: Subject, topic: Topic, material: string) => `${role(s)}
 Crie um resumo "One Shot" do tópico "${topic.name}" para revisar em 5 minutos antes da prova:
-title; essentials (o que é obrigatório saber); concepts (name + explanation); formulas (formula em LaTeX sem $, com palavras dentro de \\text{}, ex.: "\\bar{x}=\\frac{\\sum x_i}{n}"; meaning, whenToUse — vazio se não houver; pode ser uma função/linha de código do material, aí sem LaTeX); traps (pegadinhas comuns); recognitionPatterns (como reconhecer esse tipo de questão); solvedExample (question, steps passo a passo, answer).
+title; essentials (o que é obrigatório saber); concepts (name + explanation); formulas (formula em LaTeX sem $, com palavras dentro de \\text{}, ex.: "\\bar{x}=\\frac{\\sum x_i}{n}"; meaning; variables = TODO símbolo da fórmula com symbol no mesmo LaTeX da fórmula e meaning curto em português, ex.: [{symbol:"n", meaning:"quantidade de valores"}, {symbol:"x_i", meaning:"cada valor da lista"}], vazio se for código; whenToUse — vazio se não houver; pode ser uma função/linha de código do material, aí sem LaTeX); traps (pegadinhas comuns); recognitionPatterns (como reconhecer esse tipo de questão); solvedExample (question, steps passo a passo, answer).
 
 MATERIAL:
 ${material}`;

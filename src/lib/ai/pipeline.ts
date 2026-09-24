@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { z } from "zod";
 import type { MaterialChunk, OneShot, Question, StudyData, Subject, Topic } from "@/lib/types";
 import { getCachedStudy, getChunks, getOneShot, getStudy, getSubject, saveChunks, saveCurrent, saveOneShot, saveStudy } from "@/lib/store";
+import { isStaleOneShot } from "@/lib/formula";
 import { generateJson } from "./client";
 import { askPrompt, formatChunks, moreQuestionsPrompt, oneShotPrompt, topicContentPrompt, topicsPrompt } from "./prompts";
 import {
@@ -111,7 +112,7 @@ export async function oneShot(subject: string, topicId: string): Promise<OneShot
   // cache first: serving a saved one-shot must not depend on the material chunks
   const version = (await getStudy(subject))?.version;
   const cached = version && (await getOneShot(subject, version, topicId));
-  if (cached) return cached;
+  if (cached && !isStaleOneShot(cached)) return cached;
   const { data, topic, subj, material } = await currentTopic(subject, topicId);
   const result = normalizeOneShot(await generateJson(oneShotPrompt(subj, topic, material), oneShotSchema), topicId);
   await saveOneShot(subject, data.version, result);

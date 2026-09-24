@@ -7,11 +7,13 @@ import { use, useCallback, useEffect, useState } from "react";
 import AskAI from "@/components/AskAI";
 import PodcastCard from "@/components/PodcastCard";
 import TopicMedia from "@/components/TopicMedia";
-import { isLatex, toTex } from "@/lib/formula";
+import { isLatex, isStaleOneShot, toTex } from "@/lib/formula";
 import type { OneShot } from "@/lib/types";
 import { useSubject, withSubject } from "@/lib/use-study";
 
 const card = "tile p-5";
+// katex escapes the input (trust: false); throwOnError: false shows bad LaTeX as red text instead of crashing
+const tex = (s: string, displayMode = false) => ({ __html: katex.renderToString(toTex(s), { throwOnError: false, displayMode }) });
 
 export default function OneShotPage({ params }: { params: Promise<{ topicId: string }> }) {
   const { topicId } = use(params);
@@ -28,7 +30,8 @@ export default function OneShotPage({ params }: { params: Promise<{ topicId: str
     const key = `one-shot:${subject}:${topicId}`;
     try {
       const saved = localStorage.getItem(key);
-      if (saved) return setShot(JSON.parse(saved));
+      const s = saved && (JSON.parse(saved) as OneShot);
+      if (s && !isStaleOneShot(s)) return setShot(s);
     } catch {}
     try {
       const res = await fetch(withSubject(`/api/one-shot?topicId=${encodeURIComponent(topicId)}`, subject));
@@ -85,7 +88,7 @@ export default function OneShotPage({ params }: { params: Promise<{ topicId: str
 
       {/* mobile: podcast, summary, picture, doubts. desktop: summary + doubts on the left, podcast + picture on the right.
           min-w-0 lets grid items shrink below their content (otherwise the player overflows a phone screen). */}
-      <div className="grid gap-4 lg:grid-cols-[1fr_22rem] lg:grid-rows-[auto_1fr_auto] lg:items-start">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_22rem] lg:grid-rows-[auto_1fr_auto] lg:items-start">
         <div className="min-w-0 lg:col-start-2 lg:row-start-1">
           <PodcastCard topicId={topicId} />
         </div>
@@ -113,16 +116,22 @@ export default function OneShotPage({ params }: { params: Promise<{ topicId: str
                 {shot.formulas.map((f, i) => (
                   <li key={i}>
                     {isLatex(f.formula) ? (
-                      <div
-                        className="overflow-x-auto rounded-lg bg-zinc-100 px-3 py-3 text-lg text-brand-700"
-                        // katex escapes the input (trust: false); throwOnError: false shows bad LaTeX as red text instead of crashing
-                        dangerouslySetInnerHTML={{ __html: katex.renderToString(toTex(f.formula), { throwOnError: false, displayMode: true }) }}
-                      />
+                      <div className="overflow-x-auto rounded-lg bg-zinc-100 px-3 py-3 text-lg text-brand-700" dangerouslySetInnerHTML={tex(f.formula, true)} />
                     ) : (
                       <code className="block rounded-lg bg-zinc-100 px-3 py-2 font-mono text-brand-700">{f.formula}</code>
                     )}
-                    <p className="mt-1 text-sm">{f.meaning}</p>
-                    <p className="text-sm text-zinc-500">Quando usar: {f.whenToUse}</p>
+                    <p className="mt-1 text-sm font-semibold">{f.meaning}</p>
+                    {!!f.variables?.length && (
+                      <dl className="mt-1 space-y-0.5 text-sm">
+                        {f.variables.map((v, j) => (
+                          <div key={j} className="flex gap-2">
+                            <dt className="shrink-0 text-brand-700" dangerouslySetInnerHTML={tex(v.symbol)} />
+                            <dd className="text-zinc-700">= {v.meaning}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
+                    {f.whenToUse && <p className="text-sm text-zinc-500">Quando usar: {f.whenToUse}</p>}
                   </li>
                 ))}
               </ul>

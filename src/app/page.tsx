@@ -81,7 +81,7 @@ export default function Home() {
       {subjects.length > 1 && (
         <section aria-labelledby="materias" className="space-y-3">
           <h2 id="materias" className="text-2xl">Matérias</h2>
-          <ul className="grid gap-3 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {subjects.map((s) => {
               const on = s.id === subject;
               const m = Math.round(overallMastery(s, loadProgress(s.id)) * 100);
@@ -113,7 +113,7 @@ export default function Home() {
         </section>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_20rem]">
         <header className={`${card} flex flex-col gap-5 sm:p-7`}>
           <div className="flex items-center gap-5">
             <Mascot size={104} className="shrink-0 drop-shadow-sm" />
@@ -182,7 +182,7 @@ export default function Home() {
 
           <section aria-labelledby="prova" className="space-y-3">
             <h2 id="prova" className="text-2xl">O que cai na prova</h2>
-            <ul className="grid gap-3 lg:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">
               {topics.map((t) => {
                 const m = Math.round(topicMastery(progress, t.id) * 100);
                 return (
