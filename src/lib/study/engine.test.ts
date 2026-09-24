@@ -61,6 +61,34 @@ test("checkAnswer: lenient text for fill (typos, plural, extra words, alternativ
   assert.ok(checkAnswer(fill("4s2"), "4s2") && !checkAnswer(fill("4s2"), "4") && !checkAnswer(fill("3p6"), "3p5"));
 });
 
+test("checkAnswer: percent and decimal are the same number, 2% tolerance after normalizing", () => {
+  const calc = (correctAnswer: string) => q("p", "t1", { type: "calculation", correctAnswer });
+  for (const key of ["0,0746", "0.0746", "7,46%"]) {
+    for (const given of ["7,46%", "7.46 %", "0,0746", "0.0746", "0,075", "7,5%"]) assert.ok(checkAnswer(calc(key), given), `${given} for ${key}`);
+    assert.ok(!checkAnswer(calc(key), "0,08") && !checkAnswer(calc(key), "8%"), key);
+  }
+  assert.ok(checkAnswer(calc("7,46%"), "7,46")); // forgot the % sign
+  assert.ok(!checkAnswer(calc("0,0746"), "7,46")); // 7.46 is not a probability
+  assert.ok(checkAnswer(calc("2,28%"), "0.0228") && checkAnswer(calc("0,2275"), "22,75%"));
+});
+
+test("checkAnswer: fractions only when both sides are numbers; 'X / Y' still lists alternatives", () => {
+  const calc = (correctAnswer: string) => q("fr", "t1", { type: "calculation", correctAnswer });
+  assert.ok(checkAnswer(calc("1/6"), "0,1667") && checkAnswer(calc("0,1667"), "1/6") && checkAnswer(calc("1/6"), "16,67%"));
+  assert.ok(!checkAnswer(calc("1/6"), "6") && !checkAnswer(calc("1/6"), "1"));
+  assert.ok(checkAnswer(calc("0,5 / 50%"), "50%") && checkAnswer(calc("0,5 / 50%"), "0,5") && !checkAnswer(calc("0,5 / 50%"), "0,01"));
+  assert.ok(!checkAnswer(calc("0,25 mol/L"), "L")); // a unit is not an alternative
+});
+
+test("checkAnswer: code answers are exact (no typo tolerance), ignoring spaces, case and a trailing ()", () => {
+  const fill = (correctAnswer: string) => q("code", "t1", { type: "fill", correctAnswer });
+  assert.ok(checkAnswer(fill("fit"), "fit") && checkAnswer(fill("fit"), " FIT ") && checkAnswer(fill("fit"), "fit()"));
+  assert.ok(!checkAnswer(fill("fit"), "fit_transform") && !checkAnswer(fill("fit_transform"), "fit"));
+  assert.ok(!checkAnswer(fill("fit_transform"), "fit_transfrom")); // typo tolerated in prose, not in code
+  assert.ok(checkAnswer(fill("modelo.fit(X, y)"), "modelo.fit(X,y)") && !checkAnswer(fill("modelo.fit"), "modelo.predict"));
+  assert.ok(checkAnswer(fill("norm.sf()"), "norm.sf") && !checkAnswer(fill("norm.sf"), "norm.cdf"));
+});
+
 test("getNextQuestion: prefers unseen questions from other topics over repeating answered ones", () => {
   let p = emptyProgress();
   for (const x of data.questions.filter((x) => x.topicId === "t1")) p = recordAnswer(p, x, "B", false, 0); // t1 all wrong

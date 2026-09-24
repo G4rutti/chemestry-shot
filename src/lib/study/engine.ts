@@ -14,12 +14,30 @@ const norm = (s: string) =>
     .trim()
     .replace(/[.,;:!?]+$/, "");
 
-// "1.5e-3", "1.5 x 10^-3", "-2" at the start of the string; trailing units are ignored,
-// but not trailing digits: "4s2" is a subshell, not the number 4
-const toNumber = (s: string): number | null => {
+type Num = { value: number; raw: number; pct: boolean }; // value: "7.46%" -> 0.0746; raw: 7.46
+
+// "1.5e-3", "1.5 x 10^-3", "-2", "1/6", "7.46%" at the start of the string; trailing units are ignored,
+// but not trailing digits: "4s2" is a subshell, not the number 4. A fraction has no spaces around "/":
+// "X / Y" is how the key lists alternatives.
+const toNumber = (s: string): Num | null => {
+  const frac = s.match(/^([-+]?\d*\.?\d+)\/(\d*\.?\d+)/);
+  if (frac) {
+    const v = Number(frac[1]) / Number(frac[2]);
+    return !/\d/.test(s.slice(frac[0].length)) && Number.isFinite(v) ? { value: v, raw: v, pct: false } : null;
+  }
   const m = s.match(/^([-+]?\d*\.?\d+(?:e[-+]?\d+)?)(?:\s*[x*×·]\s*10\s*\^?\s*([-+]?\d+))?/);
-  return m && !/\d/.test(s.slice(m[0].length)) ? Number(m[1]) * 10 ** Number(m[2] ?? 0) : null;
+  const rest = m ? s.slice(m[0].length) : "";
+  if (!m || /\d/.test(rest)) return null;
+  const raw = Number(m[1]) * 10 ** Number(m[2] ?? 0);
+  const pct = /^\s*%/.test(rest);
+  return { value: pct ? raw / 100 : raw, raw, pct };
 };
+
+const close = (a: number, b: number) => (b === 0 ? Math.abs(a) < 1e-9 : Math.abs(a - b) <= 0.02 * Math.abs(b));
+
+// identifiers/calls ("fit_transform", "modelo.fit", "np.mean()"): exact, since fit != fit_transform
+const looksLikeCode = (s: string) => /^\S*[_.(]\S*$/.test(s.trim()) && /[a-z]/i.test(s);
+const squash = (s: string) => s.replace(/\s+/g, "").toLowerCase().replace(/\(\)$/, "");
 
 const STOP = new Set(["o", "a", "os", "as", "um", "uma", "de", "do", "da", "dos", "das", "e", "em", "no", "na", "ao", "pelo", "pela"]);
 // content words, singularized crudely ("polares" -> "polar", "ions" -> "ion") so plural/singular both match
@@ -55,16 +73,24 @@ function textMatches(answer: string, expected: string): boolean {
   return c.every((w) => a.some((x) => x === w || typo(x, w))) && a.length <= c.length + 2;
 }
 
-export function checkAnswer(q: Question, answer: string): boolean {
-  if (q.type === "multiple-choice" || q.type === "true-false") return answer.trim() === q.correctAnswer.trim();
+function matches(answer: string, expected: string): boolean {
   const a = norm(answer);
-  const c = norm(q.correctAnswer);
+  const c = norm(expected);
   if (a === c) return true;
   const na = toNumber(a);
   const nc = toNumber(c);
-  if (na !== null && nc !== null) return nc === 0 ? Math.abs(na) < 1e-9 : Math.abs(na - nc) <= 0.02 * Math.abs(nc);
-  // "X / Y" or "X ou Y" in the key means either is accepted
-  return q.correctAnswer.split(/\s*(?:\/|;|\bou\b)\s*/i).some((alt) => textMatches(answer, alt));
+  // percent and decimal are the same number ("7,46%" = "0,0746"); "7,46" for a "7,46%" key is fine too
+  if (na && nc) return close(na.value, nc.value) || (na.pct !== nc.pct && close(na.raw, nc.raw));
+  if (looksLikeCode(expected)) return squash(answer) === squash(expected); // no typo tolerance for code
+  return textMatches(answer, expected);
+}
+
+export function checkAnswer(q: Question, answer: string): boolean {
+  if (q.type === "multiple-choice" || q.type === "true-false") return answer.trim() === q.correctAnswer.trim();
+  if (matches(answer, q.correctAnswer)) return true;
+  // "X / Y", "X; Y" or "X ou Y" in the key means either is accepted ("mol/L" and "1/6" are not alternatives)
+  const alts = q.correctAnswer.split(/\s+\/\s+|\s*(?:;|\bou\b)\s*/i);
+  return alts.length > 1 && alts.some((alt) => matches(answer, alt));
 }
 
 export function recordAnswer(p: Progress, q: Question, answer: string, correct: boolean, now = Date.now()): Progress {
@@ -231,7 +257,7 @@ export function weakTopics(data: StudyData, p: Progress, n = 3): Topic[] {
     .slice(0, n);
 }
 
-export function overallMastery(data: StudyData, p: Progress): number {
+export function overallMastery(data: Pick<StudyData, "topics">, p: Progress): number {
   const total = data.topics.reduce((s, t) => s + t.examImportance, 0);
   return total ? data.topics.reduce((s, t) => s + t.examImportance * topicMastery(p, t.id), 0) / total : 0;
 }
