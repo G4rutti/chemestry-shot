@@ -22,6 +22,10 @@ const versionOf = (chunks: MaterialChunk[]) =>
 
 const topicChunks = (topic: Topic, chunks: MaterialChunk[]) => chunks.filter((c) => !c.admin && topic.chunkIds.includes(c.id));
 
+// every code chunk of the course (scripts, notebooks, code on slides): the reference for code questions
+const courseCode = (chunks: MaterialChunk[]) =>
+  formatChunks(chunks.filter((c) => !c.admin && (/\.(py|ipynb)$/i.test(c.documentName) || /^\s*(import|from)\s+\w/m.test(c.text))), 12_000);
+
 async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>) {
   const out: PromiseSettledResult<R>[] = new Array(items.length);
   let next = 0;
@@ -77,14 +81,19 @@ export async function processMaterials(subject: string, chunks: MaterialChunk[])
   };
   // publish partial results so studying can start as soon as the first topic is ready
   let saving = saveCurrent(subject, data);
-  const results = await mapLimit(topics, 3, async (topic) => {
-    const raw = await generateJson(topicContentPrompt(subj, topic, formatChunks(topicChunks(topic, chunks), TOPIC_CAP)), topicContentSchema);
-    data.questions.push(...normalizeQuestions(raw.questions, topic.id));
-    data.flashcards.push(...normalizeFlashcards(raw.flashcards, topic.id));
+  const code = courseCode(content);
+  const generate = async (topic: Topic) => {
+    const material = formatChunks(topicChunks(topic, chunks), TOPIC_CAP);
+    const raw = await generateJson(topicContentPrompt(subj, topic, material, code), topicContentSchema);
+    data.questions.push(...normalizeQuestions(raw.questions, topic.id, material + code));
+    data.flashcards.push(...normalizeFlashcards(raw.flashcards, topic.id, material + code));
     saving = saving.then(() => saveCurrent(subject, data));
-  });
+  };
+  const results = await mapLimit(topics, 3, generate);
+  // free providers time out under load: one calmer (sequential) pass for the topics that failed
+  const retried = await mapLimit(topics.filter((_, i) => results[i].status === "rejected"), 1, generate);
   await saving;
-  if (!results.some((r) => r.status === "fulfilled")) throw new Error("Falha ao gerar questões para todos os tópicos.");
+  if (![...results, ...retried].some((r) => r.status === "fulfilled")) throw new Error("Falha ao gerar questões para todos os tópicos.");
   await saveStudy(subject, data);
   return data;
 }
@@ -95,7 +104,7 @@ async function currentTopic(subject: string, topicId: string, cap = TOPIC_CAP) {
   if (!data || !topic) throw new Error("Tópico não encontrado.");
   const chunks = await getChunks(subject, data.version);
   if (!chunks) throw new Error("Trechos do material não encontrados; reprocesse os materiais.");
-  return { data, topic, subj: await getSubject(subject, data), material: formatChunks(topicChunks(topic, chunks), cap) };
+  return { data, topic, subj: await getSubject(subject, data), material: formatChunks(topicChunks(topic, chunks), cap), code: courseCode(chunks) };
 }
 
 export async function oneShot(subject: string, topicId: string): Promise<OneShot> {
@@ -110,10 +119,10 @@ export async function oneShot(subject: string, topicId: string): Promise<OneShot
 }
 
 export async function moreQuestions(subject: string, topicId: string): Promise<Question[]> {
-  const { data, topic, subj, material } = await currentTopic(subject, topicId);
+  const { data, topic, subj, material, code } = await currentTopic(subject, topicId);
   const existing = data.questions.filter((q) => q.topicId === topicId).map((q) => q.question);
-  const raw = await generateJson(moreQuestionsPrompt(subj, topic, material, existing), questionsSchema);
-  const questions = normalizeQuestions(raw.questions, topicId);
+  const raw = await generateJson(moreQuestionsPrompt(subj, topic, material, existing, code), questionsSchema);
+  const questions = normalizeQuestions(raw.questions, topicId, material + code);
   // re-read to reduce clobbering concurrent appends
   const latest = (await getStudy(subject)) ?? data;
   await saveStudy(subject, { ...latest, questions: [...latest.questions, ...questions] });

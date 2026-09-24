@@ -15,7 +15,7 @@ const role = (s: Subject) =>
   `Você é um ${teacher(s)} preparando um aluno para a prova ${s.exam}.${s.profile ? ` Perfil da matéria: ${s.profile}` : ""} Responda sempre em português do Brasil, baseado SOMENTE no material abaixo.`;
 
 export const topicsPrompt = (s: Subject, material: string) => `${role(s)}
-Identifique de 5 a 12 tópicos que provavelmente cairão na prova. Para cada um: name, summary (2-3 frases), examImportance (1-5, 5 = cai com certeza), keyPoints (3-6 itens curtos) e chunkIds (ids EXATOS dos trechos relevantes, conforme [id=...]).
+Identifique de 5 a 12 tópicos que provavelmente cairão na prova. Para cada um: name, summary (2-3 frases), examImportance (1-5, 5 = cai com certeza), keyPoints (3-6 itens curtos) e chunkIds (ids EXATOS de TODOS os trechos relevantes, conforme [id=...], inclusive código .py/.ipynb e datasets .csv que exemplificam o tópico).
 Nada administrativo vira tópico: apresentação do professor, contatos, avaliações/notas, presença, prazos, nem atividades de aula (caça-palavras, atividade prática, pesquisa, atividade avaliativa).
 Devolva também subject: name (nome da disciplina), course (área/curso) e profile (1-2 frases: tipo de conteúdo — conceitual, cálculo, código — e estilo provável da prova).
 
@@ -24,11 +24,12 @@ ${material}`;
 
 const QUESTION_RULES = `Regras das questões:
 - Misture os tipos: "multiple-choice" (4-5 options, correctAnswer = texto EXATO de uma option), "true-false" (options = ["Verdadeiro","Falso"]), "fill" (completar lacuna ___, options = []), "calculation" (resposta numérica curta, com unidade se houver; probabilidade pode vir em decimal ou %; options = []).
-- code (opcional): trecho de código curto (até ~12 linhas) mostrado junto do enunciado; omita quando não usar.
-- Se o material tiver código, cerca de 1/3 das questões usam code:
+- code (opcional): trecho de código curto (até ~12 linhas) mostrado junto do enunciado, sem \`\`\` e sem repetir o código no enunciado; omita quando não usar.
+- Se houver CÓDIGO DO CURSO abaixo e o tópico for de cálculo, estatística, probabilidade, dados ou programação: PELO MENOS 1/3 das questões e 2 flashcards TÊM code preenchido, adaptado desse código:
   • "o que esse código faz/imprime?": multiple-choice com code (ex.: o que uma chamada de função do material calcula);
   • completar código: fill com a lacuna ___ DENTRO do code e correctAnswer = só o que falta (ex.: o nome do método);
-  • use SÓ bibliotecas e funções que aparecem no material; nada de API inventada.
+  • use SÓ bibliotecas e funções que aparecem no material ou no CÓDIGO DO CURSO; nada de API inventada.
+- Tópico conceitual (história, ética, definições) ou matéria sem código: não use code.
 - Quando o material permitir, inclua também: cálculo (calculation com resposta numérica), interpretação (gráficos, tabelas, resultados) e conceitual.
 - difficulty de 1 a 5, variada; questões no estilo de prova.
 - Varie os exemplos: não use o mesmo exemplo/dataset/cenário/substância em mais de 2 questões e não repita a mesma pergunta com outras palavras.
@@ -36,22 +37,25 @@ const QUESTION_RULES = `Regras das questões:
 - explanation clara e curta; memoryTip = macete para memorizar.
 - source = { document: nome do documento, page: página/slide do trecho usado }.`;
 
-export const topicContentPrompt = (s: Subject, topic: Topic, material: string) => `${role(s)}
+// the course's code (a few small files) goes with every topic: quantitative topics build code questions from it
+const courseCode = (code: string) => (code ? `\n\nCÓDIGO DO CURSO (referência para questões com code):\n${code}` : "");
+
+export const topicContentPrompt = (s: Subject, topic: Topic, material: string, code = "") => `${role(s)}
 Tópico: "${topic.name}" — ${topic.summary}
 Gere cerca de 15 questões variadas e 8 flashcards (front = pergunta/conceito curto, back = resposta objetiva, code opcional como nas questões) sobre este tópico.
 ${QUESTION_RULES}
 
 MATERIAL:
-${material}`;
+${material}${courseCode(code)}`;
 
-export const moreQuestionsPrompt = (s: Subject, topic: Topic, material: string, existing: string[]) => `${role(s)}
+export const moreQuestionsPrompt = (s: Subject, topic: Topic, material: string, existing: string[], code = "") => `${role(s)}
 Tópico: "${topic.name}" — ${topic.summary}
 Gere 10 questões NOVAS sobre este tópico, diferentes destas já existentes:
 ${existing.map((q) => `- ${q.slice(0, 120)}`).join("\n")}
 ${QUESTION_RULES}
 
 MATERIAL:
-${material}`;
+${material}${courseCode(code)}`;
 
 export const oneShotPrompt = (s: Subject, topic: Topic, material: string) => `${role(s)}
 Crie um resumo "One Shot" do tópico "${topic.name}" para revisar em 5 minutos antes da prova:

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test src/lib/study/engine.test.ts src/lib/materials/extract.test.ts"
+    "test": "tsx --test src/lib/study/engine.test.ts src/lib/materials/extract.test.ts src/lib/ai/schemas.test.ts"
   },
   "dependencies": {
     "@breezystack/lamejs": "^1.2.7",

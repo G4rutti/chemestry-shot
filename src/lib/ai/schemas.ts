@@ -61,22 +61,34 @@ export function normalizeTopics(raw: z.infer<typeof topicsSchema>, validChunkIds
 
 const TF = ["Verdadeiro", "Falso"];
 
-export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicId: string): Question[] {
+const FENCE = /```\w*\n?([\s\S]*?)(?:```|$)/;
+const cleanCode = (s?: string) => (s ?? "").replace(/^\s*```\w*\n?|\n?```\s*$/g, "").replace(/^\n+|\s+$/g, "");
+
+/** Code importing a module the material never uses is an invented API ("keras" in a course without keras). */
+const inventsApi = (code: string, material?: string) =>
+  !!material && [...code.matchAll(/^\s*(?:from|import)\s+(\w+)/gm)].some((m) => !new RegExp(`\\b${m[1]}\\b`).test(material));
+
+/** `material`: topic material + course code, used to reject code with invented imports. */
+export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicId: string, material?: string): Question[] {
   return raw.flatMap((q) => {
+    // code belongs in `code`, not pasted into the question as a ``` block
+    const code = cleanCode(q.code) || cleanCode(q.question.match(FENCE)?.[1]);
     const base = {
       id: `${topicId}-${rid()}`,
       topicId,
       type: q.type,
-      question: q.question.trim(),
+      question: q.question.replace(new RegExp(FENCE.source, "g"), "").trim(),
       explanation: q.explanation,
       memoryTip: q.memoryTip,
       difficulty: clamp5(q.difficulty),
       source: q.source.page ? { document: q.source.document, page: q.source.page } : { document: q.source.document },
-      ...(q.code?.trim() && { code: q.code.replace(/^\n+|\s+$/g, "") }),
+      ...(code && { code }),
     };
     const ans = q.correctAnswer.trim();
     if (!base.question || !ans) return [];
-    if (hasPII([q.question, ...q.options, ans, q.explanation, q.memoryTip, q.code ?? ""].join("\n"))) return []; // no phone/e-mail in study content
+    if (hasPII([q.question, ...q.options, ans, q.explanation, q.memoryTip, code].join("\n"))) return []; // no phone/e-mail in study content
+    if (code && inventsApi(code, material)) return [];
+    if (q.type === "fill" && code && !/_{3,}/.test(code)) return []; // code fill: the blank must be in the code, or the code gives the answer away
     if (q.type === "true-false") {
       const v = /^(v|verdadeir|true|certo|c$)/i.test(ans) ? TF[0] : /^(f|fals|errado|e$)/i.test(ans) ? TF[1] : null;
       return v ? [{ ...base, options: TF, correctAnswer: v }] : [];
@@ -91,9 +103,11 @@ export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicI
   });
 }
 
-export const normalizeFlashcards = (raw: z.infer<typeof flashcardSchema>[], topicId: string): Flashcard[] =>
-  raw
-    .filter((f) => f.front.trim() && f.back.trim() && !hasPII(`${f.front}\n${f.back}\n${f.code ?? ""}`))
-    .map(({ front, back, code }) => ({ id: `${topicId}-fc-${rid()}`, topicId, front, back, ...(code?.trim() && { code: code.replace(/^\n+|\s+$/g, "") }) }));
+export const normalizeFlashcards = (raw: z.infer<typeof flashcardSchema>[], topicId: string, material?: string): Flashcard[] =>
+  raw.flatMap(({ front, back, code: rawCode }) => {
+    const code = cleanCode(rawCode);
+    if (!front.trim() || !back.trim() || hasPII(`${front}\n${back}\n${code}`) || (code && inventsApi(code, material))) return [];
+    return [{ id: `${topicId}-fc-${rid()}`, topicId, front, back, ...(code && { code }) }];
+  });
 
 export const normalizeOneShot = (raw: z.infer<typeof oneShotSchema>, topicId: string): OneShot => ({ topicId, ...raw });
