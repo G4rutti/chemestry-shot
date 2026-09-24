@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { emptyProgress } from "@/lib/study/engine";
-import { loadProgress } from "@/lib/use-study";
+import { loadProgress, setActiveSubject, useSubject, useSubjects } from "@/lib/use-study";
 import Mascot from "./Mascot";
 
 const links = [
@@ -19,14 +19,17 @@ const links = [
 export default function NavBar() {
   const path = usePathname();
   const [p, setP] = useState(emptyProgress);
+  const subject = useSubject();
+  const subjects = useSubjects();
 
-  // progress lives in localStorage: re-read on every navigation and when another tab changes it
+  // progress lives in localStorage: re-read on every navigation, subject switch and when another tab changes it
   useEffect(() => {
-    const sync = () => setP(loadProgress());
+    if (!subject) return;
+    const sync = () => setP(loadProgress(subject));
     sync();
     window.addEventListener("storage", sync);
     return () => window.removeEventListener("storage", sync);
-  }, [path]);
+  }, [path, subject]);
 
   const open = p.mistakes.filter((m) => !m.resolved).length;
   const active = (match: string) => (match === "/" ? path === "/" : path.startsWith(match));
@@ -64,8 +67,22 @@ export default function NavBar() {
         <div className="mx-auto flex max-w-5xl items-center gap-4 px-4 py-2.5">
           <Link href="/" className="flex shrink-0 items-center gap-2 text-xl font-black tracking-tight text-brand-700">
             <Mascot size={36} />
-            <span>Chemistry Shot</span>
+            <span className="hidden sm:inline">Study Shot</span>
           </Link>
+          {subjects.length > 1 && subject && (
+            <select
+              aria-label="Matéria"
+              value={subject}
+              onChange={(e) => setActiveSubject(e.target.value)}
+              className="w-36 shrink-0 truncate rounded-full border-2 sm:w-44 border-b-4 border-zinc-200 bg-white px-3 py-1 text-sm font-extrabold text-zinc-700 focus:border-sky-300 focus:outline-none"
+            >
+              {subjects.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          )}
           <nav aria-label="Principal" className="mx-auto hidden items-center gap-0.5 lg:flex">
             {tabs(false)}
           </nav>

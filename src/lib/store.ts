@@ -3,8 +3,9 @@ import path from "node:path";
 import { DEFAULT_SUBJECT, type MaterialChunk, type OneShot, type StudyData, type Subject } from "@/lib/types";
 
 // every subject has its own folder: data/<subject>/study.json, one-shots.json, cache/
-const DATA = path.join(process.cwd(), "data");
-const DOCS = path.join(process.cwd(), "docs");
+// turbopackIgnore: files ship via outputFileTracingIncludes (next.config.ts), not the whole folders (PDFs, datasets)
+const DATA = path.join(/*turbopackIgnore: true*/ process.cwd(), "data");
+const DOCS = path.join(/*turbopackIgnore: true*/ process.cwd(), "docs");
 const file = (subject: string, name: string) => path.join(DATA, subject, name);
 
 const SLUG = /^[a-z0-9-]+$/;

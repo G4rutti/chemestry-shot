@@ -1,4 +1,4 @@
-# Chemistry Shot
+# Study Shot
 
 ```bash
 npm install
@@ -6,5 +6,6 @@ cp .env.example .env.local   # coloque sua GEMINI_API_KEY (sem ela roda em Demo 
 npm run dev                  # http://localhost:3000
 ```
 
-Na home: arraste os PDFs/PPTX ou clique em "Usar arquivos da pasta docs/" → espere o processamento (1–3 min, uma vez só; fica em cache em `data/`) → ⚡ CRAM MODE.
-Progresso (XP, domínio, erros) fica no localStorage do navegador. `npm test` roda os testes do engine.
+Cada matéria é uma pasta `docs/<slug>/` (PDF, PPTX, TXT, MD, PY, IPYNB, CSV, em qualquer subpasta), com um `subject.json` opcional (`name`, `exam`, `course`).
+Na home: escolha a matéria e clique em "Processar" → espere o processamento (1–3 min, uma vez só; fica em cache em `data/<slug>/`) → ⚡ CRAM MODE.
+Progresso (XP, domínio, erros) fica no localStorage do navegador, separado por matéria. `npm test` roda os testes do engine e da extração.

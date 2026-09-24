@@ -1,4 +1,4 @@
-# Design System: Chemistry Shot - Duolingo x Lifesum
+# Design System: Study Shot - Duolingo x Lifesum
 **Project ID:** 1757234987165722277
 
 ## 1. Visual Theme & Atmosphere

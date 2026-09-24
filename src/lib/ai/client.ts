@@ -115,7 +115,7 @@ const extractJson = (text: string) => {
 async function callCompat(p: (typeof COMPAT)[number], key: string, models: string[], prompt: string, jsonSchema: unknown): Promise<string> {
   const res = await fetch(p.url, {
     method: "POST",
-    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json", "X-Title": "Chemistry Shot" },
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json", "X-Title": "Study Shot" },
     body: JSON.stringify({
       model: models[0],
       ...(p.fallbackInOneCall && { models }),

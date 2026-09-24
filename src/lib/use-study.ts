@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { emptyProgress, recordAnswer } from "@/lib/study/engine";
-import { DEFAULT_SUBJECT, type Progress, type Question, type StudyData } from "@/lib/types";
+import { DEFAULT_SUBJECT, type Progress, type Question, type StudyData, type Topic } from "@/lib/types";
 
 // ---- active subject: chosen in the NavBar, kept in this browser; pages keep their URLs ----
 
@@ -115,4 +115,20 @@ export function useStudy() {
   }, [subject]);
 
   return { subject, data, setData, loading, error, reload, progress, answer, resetProgress };
+}
+
+// ---- subject list (NavBar selector, home cards) ----
+
+export type SubjectSummary = { id: string; name: string; exam: string; hasData: boolean; topics: Pick<Topic, "id" | "examImportance">[] };
+
+/** Every subject folder; refetched whenever `refresh` changes (e.g. while a subject is being processed). */
+export function useSubjects(refresh?: unknown): SubjectSummary[] {
+  const [list, setList] = useState<SubjectSummary[]>([]);
+  useEffect(() => {
+    fetch("/api/subjects", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : []))
+      .then(setList)
+      .catch(() => {});
+  }, [refresh]);
+  return list;
 }

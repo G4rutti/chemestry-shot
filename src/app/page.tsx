@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useStudy, withSubject } from "@/lib/use-study";
+import { loadProgress, setActiveSubject, useStudy, useSubjects, withSubject } from "@/lib/use-study";
 import Mascot from "@/components/Mascot";
 import { overallMastery, topicMastery, weakTopics } from "@/lib/study/engine";
 
@@ -17,6 +17,7 @@ export default function Home() {
   const [procError, setProcError] = useState<string | null>(null);
   const [drag, setDrag] = useState(false);
   const last = useRef<(() => Promise<Response>) | null>(null);
+  const subjects = useSubjects(data); // refreshed as processing publishes topics
 
   // resume tracking a job started before navigating away / reloading
   useEffect(() => {
@@ -59,6 +60,11 @@ export default function Home() {
     }
   }
 
+  function processFolder(id: string) {
+    setActiveSubject(id);
+    run(() => fetch(withSubject("/api/process?folder=1", id), { method: "POST" }));
+  }
+
   function upload(files: FileList | null) {
     if (!files?.length || !subject) return;
     const fd = new FormData();
@@ -72,6 +78,41 @@ export default function Home() {
 
   return (
     <div className="space-y-6">
+      {subjects.length > 1 && (
+        <section aria-labelledby="materias" className="space-y-3">
+          <h2 id="materias" className="text-2xl">Matérias</h2>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {subjects.map((s) => {
+              const on = s.id === subject;
+              const m = Math.round(overallMastery(s, loadProgress(s.id)) * 100);
+              return (
+                <li key={s.id} className={`tile flex items-center gap-3 p-4 ${on ? "!border-sky-300 bg-sky-50" : ""}`}>
+                  <button type="button" onClick={() => setActiveSubject(s.id)} aria-pressed={on} className="flex min-w-0 flex-1 items-center gap-3 text-left">
+                    <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-xl">📚</span>
+                    <span className="min-w-0">
+                      <span className={`block truncate text-lg font-bold ${on ? "text-sky-700" : ""}`}>{s.name}</span>
+                      <span className="block text-xs font-extrabold text-zinc-500">
+                        {s.exam} · {s.hasData ? `${s.topics.length} tópicos · domínio ${m}%` : "ainda não processada"}
+                      </span>
+                    </span>
+                  </button>
+                  {!s.hasData && !process.env.NEXT_PUBLIC_VERCEL_ENV && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => processFolder(s.id)}
+                      className="btn-3d shrink-0 rounded-xl bg-brand-600 px-3 py-1.5 text-sm text-white hover:bg-brand-500 disabled:opacity-50"
+                    >
+                      Processar
+                    </button>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       <div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
         <header className={`${card} flex flex-col gap-5 sm:p-7`}>
           <div className="flex items-center gap-5">
@@ -82,7 +123,7 @@ export default function Home() {
               </span>
               <h1 className="text-3xl sm:text-4xl">Olá, Estudante!</h1>
               <p className="font-semibold text-zinc-500">
-                {progress.streak > 0 ? `Sequência de ${progress.streak} 🔥 Continue assim.` : open > 0 ? `Você tem ${open} erro(s) pra revisar.` : "Bora estudar química?"}
+                {progress.streak > 0 ? `Sequência de ${progress.streak} 🔥 Continue assim.` : open > 0 ? `Você tem ${open} erro(s) pra revisar.` : `Bora estudar ${data?.subject?.name ?? "hoje"}?`}
               </p>
             </div>
           </div>
@@ -228,10 +269,10 @@ export default function Home() {
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <button
             disabled={busy}
-            onClick={() => subject && run(() => fetch(withSubject("/api/process?folder=1", subject), { method: "POST" }))}
+            onClick={() => subject && processFolder(subject)}
             className="btn-3d rounded-xl bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
           >
-            Usar arquivos da pasta docs/
+            Usar arquivos da pasta docs/{subject}/
           </button>
           {busy && (
             <span role="status" className="text-sm text-zinc-600">

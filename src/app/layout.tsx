@@ -7,8 +7,8 @@ const nunito = Nunito({ variable: "--font-nunito", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Chemistry Shot",
-  description: "Estude química para a prova de hoje",
+  title: "Study Shot",
+  description: "Estude para a prova de hoje",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

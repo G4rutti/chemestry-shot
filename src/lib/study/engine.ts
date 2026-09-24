@@ -257,7 +257,7 @@ export function weakTopics(data: StudyData, p: Progress, n = 3): Topic[] {
     .slice(0, n);
 }
 
-export function overallMastery(data: Pick<StudyData, "topics">, p: Progress): number {
+export function overallMastery(data: { topics: Pick<Topic, "id" | "examImportance">[] }, p: Progress): number {
   const total = data.topics.reduce((s, t) => s + t.examImportance, 0);
   return total ? data.topics.reduce((s, t) => s + t.examImportance * topicMastery(p, t.id), 0) / total : 0;
 }
