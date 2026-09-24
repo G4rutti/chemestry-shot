@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import CodeBlock from "@/components/CodeBlock";
 import QuestionCard from "@/components/QuestionCard";
@@ -19,6 +19,8 @@ export default function ExamPage() {
   const [results, setResults] = useState<Result[]>([]);
   const [start, setStart] = useState(0);
   const [now, setNow] = useState(0);
+  // the answer waits here until "Continuar": after "Não sei" the card stays up to explain it
+  const pending = useRef<Result | null>(null);
 
   const finished = !!exam && results.length >= exam.length;
 
@@ -48,9 +50,12 @@ export default function ExamPage() {
 
   const topicName = (id: string) => data.topics.find((t) => t.id === id)?.name ?? id;
 
-  function begin(size: number) {
+  // fixed theory mock in the style of the real exam (questions with ids av1-*), in random order
+  const av1 = data.questions.filter((q) => q.id.startsWith("av1-"));
+
+  function begin(size: number, fixed?: Question[]) {
     const t = clock();
-    setExam(buildExam(data!, size));
+    setExam(fixed ? [...fixed].sort(() => Math.random() - 0.5) : buildExam(data!, size));
     setResults([]);
     setStart(t);
     setNow(t);
@@ -71,6 +76,13 @@ export default function ExamPage() {
               </button>
             ))}
           </div>
+          {av1.length > 0 && (
+            <button className={`${btn} w-full bg-sky-600 text-white hover:bg-sky-700`} onClick={() => begin(av1.length, av1)}>
+              📝 Simulado estilo AV1
+              <span className="block text-sm font-normal">{av1.length} questões de teoria, sem cálculo</span>
+            </button>
+          )}
+          <p className="text-sm text-zinc-500">Não sabe uma? Clica em “Não sei” que o professor explica na hora.</p>
         </div>
       </main>
     );
@@ -93,9 +105,13 @@ export default function ExamPage() {
           showFeedback={false}
           onAnswered={(given, correct) => {
             answer(q, given, correct);
-            setResults((r) => [...r, { q, given, correct }]);
+            pending.current = { q, given, correct };
           }}
-          onNext={() => {}}
+          onNext={() => {
+            const r = pending.current;
+            pending.current = null;
+            if (r) setResults((rs) => [...rs, r]);
+          }}
         />
       </main>
     );

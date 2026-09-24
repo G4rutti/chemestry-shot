@@ -52,13 +52,15 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
   function submit(answer: string) {
     if (done || !answer.trim()) return;
     const ok = answer !== DONT_KNOW && checkAnswer(q, answer);
-    if (!showFeedback) {
+    // exam mode skips feedback, except on "Não sei": the student asked to learn it, so explain right away
+    if (!showFeedback && answer !== DONT_KNOW) {
       onAnswered(answer, ok);
       onNext();
       return;
     }
     setGiven(answer);
     setCorrect(ok);
+    if (answer === DONT_KNOW) setAsking(true);
     onAnswered(answer, ok);
   }
 
@@ -86,7 +88,7 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
       }
       if (!hasOptions) return;
       const i = Number(e.key) - 1;
-      if (i >= 0 && i < 5 && q.options![i] !== undefined && q.options![i] !== cut) submit(q.options![i]);
+      if (i >= 0 && q.options![i] !== undefined && q.options![i] !== cut) submit(q.options![i]);
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -232,6 +234,7 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
           topicId={q.topicId}
           answered={done}
           placeholder="Qual a sua dúvida sobre essa questão?"
+          autoAsk={dontKnow ? "Não sei essa matéria. Me explica do zero o conceito por trás dessa questão, com um exemplo simples, e por que a resposta correta é essa." : undefined}
           context={[q.question, q.code ? `Código:\n${q.code}` : "", q.options?.length ? `Alternativas: ${q.options.join(" | ")}` : "", done ? `Resposta correta: ${q.correctAnswer}. Explicação: ${q.explanation}` : ""]
             .filter(Boolean)
             .join("\n")}

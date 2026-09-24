@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DEFAULT_SUBJECT } from "@/lib/types";
 import { useSubject, withSubject } from "@/lib/use-study";
 import Mascot from "./Mascot";
@@ -45,10 +45,12 @@ type Props = Readonly<{
   /** inline panel inside a question (shows only this panel's thread) */
   compact?: boolean;
   placeholder?: string;
+  /** asked on its own as soon as the panel opens (e.g. after "Não sei") */
+  autoAsk?: string;
 }>;
 
 /** "Tirar dúvida": asks Gemini about the topic and keeps every answer in localStorage. */
-export default function AskAI({ topicId, context, answered = false, compact = false, placeholder }: Props) {
+export default function AskAI({ topicId, context, answered = false, compact = false, placeholder, autoAsk }: Props) {
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,9 +62,14 @@ export default function AskAI({ topicId, context, answered = false, compact = fa
     if (subject) setHistory(loadDoubts(subject).filter((d) => d.topicId === topicId)); // eslint-disable-line react-hooks/set-state-in-effect -- localStorage only exists on client
   }, [subject, topicId]);
 
-  async function ask(e: React.FormEvent) {
-    e.preventDefault();
-    const question = text.trim();
+  const autoAsked = useRef(false); // once, even under StrictMode's double effects
+  useEffect(() => {
+    if (!autoAsk || !subject || autoAsked.current) return;
+    autoAsked.current = true;
+    ask(autoAsk);
+  }, [autoAsk, subject]); // eslint-disable-line react-hooks/exhaustive-deps -- ask reads current state; must not re-run
+
+  async function ask(question: string) {
     if (!question || busy || !subject) return;
     setBusy(true);
     setError(null);
@@ -103,7 +110,13 @@ export default function AskAI({ topicId, context, answered = false, compact = fa
         </div>
       )}
 
-      <form onSubmit={ask} className="flex gap-2">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          ask(text.trim());
+        }}
+        className="flex gap-2"
+      >
         <label htmlFor={`ask-${topicId}`} className="sr-only">
           Sua dúvida
         </label>
