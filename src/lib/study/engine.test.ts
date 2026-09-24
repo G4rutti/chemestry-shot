@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { Question, StudyData } from "../types";
-import { buildExam, checkAnswer, emptyProgress, getNextQuestion, recordAnswer } from "./engine";
+import { buildExam, checkAnswer, emptyProgress, getNextQuestion, recordAnswer, weakTopics } from "./engine";
 
 const q = (id: string, topicId: string, extra: Partial<Question> = {}): Question => ({
   id,
@@ -137,4 +137,12 @@ test("buildExam: size, no duplicates, weighted by importance", () => {
   assert.equal(exam.length, 12);
   assert.equal(new Set(exam.map((x) => x.id)).size, 12);
   assert.ok(exam.filter((x) => x.topicId === "t1").length > exam.filter((x) => x.topicId === "t2").length);
+});
+
+test("weakTopics: a topic leaves the list once its mistakes are fixed", () => {
+  let p = emptyProgress();
+  for (let i = 0; i < 7; i++) p = recordAnswer(p, data.questions[i], "B", i < 2); // 2/7 right
+  assert.deepEqual(weakTopics(data, p).map((t) => t.id), ["t1"]);
+  for (let i = 2; i < 7; i++) p = recordAnswer(p, data.questions[i], "A", true); // redo the 5 mistakes
+  assert.deepEqual(weakTopics(data, p), []);
 });

@@ -24,7 +24,12 @@ function Center({ children }: { children: React.ReactNode }) {
   return <main className="mx-auto max-w-xl p-6 text-center space-y-4 text-zinc-700">{children}</main>;
 }
 
+// /study -> /study?mode=mistakes is the same page: remount so the new session doesn't inherit the old one's state
 function Study() {
+  return <Session key={useSearchParams().toString()} />;
+}
+
+function Session() {
   const params = useSearchParams();
   const raw = params.get("mode");
   const mode: StudyMode = raw === "topic" || raw === "mistakes" ? raw : "cram";
@@ -135,7 +140,7 @@ function Study() {
             </div>
           )}
           <div className="flex flex-col gap-2">
-            {exhausted && openMistakes > 0 && (
+            {mode !== "mistakes" && openMistakes > 0 && (
               <Link href="/study?mode=mistakes" className={`${btn} bg-brand-600 text-white`}>Refazer meus erros ({openMistakes})</Link>
             )}
             {exhausted && (

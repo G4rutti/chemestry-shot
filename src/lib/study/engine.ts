@@ -249,10 +249,13 @@ export function buildExam(data: StudyData, size = 20): Question[] {
   return shuffle([...picked]).slice(0, size);
 }
 
+const WEAK_BELOW = 0.7;
+
+// only topics actually below the bar: mastery tracks recent answers, so fixing mistakes takes a topic off the list
 export function weakTopics(data: StudyData, p: Progress, n = 3): Topic[] {
   const score = (t: Topic) => calculateWeakness(t.id, p) * (0.5 + t.examImportance / 10);
   return data.topics
-    .filter((t) => (p.topics[t.id]?.seen ?? 0) > 0)
+    .filter((t) => (p.topics[t.id]?.seen ?? 0) > 0 && topicMastery(p, t.id) < WEAK_BELOW)
     .sort((a, b) => score(b) - score(a))
     .slice(0, n);
 }
