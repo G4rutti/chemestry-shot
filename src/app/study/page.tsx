@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import QuestionCard from "@/components/QuestionCard";
 import { getNextQuestion, topicMastery } from "@/lib/study/engine";
-import { useStudy } from "@/lib/use-study";
+import { useStudy, withSubject } from "@/lib/use-study";
 import type { Question, StudyMode } from "@/lib/types";
 
 const SESSION = 15;
@@ -30,7 +30,7 @@ function Study() {
   const mode: StudyMode = raw === "topic" || raw === "mistakes" ? raw : "cram";
   const topicId = params.get("topic") ?? undefined;
   const repeat = params.get("repeat") === "1";
-  const { data, loading, error, reload, progress, answer } = useStudy();
+  const { subject, data, loading, error, reload, progress, answer } = useStudy();
 
   const [results, setResults] = useState<Record<string, boolean>>({});
   const [current, setCurrent] = useState<Question | null>(null);
@@ -72,7 +72,8 @@ function Study() {
   async function generate() {
     setGen("loading");
     try {
-      const res = await fetch("/api/more-questions", {
+      if (!subject) return;
+      const res = await fetch(withSubject("/api/more-questions", subject), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topicId }),

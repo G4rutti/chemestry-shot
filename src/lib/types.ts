@@ -1,11 +1,24 @@
 // Shared contracts. Server (materials/ai/api) produces these; client (engine/UI) consumes them.
 
+export const DEFAULT_SUBJECT = "quimica";
+
+/** A subject = one folder docs/<id>/ (optional docs/<id>/subject.json) with its own data/<id>/. */
+export type Subject = {
+  id: string; // folder slug, e.g. "quimica"
+  name: string;
+  exam: string; // e.g. "AV1"
+  course?: string;
+  language?: string;
+  profile?: string; // AI-written: kind of content (conceptual, calculation, code) and exam style
+};
+
 export type MaterialChunk = {
   id: string; // `${documentId}-${index}`
   documentId: string; // short hash of file content
   documentName: string;
-  page?: number; // PDF page or PPTX slide number
+  page?: number; // PDF page, PPTX slide or notebook cell number
   text: string;
+  admin?: boolean; // contacts, grading, attendance...: never becomes a topic or question
 };
 
 export type Topic = {
@@ -49,6 +62,7 @@ export type StudyData = {
   version: string; // hash of all document hashes; changes when materials change
   createdAt: string;
   demo: boolean; // true = mock dataset (no GEMINI_API_KEY)
+  subject?: Subject; // missing in data generated before multi-subject
   documents: { id: string; name: string }[];
   topics: Topic[];
   questions: Question[];

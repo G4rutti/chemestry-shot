@@ -1,6 +1,8 @@
 // Each person's generated podcasts live in their own browser (IndexedDB holds the MP3 blobs;
 // localStorage is too small). Vercel can't store files, and this keeps episodes per person.
 
+import { DEFAULT_SUBJECT } from "@/lib/types";
+
 export type SavedLine = { speaker: string; text: string; emotion?: string };
 export type SavedPodcast = { topicId: string; title: string; lines: SavedLine[]; seconds: number; audio: Blob | null; at: number };
 
@@ -25,5 +27,14 @@ async function run<T>(mode: IDBTransactionMode, op: (s: IDBObjectStore) => IDBRe
   }).finally(() => db.close());
 }
 
-export const loadPodcast = (topicId: string) => run<SavedPodcast | undefined>("readonly", (s) => s.get(topicId)).catch(() => undefined);
-export const savePodcast = (p: SavedPodcast) => run<IDBValidKey>("readwrite", (s) => s.put(p)).catch(() => undefined);
+// stored under "<subject>:<topicId>"; chemistry episodes from before multi-subject were stored under the bare topicId
+const key = (subject: string, topicId: string) => `${subject}:${topicId}`;
+const get = (k: string) => run<SavedPodcast | undefined>("readonly", (s) => s.get(k)).catch(() => undefined);
+
+export async function loadPodcast(subject: string, topicId: string) {
+  const p = (await get(key(subject, topicId))) ?? (subject === DEFAULT_SUBJECT ? await get(topicId) : undefined);
+  return p && { ...p, topicId };
+}
+
+export const savePodcast = (subject: string, p: SavedPodcast) =>
+  run<IDBValidKey>("readwrite", (s) => s.put({ ...p, topicId: key(subject, p.topicId) })).catch(() => undefined);

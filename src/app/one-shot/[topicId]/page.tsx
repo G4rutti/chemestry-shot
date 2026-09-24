@@ -6,26 +6,29 @@ import AskAI from "@/components/AskAI";
 import PodcastCard from "@/components/PodcastCard";
 import TopicMedia from "@/components/TopicMedia";
 import type { OneShot } from "@/lib/types";
+import { useSubject, withSubject } from "@/lib/use-study";
 
 const card = "tile p-5";
 
 export default function OneShotPage({ params }: { params: Promise<{ topicId: string }> }) {
   const { topicId } = use(params);
+  const subject = useSubject();
   const [shot, setShot] = useState<OneShot | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
+    if (!subject) return;
     setError(null);
     setShot(null);
     try {
-      const res = await fetch(`/api/one-shot?topicId=${encodeURIComponent(topicId)}`);
+      const res = await fetch(withSubject(`/api/one-shot?topicId=${encodeURIComponent(topicId)}`, subject));
       const json = await res.json().catch(() => null);
       if (!res.ok || !json || json.error) throw new Error(json?.error ?? res.statusText);
       setShot(json);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     }
-  }, [topicId]);
+  }, [topicId, subject]);
 
   useEffect(() => {
     load(); // eslint-disable-line react-hooks/set-state-in-effect -- fetch on mount

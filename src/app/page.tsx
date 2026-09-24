@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useStudy } from "@/lib/use-study";
+import { useStudy, withSubject } from "@/lib/use-study";
 import Mascot from "@/components/Mascot";
 import { overallMastery, topicMastery, weakTopics } from "@/lib/study/engine";
 
 const card = "tile p-5";
 
 export default function Home() {
-  const { data, setData, loading, error, reload, progress } = useStudy();
+  const { subject, data, setData, loading, error, reload, progress } = useStudy();
   const [startedAt, setStartedAt] = useState<number | null>(null); // server job start; survives page changes
   const [sending, setSending] = useState(false);
   const busy = sending || startedAt !== null;
@@ -20,24 +20,26 @@ export default function Home() {
 
   // resume tracking a job started before navigating away / reloading
   useEffect(() => {
-    fetch("/api/process")
+    if (!subject) return;
+    setStartedAt(null); // eslint-disable-line react-hooks/set-state-in-effect -- another subject's job is not ours
+    fetch(withSubject("/api/process", subject))
       .then((r) => r.json())
       .then((job) => job?.running && setStartedAt(job.startedAt))
       .catch(() => {});
-  }, []);
+  }, [subject]);
 
   useEffect(() => {
-    if (startedAt === null) return;
+    if (startedAt === null || !subject) return;
     const t = setInterval(async () => {
       setElapsed(Math.floor((Date.now() - startedAt) / 1000));
-      const job = await fetch("/api/process").then((r) => r.json()).catch(() => null);
+      const job = await fetch(withSubject("/api/process", subject)).then((r) => r.json()).catch(() => null);
       reload(); // topics/questions are published incrementally while the job runs
       if (job?.running) return;
       setStartedAt(null);
       if (job?.error) setProcError(job.error);
     }, 3000);
     return () => clearInterval(t);
-  }, [startedAt, reload]);
+  }, [startedAt, reload, subject]);
 
   async function run(req: () => Promise<Response>) {
     last.current = req;
@@ -58,10 +60,10 @@ export default function Home() {
   }
 
   function upload(files: FileList | null) {
-    if (!files?.length) return;
+    if (!files?.length || !subject) return;
     const fd = new FormData();
     for (const f of Array.from(files)) fd.append("files", f);
-    run(() => fetch("/api/process", { method: "POST", body: fd }));
+    run(() => fetch(withSubject("/api/process", subject), { method: "POST", body: fd }));
   }
 
   const topics = data ? [...data.topics].sort((a, b) => b.examImportance - a.examImportance) : [];
@@ -226,7 +228,7 @@ export default function Home() {
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <button
             disabled={busy}
-            onClick={() => run(() => fetch("/api/process?folder=1", { method: "POST" }))}
+            onClick={() => subject && run(() => fetch(withSubject("/api/process?folder=1", subject), { method: "POST" }))}
             className="btn-3d rounded-xl bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
           >
             Usar arquivos da pasta docs/

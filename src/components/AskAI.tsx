@@ -1,24 +1,32 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { DEFAULT_SUBJECT } from "@/lib/types";
+import { useSubject, withSubject } from "@/lib/use-study";
 import Mascot from "./Mascot";
 
 export type Doubt = { id: string; topicId: string; question: string; answer: string; context?: string; at: number };
 
-const KEY = "chemshot-doubts";
+const key = (subject: string) => `doubts:${subject}`;
+const LEGACY_KEY = "chemshot-doubts"; // single-subject era: that was chemistry
 
 // ponytail: doubts live in this browser only (like progress); a shared list needs a database (e.g. Supabase)
-export function loadDoubts(): Doubt[] {
+export function loadDoubts(subject: string): Doubt[] {
   try {
-    return JSON.parse(localStorage.getItem(KEY) ?? "[]") as Doubt[];
+    let raw = localStorage.getItem(key(subject));
+    if (!raw && subject === DEFAULT_SUBJECT && (raw = localStorage.getItem(LEGACY_KEY))) {
+      localStorage.setItem(key(subject), raw);
+      localStorage.removeItem(LEGACY_KEY);
+    }
+    return JSON.parse(raw ?? "[]") as Doubt[];
   } catch {
     return [];
   }
 }
 
-function saveDoubts(all: Doubt[]) {
+function saveDoubts(subject: string, all: Doubt[]) {
   try {
-    localStorage.setItem(KEY, JSON.stringify(all));
+    localStorage.setItem(key(subject), JSON.stringify(all));
   } catch {}
 }
 
@@ -40,19 +48,20 @@ export default function AskAI({ topicId, context, answered = false, compact = fa
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<Doubt[]>([]);
   const [latest, setLatest] = useState<Doubt | null>(null);
+  const subject = useSubject();
 
   useEffect(() => {
-    setHistory(loadDoubts().filter((d) => d.topicId === topicId)); // eslint-disable-line react-hooks/set-state-in-effect -- localStorage only exists on client
-  }, [topicId]);
+    if (subject) setHistory(loadDoubts(subject).filter((d) => d.topicId === topicId)); // eslint-disable-line react-hooks/set-state-in-effect -- localStorage only exists on client
+  }, [subject, topicId]);
 
   async function ask(e: React.FormEvent) {
     e.preventDefault();
     const question = text.trim();
-    if (!question || busy) return;
+    if (!question || busy || !subject) return;
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch("/api/ask", {
+      const res = await fetch(withSubject("/api/ask", subject), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topicId, question, context, answered }),
@@ -60,7 +69,7 @@ export default function AskAI({ topicId, context, answered = false, compact = fa
       const json = await res.json().catch(() => null);
       if (!res.ok || !json?.answer) throw new Error(json?.error ?? "A IA não respondeu, tenta de novo.");
       const d: Doubt = { id: crypto.randomUUID(), topicId, question, answer: json.answer, context, at: Date.now() };
-      saveDoubts([...loadDoubts(), d]);
+      saveDoubts(subject, [...loadDoubts(subject), d]);
       setHistory((h) => [...h, d]);
       setLatest(d);
       setText("");
@@ -72,7 +81,8 @@ export default function AskAI({ topicId, context, answered = false, compact = fa
   }
 
   function remove(id: string) {
-    saveDoubts(loadDoubts().filter((d) => d.id !== id));
+    if (!subject) return;
+    saveDoubts(subject, loadDoubts(subject).filter((d) => d.id !== id));
     setHistory((h) => h.filter((d) => d.id !== id));
   }
 
