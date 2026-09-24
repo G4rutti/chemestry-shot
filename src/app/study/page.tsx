@@ -149,7 +149,11 @@ function Session() {
               </Link>
             )}
             {mode !== "topic" && !exhausted && (
-              <button className={`${btn} bg-brand-600 text-white`} onClick={() => { setRound(answeredIds.length); setEnded(false); }}>Continuar</button>
+              <button className={`${btn} bg-brand-600 text-white`} onClick={() => {
+                // mistakes: the ones still wrong must come back, so start over instead of excluding this session's answers
+                if (mode === "mistakes") { setResults({}); setRound(0); setXpStart(null); } else setRound(answeredIds.length);
+                setEnded(false);
+              }}>Continuar</button>
             )}
             <Link href="/mistakes" className={`${btn} bg-rose-50 text-rose-700`}>Caderno de erros</Link>
             <Link href="/" className={`${btn} bg-zinc-100 text-zinc-700`}>Início</Link>

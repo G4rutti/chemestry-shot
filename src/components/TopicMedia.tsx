@@ -2,12 +2,13 @@
 /* eslint-disable @next/next/no-img-element -- remote Wikimedia images, no need for next/image config */
 import Link from "next/link";
 import quimica from "@/lib/topic-media/quimica.json";
+import itAdvancedTopics from "@/lib/topic-media/it-advanced-topics.json";
 import { useSubject } from "@/lib/use-study";
 
 type Media = { title: string; url: string; extract: string; image: string | null; imageFrom: string | null; imageUrl: string | null };
 
 // one file per subject (src/lib/topic-media/<subject>.json); a subject without one just shows no media
-const MEDIA: Record<string, Record<string, Media>> = { quimica };
+const MEDIA: Record<string, Record<string, Media>> = { quimica, "it-advanced-topics": itAdvancedTopics };
 
 type Props = Readonly<{
   topicId: string;
