@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { checkAnswer } from "@/lib/study/engine";
 import type { Question } from "@/lib/types";
 import AskAI from "./AskAI";
+import CodeBlock from "./CodeBlock";
 import Listen from "./Listen";
 import Mascot from "./Mascot";
 import TopicMedia from "./TopicMedia";
@@ -113,6 +114,7 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
         </span>
         <p className="tile bubble min-w-0 flex-1 px-4 py-3 text-lg font-extrabold sm:px-5 sm:py-4 sm:text-xl leading-snug whitespace-pre-line">{q.question}</p>
       </div>
+      <CodeBlock code={q.code} />
 
       {hasOptions ? (
         <div className="space-y-3">
@@ -230,7 +232,7 @@ export default function QuestionCard({ question: q, onAnswered, onNext, showFeed
           topicId={q.topicId}
           answered={done}
           placeholder="Qual a sua dúvida sobre essa questão?"
-          context={[q.question, q.options?.length ? `Alternativas: ${q.options.join(" | ")}` : "", done ? `Resposta correta: ${q.correctAnswer}. Explicação: ${q.explanation}` : ""]
+          context={[q.question, q.code ? `Código:\n${q.code}` : "", q.options?.length ? `Alternativas: ${q.options.join(" | ")}` : "", done ? `Resposta correta: ${q.correctAnswer}. Explicação: ${q.explanation}` : ""]
             .filter(Boolean)
             .join("\n")}
         />

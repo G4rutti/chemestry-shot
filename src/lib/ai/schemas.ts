@@ -29,7 +29,6 @@ const questionSchema = z.object({
 
 const flashcardSchema = z.object({ front: z.string(), back: z.string(), code: z.string().optional() });
 
-
 export const questionsSchema = z.object({ questions: z.array(questionSchema) });
 export const topicContentSchema = z.object({ questions: z.array(questionSchema), flashcards: z.array(flashcardSchema) });
 
@@ -73,10 +72,11 @@ export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicI
       memoryTip: q.memoryTip,
       difficulty: clamp5(q.difficulty),
       source: q.source.page ? { document: q.source.document, page: q.source.page } : { document: q.source.document },
+      ...(q.code?.trim() && { code: q.code.replace(/^\n+|\s+$/g, "") }),
     };
     const ans = q.correctAnswer.trim();
     if (!base.question || !ans) return [];
-    if (hasPII([q.question, ...q.options, ans, q.explanation, q.memoryTip].join("\n"))) return []; // no phone/e-mail in study content
+    if (hasPII([q.question, ...q.options, ans, q.explanation, q.memoryTip, q.code ?? ""].join("\n"))) return []; // no phone/e-mail in study content
     if (q.type === "true-false") {
       const v = /^(v|verdadeir|true|certo|c$)/i.test(ans) ? TF[0] : /^(f|fals|errado|e$)/i.test(ans) ? TF[1] : null;
       return v ? [{ ...base, options: TF, correctAnswer: v }] : [];
@@ -92,6 +92,8 @@ export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicI
 }
 
 export const normalizeFlashcards = (raw: z.infer<typeof flashcardSchema>[], topicId: string): Flashcard[] =>
-  raw.filter((f) => f.front.trim() && f.back.trim() && !hasPII(`${f.front}\n${f.back}`)).map((f) => ({ id: `${topicId}-fc-${rid()}`, topicId, ...f }));
+  raw
+    .filter((f) => f.front.trim() && f.back.trim() && !hasPII(`${f.front}\n${f.back}\n${f.code ?? ""}`))
+    .map(({ front, back, code }) => ({ id: `${topicId}-fc-${rid()}`, topicId, front, back, ...(code?.trim() && { code: code.replace(/^\n+|\s+$/g, "") }) }));
 
 export const normalizeOneShot = (raw: z.infer<typeof oneShotSchema>, topicId: string): OneShot => ({ topicId, ...raw });

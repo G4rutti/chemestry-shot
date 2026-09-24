@@ -17,7 +17,6 @@ export async function POST(request: Request) {
   try {
     const shot = await oneShot(subject, topicId);
     const { mp3, ...rest } = await makePodcast(await getSubject(subject, await getStudy(subject)), shot, wrong);
-
     return Response.json({ ...rest, audio: mp3?.toString("base64") ?? null });
   } catch (e) {
     console.error("[api/podcast]", e);

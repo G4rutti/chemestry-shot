@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useStudy } from "@/lib/use-study";
 import Listen from "@/components/Listen";
+import CodeBlock from "@/components/CodeBlock";
 import TopicMedia from "@/components/TopicMedia";
 import type { Mistake, Question } from "@/lib/types";
 
@@ -36,6 +37,7 @@ export default function MistakesPage() {
       {open.map(({ m, q }) => (
         <article key={q.id} className={`${card} space-y-2`}>
           <p className="font-medium">{q.question}</p>
+          <CodeBlock code={q.code} />
           <p className="rounded-lg bg-rose-50 px-3 py-2 text-rose-700">✗ Sua resposta: {m.answer}</p>
           <p className="rounded-lg bg-brand-50 px-3 py-2 text-brand-700">✓ Correta: {q.correctAnswer}</p>
           <p className="text-zinc-700">{q.explanation}</p>

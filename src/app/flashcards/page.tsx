@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { use, useEffect, useState } from "react";
+import CodeBlock from "@/components/CodeBlock";
 import { useStudy } from "@/lib/use-study";
 
 export default function FlashcardsPage({ searchParams }: { searchParams: Promise<{ topic?: string }> }) {
@@ -65,6 +66,7 @@ export default function FlashcardsPage({ searchParams }: { searchParams: Promise
           >
             <span aria-live="polite">{flipped ? card.back : card.front}</span>
           </button>
+          <CodeBlock code={card.code} />
           <p className="text-center text-xs text-zinc-400">Clique ou Espaço para virar · ← → para navegar</p>
           <div className="flex gap-2">
             <button onClick={() => go(-1)} className="rounded-xl border border-zinc-300 bg-white px-4 py-2" aria-label="Anterior">

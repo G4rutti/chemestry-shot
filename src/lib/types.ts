@@ -43,9 +43,10 @@ export type Question = {
   memoryTip: string;
   difficulty: 1 | 2 | 3 | 4 | 5;
   source: { document: string; page?: number };
+  code?: string; // snippet shown with the question ("what does it print?", fill-in-the-blank ___ inside it)
 };
 
-export type Flashcard = { id: string; topicId: string; front: string; back: string };
+export type Flashcard = { id: string; topicId: string; front: string; back: string; code?: string };
 
 export type OneShot = {
   topicId: string;

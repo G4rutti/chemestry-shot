@@ -22,7 +22,6 @@ export default function TopicMedia({ topicId, topicName, compact = false }: Prop
   const m = subject ? MEDIA[subject]?.[topicId] : undefined;
   const videos = `https://www.youtube.com/results?search_query=${encodeURIComponent(`${topicName ?? m?.title ?? ""} aula`)}`;
 
-
   if (compact)
     return (
       <Link href={`/one-shot/${topicId}`} className="tile flex items-center gap-3 p-2 pr-4 hover:bg-zinc-50">

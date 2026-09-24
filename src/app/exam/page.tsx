@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CodeBlock from "@/components/CodeBlock";
 import QuestionCard from "@/components/QuestionCard";
 import { buildExam } from "@/lib/study/engine";
 import { useStudy } from "@/lib/use-study";
@@ -138,6 +139,7 @@ export default function ExamPage() {
           {wrong.map(({ q, given }) => (
             <div key={q.id} className="tile p-4 space-y-2">
               <p className="font-medium">{q.question}</p>
+              <CodeBlock code={q.code} />
               <p className="text-sm text-rose-700">Sua resposta: {given}</p>
               <p className="text-sm text-brand-700">Correta: <strong>{q.correctAnswer}</strong></p>
               <p className="text-sm text-zinc-700">{q.explanation}</p>
