@@ -30,13 +30,19 @@ function saveDoubts(subject: string, all: Doubt[]) {
   } catch {}
 }
 
+/** The question's context plus the chat so far, so follow-ups ("e o passo 2?") make sense; fits the API's 3000-char cap. */
+function withThread(context: string | undefined, thread: Doubt[]) {
+  const chat = thread.map((d) => `Aluno: ${d.question}\nProfessor: ${d.answer}`).join("\n").slice(-1500);
+  return [context, chat && `Conversa até aqui:\n${chat}`].filter(Boolean).join("\n").slice(0, 3000) || undefined;
+}
+
 type Props = Readonly<{
   topicId: string;
   /** the question the student is looking at, sent so the AI knows what "isso" refers to */
   context?: string;
   /** whether the student already answered `context` (otherwise the AI guides without giving the answer) */
   answered?: boolean;
-  /** inline panel inside a question (no history list) */
+  /** inline panel inside a question (shows only this panel's thread) */
   compact?: boolean;
   placeholder?: string;
 }>;
@@ -47,7 +53,7 @@ export default function AskAI({ topicId, context, answered = false, compact = fa
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useState<Doubt[]>([]);
-  const [latest, setLatest] = useState<Doubt | null>(null);
+  const [thread, setThread] = useState<Doubt[]>([]);
   const subject = useSubject();
 
   useEffect(() => {
@@ -64,14 +70,14 @@ export default function AskAI({ topicId, context, answered = false, compact = fa
       const res = await fetch(withSubject("/api/ask", subject), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topicId, question, context, answered }),
+        body: JSON.stringify({ topicId, question, context: withThread(context, thread), answered }),
       });
       const json = await res.json().catch(() => null);
       if (!res.ok || !json?.answer) throw new Error(json?.error ?? "A IA não respondeu, tenta de novo.");
       const d: Doubt = { id: crypto.randomUUID(), topicId, question, answer: json.answer, context, at: Date.now() };
       saveDoubts(subject, [...loadDoubts(subject), d]);
       setHistory((h) => [...h, d]);
-      setLatest(d);
+      setThread((t) => [...t, d]);
       setText("");
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -86,7 +92,7 @@ export default function AskAI({ topicId, context, answered = false, compact = fa
     setHistory((h) => h.filter((d) => d.id !== id));
   }
 
-  const shown = compact ? (latest ? [latest] : []) : [...history].reverse();
+  const shown = compact ? thread : [...history].reverse();
 
   return (
     <section className={compact ? "space-y-3" : "tile space-y-4 p-5"} aria-label="Tirar dúvida com a IA">
@@ -148,7 +154,7 @@ export default function AskAI({ topicId, context, answered = false, compact = fa
           ))}
         </ul>
       )}
-      {compact && latest && <p className="text-xs font-semibold text-zinc-500">Salvo nas dúvidas do tópico (no resumo One Shot).</p>}
+      {compact && thread.length > 0 && <p className="text-xs font-semibold text-zinc-500">Salvo nas dúvidas do tópico (no resumo One Shot).</p>}
     </section>
   );
 }

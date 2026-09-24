@@ -31,6 +31,8 @@ const QUESTION_RULES = `Regras das questões:
   • use SÓ bibliotecas e funções que aparecem no material ou no CÓDIGO DO CURSO; nada de API inventada.
 - Tópico conceitual (história, ética, definições) ou matéria sem código: não use code.
 - Quando o material permitir, inclua também: cálculo (calculation com resposta numérica), interpretação (gráficos, tabelas, resultados) e conceitual.
+- Questão AUTOCONTIDA: o aluno NÃO vê o material. Se ela depende de tabela, gráfico, dataset ou código do material, coloque os dados no enunciado (tabela = uma linha por item, ex.: "• 0-2: 3 alunos") ou em code. Nunca cite "a tabela", "o gráfico", "o script" ou "os slides" sem mostrar os dados.
+- Exatamente UMA alternativa correta: confira nos dados que nenhuma outra alternativa também serve.
 - difficulty de 1 a 5, variada; questões no estilo de prova.
 - Varie os exemplos: não use o mesmo exemplo/dataset/cenário/substância em mais de 2 questões e não repita a mesma pergunta com outras palavras.
 - Nunca inclua nome de professor, e-mail ou telefone.

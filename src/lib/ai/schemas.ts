@@ -68,6 +68,8 @@ const cleanCode = (s?: string) => (s ?? "").replace(/^\s*```\w*\n?|\n?```\s*$/g,
 const inventsApi = (code: string, material?: string) =>
   !!material && [...code.matchAll(/^\s*(?:from|import)\s+(\w+)/gm)].some((m) => !new RegExp(`\\b${m[1]}\\b`).test(material));
 
+const CITES_MISSING = /\b(c[óo]digo|script|tabela|gr[áa]fico|figura)\s+(abaixo|a seguir|seguinte)|\bseguinte\s+(c[óo]digo|script|tabela|gr[áa]fico)/i;
+
 /** `material`: topic material + course code, used to reject code with invented imports. */
 export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicId: string, material?: string): Question[] {
   return raw.flatMap((q) => {
@@ -88,6 +90,7 @@ export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicI
     if (!base.question || !ans) return [];
     if (hasPII([q.question, ...q.options, ans, q.explanation, q.memoryTip, code].join("\n"))) return []; // no phone/e-mail in study content
     if (code && inventsApi(code, material)) return [];
+    if (!code && CITES_MISSING.test(base.question)) return []; // "o código abaixo" with nothing below
     if (q.type === "fill" && code && !/_{3,}/.test(code)) return []; // code fill: the blank must be in the code, or the code gives the answer away
     if (q.type === "true-false") {
       const v = /^(v|verdadeir|true|certo|c$)/i.test(ans) ? TF[0] : /^(f|fals|errado|e$)/i.test(ans) ? TF[1] : null;

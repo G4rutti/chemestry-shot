@@ -18,7 +18,7 @@ const COMPAT = [
     name: "groq",
     key: "GROQ_API_KEY",
     url: "https://api.groq.com/openai/v1/chat/completions",
-    models: ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "llama-3.3-70b-versatile"],
+    models: ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"],
     fallbackInOneCall: false,
   },
   // NVIDIA NIM free tier (~40 RPM, no daily cap): nemotron-super answers in ~25s; glm/kimi write better questions but take ~90s
@@ -42,6 +42,15 @@ const COMPAT = [
       "nvidia/nemotron-3-super-120b-a12b:free",
     ],
     fallbackInOneCall: true, // OpenRouter tries the `models` list itself
+  },
+  // Mistral free (Experiment) plan: small/medium/magistral come with 0 req/min; only ministral is open (14b: 30 RPM, 8b: 188 RPM).
+  // Last resort: fast enough (~50s) but gets calculations wrong and forgets the code it cites
+  {
+    name: "mistral",
+    key: "MISTRAL_API_KEY",
+    url: "https://api.mistral.ai/v1/chat/completions",
+    models: ["ministral-14b-latest", "ministral-8b-latest"],
+    fallbackInOneCall: false,
   },
 ];
 
@@ -103,7 +112,7 @@ async function callGemini(prompt: string, responseJsonSchema: unknown): Promise<
     } catch (e) {
       if (!isModelMissing(e) && !isBusy(e)) throw e;
       if (isQuota(e)) quotaHits++;
-      console.warn(`[gemini] ${model} indisponível, trocando de modelo`);
+      console.warn(`[gemini] ${model} indisponível (${isQuota(e) ? "cota esgotada" : msg(e).slice(0, 80)}), trocando de modelo`);
       lastErr = e;
     }
   }
