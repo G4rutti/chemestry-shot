@@ -22,6 +22,7 @@ test("normalizeQuestions: code questions only with the material's libraries and 
   assert.equal(normalizeQuestions([raw({ code: "import numpy as np\nnp.___([1, 2])", correctAnswer: "mean" })], "t", material).length, 1); // library from the material
   assert.equal(normalizeQuestions([raw({ code: "from tensorflow.keras.layers import Dense\n___" })], "t", material).length, 0); // invented API
   assert.equal(normalizeQuestions([raw({ code: "import numpy as np\nnp.mean(x)" })], "t", material).length, 0); // blank missing: code gives it away
+  assert.equal(normalizeQuestions([raw({ code: "import numpy as np\nplt.title('___')", correctAnswer: "Notas" })], "t", material).length, 0); // blank in a string: a guess
 });
 
 test("normalizeQuestions: drops questions citing a code/table that isn't there", () => {

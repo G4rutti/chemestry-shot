@@ -1,10 +1,13 @@
 "use client";
 
+import katex from "katex";
+import "katex/dist/katex.min.css";
 import Link from "next/link";
 import { use, useCallback, useEffect, useState } from "react";
 import AskAI from "@/components/AskAI";
 import PodcastCard from "@/components/PodcastCard";
 import TopicMedia from "@/components/TopicMedia";
+import { isLatex, toTex } from "@/lib/formula";
 import type { OneShot } from "@/lib/types";
 import { useSubject, withSubject } from "@/lib/use-study";
 
@@ -109,7 +112,15 @@ export default function OneShotPage({ params }: { params: Promise<{ topicId: str
               <ul className="space-y-3">
                 {shot.formulas.map((f, i) => (
                   <li key={i}>
-                    <code className="block rounded-lg bg-zinc-100 px-3 py-2 font-mono text-brand-700">{f.formula}</code>
+                    {isLatex(f.formula) ? (
+                      <div
+                        className="overflow-x-auto rounded-lg bg-zinc-100 px-3 py-3 text-lg text-brand-700"
+                        // katex escapes the input (trust: false); throwOnError: false shows bad LaTeX as red text instead of crashing
+                        dangerouslySetInnerHTML={{ __html: katex.renderToString(toTex(f.formula), { throwOnError: false, displayMode: true }) }}
+                      />
+                    ) : (
+                      <code className="block rounded-lg bg-zinc-100 px-3 py-2 font-mono text-brand-700">{f.formula}</code>
+                    )}
                     <p className="mt-1 text-sm">{f.meaning}</p>
                     <p className="text-sm text-zinc-500">Quando usar: {f.whenToUse}</p>
                   </li>

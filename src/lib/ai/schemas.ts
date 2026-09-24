@@ -92,6 +92,7 @@ export function normalizeQuestions(raw: z.infer<typeof questionSchema>[], topicI
     if (code && inventsApi(code, material)) return [];
     if (!code && CITES_MISSING.test(base.question)) return []; // "o código abaixo" with nothing below
     if (q.type === "fill" && code && !/_{3,}/.test(code)) return []; // code fill: the blank must be in the code, or the code gives the answer away
+    if (q.type === "fill" && code && /(['"])[^'"\n]*_{3,}[^'"\n]*\1/.test(code)) return []; // blank inside a string ('___' title/label): free text, just a guess
     if (q.type === "true-false") {
       const v = /^(v|verdadeir|true|certo|c$)/i.test(ans) ? TF[0] : /^(f|fals|errado|e$)/i.test(ans) ? TF[1] : null;
       return v ? [{ ...base, options: TF, correctAnswer: v }] : [];

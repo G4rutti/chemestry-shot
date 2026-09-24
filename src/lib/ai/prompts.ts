@@ -27,7 +27,7 @@ const QUESTION_RULES = `Regras das questões:
 - code (opcional): trecho de código curto (até ~12 linhas) mostrado junto do enunciado, sem \`\`\` e sem repetir o código no enunciado; omita quando não usar.
 - Se houver CÓDIGO DO CURSO abaixo e o tópico for de cálculo, estatística, probabilidade, dados ou programação: PELO MENOS 1/3 das questões e 2 flashcards TÊM code preenchido, adaptado desse código:
   • "o que esse código faz/imprime?": multiple-choice com code (ex.: o que uma chamada de função do material calcula);
-  • completar código: fill com a lacuna ___ DENTRO do code e correctAnswer = só o que falta (ex.: o nome do método);
+  • completar código: fill com a lacuna ___ DENTRO do code e correctAnswer = só o que falta (ex.: o nome do método); a lacuna nunca é texto livre entre aspas (título, rótulo, mensagem), que não dá pra deduzir;
   • use SÓ bibliotecas e funções que aparecem no material ou no CÓDIGO DO CURSO; nada de API inventada.
 - Tópico conceitual (história, ética, definições) ou matéria sem código: não use code.
 - Quando o material permitir, inclua também: cálculo (calculation com resposta numérica), interpretação (gráficos, tabelas, resultados) e conceitual.
@@ -61,7 +61,7 @@ ${material}${courseCode(code)}`;
 
 export const oneShotPrompt = (s: Subject, topic: Topic, material: string) => `${role(s)}
 Crie um resumo "One Shot" do tópico "${topic.name}" para revisar em 5 minutos antes da prova:
-title; essentials (o que é obrigatório saber); concepts (name + explanation); formulas (formula, meaning, whenToUse — vazio se não houver; pode ser uma função/linha de código do material); traps (pegadinhas comuns); recognitionPatterns (como reconhecer esse tipo de questão); solvedExample (question, steps passo a passo, answer).
+title; essentials (o que é obrigatório saber); concepts (name + explanation); formulas (formula em LaTeX sem $, com palavras dentro de \\text{}, ex.: "\\bar{x}=\\frac{\\sum x_i}{n}"; meaning, whenToUse — vazio se não houver; pode ser uma função/linha de código do material, aí sem LaTeX); traps (pegadinhas comuns); recognitionPatterns (como reconhecer esse tipo de questão); solvedExample (question, steps passo a passo, answer).
 
 MATERIAL:
 ${material}`;
