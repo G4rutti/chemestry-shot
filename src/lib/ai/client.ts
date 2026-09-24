@@ -21,6 +21,14 @@ const COMPAT = [
     models: ["openai/gpt-oss-120b", "qwen/qwen3.8-27b", "llama-3.3-70b-versatile"],
     fallbackInOneCall: false,
   },
+  // NVIDIA NIM free tier (~40 RPM, no daily cap): nemotron-super answers in ~25s; glm/kimi write better questions but take ~90s
+  {
+    name: "nvidia",
+    key: "NVIDIA_API_KEY",
+    url: "https://integrate.api.nvidia.com/v1/chat/completions",
+    models: ["nvidia/nemotron-3-super-120b-a12b", "z-ai/glm-5.3", "moonshotai/kimi-k3"],
+    fallbackInOneCall: false,
+  },
   {
     name: "openrouter",
     key: "OPENROUTER_API_KEY",
@@ -162,7 +170,7 @@ async function call(prompt: string, jsonSchema: unknown): Promise<string> {
       }
     }
   }
-  throw errors.at(-1) ?? new Error("Nenhuma IA configurada: defina GEMINI_API_KEY, OPENROUTER_API_KEY ou GROQ_API_KEY.");
+  throw errors.at(-1) ?? new Error("Nenhuma IA configurada: defina GEMINI_API_KEY, GROQ_API_KEY, NVIDIA_API_KEY ou OPENROUTER_API_KEY.");
 }
 
 /** Structured-output call validated by Zod; one retry on invalid JSON/schema. */

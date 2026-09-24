@@ -1,0 +1,74 @@
+{
+  "introducao-a-inteligencia-artificial-ia": {
+    "title": "Inteligência artificial",
+    "url": "https://pt.wikipedia.org/wiki/Intelig%C3%AAncia_artificial",
+    "extract": "Inteligência artificial (frequentemente abreviada por IA ou AI, do inglês artificial intelligence) é, de forma genérica, a capacidade de máquinas demonstrarem inteligência, raciocínio e aprendizado de forma semelhante ao pensamento humano. O campo busca desenvolver máquinas autónomas ou sistemas especialistas capazes de simular o comportamento humano e realizar tarefas complexas de forma independente. Trata-se de um sistema que permite aos computadores executar funções avançadas, como a análise de dados em grande escala e a formulação de previsões ou recomendações. Como campo de pesquisa na ciência da computação, dedica-se ao estudo e desenvolvimento de métodos e softwares que capacitam as máquinas a perceberem o seu ambiente e a utilizarem o aprendizado para tomar ações que maximizem as hipóteses de atingir objetivos definidos.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Neural_network.svg/960px-Neural_network.svg.png",
+    "imageFrom": "Rede neural artificial",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Rede_neural_artificial"
+  },
+  "historia-da-ia-e-abordagens-metodologicas": {
+    "title": "História da inteligência artificial",
+    "url": "https://pt.wikipedia.org/wiki/Hist%C3%B3ria_da_intelig%C3%AAncia_artificial",
+    "extract": "A história da inteligência artificial (IA) começou na antiguidade, com mitos, histórias e rumores sobre seres artificiais dotados de inteligência ou consciência por mestres artesãos. O estudo da lógica e do raciocínio formal desde a antiguidade até o presente levou diretamente à invenção do computador digital programável na década de 1940, uma máquina baseada no raciocínio matemático abstrato. Esse dispositivo e as ideias por trás dele inspiraram os cientistas a começar a discutir a possibilidade de construir um cérebro eletrônico. Conforme a escritora e historiadora britânica Pamela Ann McCorduck escreve em seu livro Máquinas que pensam (1979), a Inteligência Artificial começou com \"um desejo antigo de forjar os deuses\".",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Turing_Test_version_3.png",
+    "imageFrom": "Teste de Turing",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Teste_de_Turing"
+  },
+  "etica-e-impacto-social-da-ia": {
+    "title": "Ética na inteligência artificial",
+    "url": "https://pt.wikipedia.org/wiki/%C3%89tica_na_intelig%C3%AAncia_artificial",
+    "extract": "A ética da inteligência artificial é o campo da ética aplicada que examina os impactos morais, sociais, jurídicos e políticos associados ao desenvolvimento, à implantação e ao uso de sistemas de inteligência artificial (IA). O tema abrange questões como viés algorítmico, discriminação, transparência, explicabilidade, privacidade, proteção de dados, responsabilização, supervisão humana, segurança, autonomia, impactos no trabalho, desinformação, usos militares e governança de sistemas automatizados. A discussão ética sobre IA tornou-se mais relevante à medida que sistemas algorítmicos passaram a influenciar decisões em áreas como saúde, educação, crédito, policiamento, recrutamento, transporte, comunicação pública e administração governamental. Como esses sistemas podem operar em grande escala, aprender a partir de grandes conjuntos de dados e produzir decisões difíceis de interpretar, a ética da IA busca avaliar não apenas o comportamento técnico dos modelos, mas também suas consequências para indivíduos, instituições democráticas e direitos fundamentais.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Hands-free_Driving.jpg/960px-Hands-free_Driving.jpg",
+    "imageFrom": "Veículo autônomo",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Ve%C3%ADculo_aut%C3%B4nomo"
+  },
+  "distribuicao-de-frequencia-e-visualizacao-de-dados": {
+    "title": "Distribuição de frequências",
+    "url": "https://pt.wikipedia.org/wiki/Distribui%C3%A7%C3%A3o_de_frequ%C3%AAncias",
+    "extract": "Em estatística, a distribuição de frequência é um arranjo de valores que uma ou mais variáveis ​​tomam em uma amostra. Cada entrada na tabela contém a frequência ou a contagem de ocorrências de valores dentro de um grupo ou intervalo específico, e deste modo, a tabela resume a distribuição dos valores da amostra.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Histograma_wiki1.png",
+    "imageFrom": "Histograma",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Histograma"
+  },
+  "medidas-de-tendencia-central-e-dispersao": {
+    "title": "Desvio padrão",
+    "url": "https://pt.wikipedia.org/wiki/Desvio_padr%C3%A3o",
+    "extract": "Em probabilidade, o desvio padrão ou desvio padrão populacional (comumente representado pela letra grega sigma, σ {\\displaystyle \\sigma } ) é uma medida de dispersão em torno da média populacional de uma variável aleatória. O termo possui também uma acepção específica no campo da estatística, na qual também é chamado de desvio padrão amostral (comumente representado pela letra latina s {\\displaystyle s} ) e indica uma medida de dispersão dos dados em torno de média amostral. Um baixo desvio padrão indica que os pontos dos dados tendem a estar próximos da média ou do valor esperado. Um alto desvio padrão indica que os pontos dos dados estão espalhados por uma ampla gama de valores.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Michelsonmorley-boxplot.svg/960px-Michelsonmorley-boxplot.svg.png",
+    "imageFrom": "Diagrama de caixa",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Diagrama_de_caixa"
+  },
+  "probabilidade-e-distribuicoes-binomial-e-normal": {
+    "title": "Distribuição normal",
+    "url": "https://pt.wikipedia.org/wiki/Distribui%C3%A7%C3%A3o_normal",
+    "extract": "Em probabilidade e estatística, a distribuição normal é uma das distribuições de probabilidade mais utilizadas para modelar fenômenos naturais. Isso se deve ao fato de que um grande número de fenômenos naturais apresenta sua distribuição de probabilidade tão proximamente normal, que a ela pode ser com sucesso referida, e, portanto, com adequado acerto por ela representada como se normal fosse. A distribuição normal é ligada a vários conceitos matemáticos como movimento browniano, ruído branco, entre outros. A distribuição normal também é chamada distribuição gaussiana, distribuição de Gauss ou distribuição de Laplace–Gauss, em referência aos matemáticos, físicos e astrônomos francês Pierre–Simon Laplace (1749 – 1827) e alemão Carl Friedrich Gauss (1777 – 1855).",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Normal_Distribution_PDF.svg/960px-Normal_Distribution_PDF.svg.png",
+    "imageFrom": "Distribuição normal",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Distribui%C3%A7%C3%A3o_normal"
+  },
+  "simulacao-de-dados-e-probabilidades-em-python": {
+    "title": "Método de Monte Carlo",
+    "url": "https://pt.wikipedia.org/wiki/M%C3%A9todo_de_Monte_Carlo",
+    "extract": "Designa-se por método de Monte Carlo (MMC) qualquer método de uma classe de métodos estatísticos que se baseiam em amostragens aleatórias massivas para obter resultados numéricos. Em suma, utilizam a aleatoriedade de dados para gerar um resultado para problemas que a priori são determinísticos. São utilizados mais comumente em problemas de física e de matemática onde são muito difíceis ou impossível de serem resolvidos com outros métodos. O método de Monte Carlo tem sido utilizado há muito tempo como forma de obter aproximações numéricas de funções complexas em que não é viável, ou é mesmo impossível, obter uma solução analítica ou, pelo menos, determinística.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Montecarlo.svg/960px-Montecarlo.svg.png",
+    "imageFrom": "Método de Monte Carlo",
+    "imageUrl": "https://pt.wikipedia.org/wiki/M%C3%A9todo_de_Monte_Carlo"
+  },
+  "regressao-linear-com-scikit-learn": {
+    "title": "Regressão linear",
+    "url": "https://pt.wikipedia.org/wiki/Regress%C3%A3o_linear",
+    "extract": "Em estatística ou econometria, regressão linear é uma equação para se estimar a condicional (valor esperado) de uma variável y, dados os valores de algumas outras variáveis x. A regressão, em geral, tem como objetivo tratar de um valor que não se consegue estimar inicialmente. A regressão linear é chamada \"linear\" porque se considera que a relação da resposta às variáveis é uma função linear de alguns parâmetros. Os modelos de regressão que não são uma função linear dos parâmetros se chamam modelos de regressão não-linear.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/LinearRegression.svg/960px-LinearRegression.svg.png",
+    "imageFrom": "Regressão linear",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Regress%C3%A3o_linear"
+  },
+  "analise-exploratoria-de-dados-dataset": {
+    "title": "Análise exploratória de dados",
+    "url": "https://pt.wikipedia.org/wiki/An%C3%A1lise_explorat%C3%B3ria_de_dados",
+    "extract": "Em estatística, a análise exploratória de dados (AED) é uma abordagem à análise de conjuntos de dados de modo a resumir suas características principais, frequentemente com métodos visuais. Um modelo estatístico pode ou não ser usado, mas primariamente a AED tem como objetivo observar o que os dados podem nos dizer além da modelagem formal ou do processo de teste de hipóteses. A análise exploratória de dados foi promovida pelo estatístico norte-americano John Tukey, que incentivava os estatísticos a explorar os dados e possivelmente formular hipóteses que poderiam levar a novas coletas de dados e experimentos. A AED é diferente da análise inicial de dados (AID), que se concentra mais estreitamente em verificar os pressupostos exigidos para ajuste de modelos e teste de hipóteses, além de manusear valores faltantes e fazer transformações de variáveis conforme necessário.",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Michelsonmorley-boxplot.svg/960px-Michelsonmorley-boxplot.svg.png",
+    "imageFrom": "Diagrama de caixa",
+    "imageUrl": "https://pt.wikipedia.org/wiki/Diagrama_de_caixa"
+  }
+}
