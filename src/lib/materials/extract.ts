@@ -5,7 +5,9 @@ import type { MaterialChunk } from "@/lib/types";
 
 const MAX_CHUNK = 3000;
 
-export const EXTENSIONS = /\.(pdf|pptx|txt|md|py|ipynb|csv)$/i;
+export const EXTENSIONS = /\.(pdf|pptx|txt|md|py|ipynb|csv|cs|cshtml|csproj|slnx|json)$/i;
+/** Source code: indentation kept, never flagged admin, sent as CÓDIGO DO CURSO with every topic. */
+export const CODE = /\.(py|ipynb|cs|cshtml|csproj|slnx|json)$/i;
 
 const clean = (s: string) => s.replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").trim();
 
@@ -153,6 +155,12 @@ function csvSummary(data: Uint8Array): string {
   ].join("\n");
 }
 
+/** C#: split before members/attributes ([HttpPost], public ...), packed back up to MAX_CHUNK so small files stay whole. */
+function csharpParts(src: string): Page[] {
+  const blocks = src.replace(/\r\n/g, "\n").split(/\n(?=\n*[ \t]*(?:\[\w|(?:public|private|protected|internal)\s))/);
+  return pack(blocks.map((text) => ({ text })), "\n");
+}
+
 async function pagesOf(name: string, data: Uint8Array): Promise<Page[]> {
   const ext = name.toLowerCase().split(".").pop();
   const numbered = (pages: string[]) => stripRepeated(pages).map((text, i) => ({ text, page: i + 1 }));
@@ -161,8 +169,9 @@ async function pagesOf(name: string, data: Uint8Array): Promise<Page[]> {
   if (ext === "py") return pythonParts(new TextDecoder().decode(data));
   if (ext === "ipynb") return notebookCells(data);
   if (ext === "csv") return [{ text: csvSummary(data) }];
-  if (ext === "txt" || ext === "md") return [{ text: new TextDecoder().decode(data) }];
-  throw new Error(`Formato não suportado: ${name} (use PDF, PPTX, TXT, MD, PY, IPYNB ou CSV)`);
+  if (ext === "cs") return csharpParts(new TextDecoder().decode(data));
+  if (ext === "txt" || ext === "md" || CODE.test(name)) return [{ text: new TextDecoder().decode(data) }]; // views, csproj, json: whole file
+  throw new Error(`Formato não suportado: ${name} (use PDF, PPTX, TXT, MD, PY, IPYNB, CSV, CS, CSHTML, CSPROJ ou JSON)`);
 }
 
 /** One chunk per page/slide/cell group (long ones split). Page numbers are 1-based; omitted for single-part files. */
@@ -171,7 +180,7 @@ export async function extractChunks(files: { name: string; data: Uint8Array }[])
   for (const { name, data } of files) {
     const documentId = createHash("sha1").update(data).digest("hex").slice(0, 10);
     const pages = await pagesOf(name, data);
-    const code = /\.(py|ipynb)$/i.test(name); // keep indentation
+    const code = CODE.test(name); // keep indentation
     let i = 0;
     for (const { text: raw, page } of pages) {
       const text = code ? raw.trim() : clean(raw);

@@ -1,0 +1,39 @@
+﻿@model IReadOnlyList<Especialidade>
+
+@{
+    ViewData["title"] = "Lista de Especialidades";
+}
+
+
+
+<div class="page-header">
+    <h1 class="page-title">Especialidades</h1>
+    <a asp-action="Create" class="btn btn-primary">Nova especialidade</a>
+</div>
+
+@{
+
+    if (TempData["Mensagem"] != null)
+    {
+        <div class="text-info">
+        @TempData["Mensagem"]
+        </div>
+    }
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.Descricao</td>
+            </tr>
+        }
+    </tbody>
+</table>

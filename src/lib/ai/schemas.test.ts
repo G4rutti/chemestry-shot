@@ -42,3 +42,9 @@ test("normalizeQuestions: a ``` block pasted in the question moves to code", () 
   assert.equal(q.question, "O que imprime?");
   assert.equal(q.code, "print(np.mean([1, 3]))");
 });
+
+test("normalizeQuestions: double-escaped code (literal \\n on one line) becomes real lines; real \\n in strings kept", () => {
+  const q = (code: string) => normalizeQuestions([raw({ type: "multiple-choice", question: "O que faz?", options: ["a", "b"], correctAnswer: "a", code })], "t", material)[0].code;
+  assert.equal(q("app.UseRouting();\\napp.UseAuthorization();"), "app.UseRouting();\napp.UseAuthorization();");
+  assert.equal(q('print("a\\nb")\nprint(1)'), 'print("a\\nb")\nprint(1)');
+});

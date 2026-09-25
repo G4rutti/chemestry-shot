@@ -33,3 +33,16 @@ test("admin slides flagged, content kept, code untouched", async () => {
   assert.ok(!content.admin && words.admin && !code.admin);
   assert.match(code.text, /# comentário didático/);
 });
+
+test("C#/Razor: split by member only when big, indentation kept, never admin", async () => {
+  const method = (n: number) => `    [HttpPost]\r\n    public IActionResult Create${n}(Paciente p)\r\n    {\r\n        ${"_service.Salvar(p); ".repeat(15)}\r\n        return RedirectToAction(\"Index\");\r\n    }\r\n`;
+  const small = await extractChunks([file("Controllers/Home.cs", `public class HomeController : Controller\r\n{\r\n${method(0)}}`)]);
+  assert.equal(small.length, 1);
+  assert.match(small[0].text, /\n {4}\[HttpPost\]\n {4}public IActionResult Create0/);
+  const big = await extractChunks([file("Controllers/Big.cs", `public class Big : Controller\n{\n${Array.from({ length: 12 }, (_, i) => method(i)).join("\n")}}`)]);
+  assert.ok(big.length > 1 && big.every((c) => c.text.length <= 3000));
+  assert.ok(big.slice(1).every((c) => /^\[HttpPost\]/.test(c.text)), "chunks start at a member");
+  const [view] = await extractChunks([file("Views/Pacientes/Index.cshtml", "@model IEnumerable<Paciente>\n<h1>Contatos</h1>\n    @foreach (var p in Model) { }")]);
+  assert.ok(!view.admin);
+  assert.match(view.text, /\n {4}@foreach/);
+});

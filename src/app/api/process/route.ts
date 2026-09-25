@@ -14,7 +14,7 @@ export const maxDuration = 300;
 async function readFolder(subject: string) {
   const root = path.join(/*turbopackIgnore: true*/ process.cwd(), "docs", subject);
   const paths = (await readdir(/*turbopackIgnore: true*/ root, { withFileTypes: true, recursive: true }))
-    .filter((e) => e.isFile() && EXT.test(e.name))
+    .filter((e) => e.isFile() && EXT.test(e.name) && e.name !== "subject.json")
     .map((e) => path.join(/*turbopackIgnore: true*/ e.parentPath, e.name));
   return Promise.all(
     paths.map(async (p) => ({ name: path.relative(root, p).split(path.sep).join("/"), data: new Uint8Array(await readFile(/*turbopackIgnore: true*/ p)) })),
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
             .filter((f): f is File => f instanceof File && EXT.test(f.name))
             .map(async (f) => ({ name: f.name, data: new Uint8Array(await f.arrayBuffer()) })),
         );
-    if (!files.length) return Response.json({ error: "Nenhum arquivo .pdf, .pptx, .txt, .md, .py, .ipynb ou .csv enviado." }, { status: 400 });
+    if (!files.length) return Response.json({ error: "Nenhum arquivo .pdf, .pptx, .txt, .md, .py, .ipynb, .csv, .cs, .cshtml ou .json enviado." }, { status: 400 });
     const running = jobs.get(subject);
     if (running?.running) return Response.json(running, { status: 202 });
     const current: Job = { running: true, startedAt: Date.now() };

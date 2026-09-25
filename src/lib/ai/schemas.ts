@@ -69,7 +69,9 @@ export function normalizeTopics(raw: z.infer<typeof topicsSchema>, validChunkIds
 const TF = ["Verdadeiro", "Falso"];
 
 const FENCE = /```\w*\n?([\s\S]*?)(?:```|$)/;
-const cleanCode = (s?: string) => (s ?? "").replace(/^\s*```\w*\n?|\n?```\s*$/g, "").replace(/^\n+|\s+$/g, "");
+// some models double-escape: code on one line with literal "\n"; only then unescape (a real multi-line "\n" in a string literal stays)
+const unescapeLines = (s: string) => (!s.includes("\n") && s.includes("\\n") ? s.replace(/\\n/g, "\n").replace(/\\t/g, "\t") : s);
+const cleanCode = (s?: string) => unescapeLines(s ?? "").replace(/^\s*```\w*\n?|\n?```\s*$/g, "").replace(/^\n+|\s+$/g, "");
 
 /** Code importing a module the material never uses is an invented API ("keras" in a course without keras). */
 const inventsApi = (code: string, material?: string) =>

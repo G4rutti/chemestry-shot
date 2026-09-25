@@ -1,0 +1,26 @@
+﻿@model Paciente
+
+
+@{
+    ViewData["Title"] = "Detalhes do pacientes";
+}
+<h1>Detalhes do paciente</h1>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Nome)</dt>
+    <dd class="col-sm-9">@Model.Nome</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Cpf)</dt>
+    <dd class="col-sm-9">@Model.Cpf</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Telefone)</dt>
+    <dd class="col-sm-9">@Model.Telefone</dd>
+
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.DataNascimento)</dt>
+    <dd class="col-sm-9">@Model.DataNascimento</dd>
+
+
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+<a asp-action="Index" asp-route-id="@Model.Id" class="btn btn-secondary">Voltar</a>

@@ -1,0 +1,2680 @@
+{
+  "version": "87bd858fbb00",
+  "createdAt": "2026-09-25T16:42:19.793Z",
+  "demo": false,
+  "subject": {
+    "name": "Oficina ASP.NET",
+    "exam": "AV1",
+    "course": "Desenvolvimento Web com ASP.NET Core MVC",
+    "language": "pt-BR",
+    "profile": "Código C# de um projeto ASP.NET Core MVC (ClinicaASPNet) com Entity Framework Core e SQLite, mais transcrições das videoaulas. Prova: explicar o que um trecho de código faz, o que um comando (dotnet / EF Core CLI / Package Manager Console) faz, o que um método ou action retorna, e a configuração do projeto (Program.cs, injeção de dependência, appsettings, csproj, migrations, Razor views).",
+    "id": "oficina-aspnet"
+  },
+  "documents": [
+    {
+      "id": "13c40b1f07",
+      "name": "ClinicaASPNet.slnx"
+    },
+    {
+      "id": "c4395dec37",
+      "name": "ClinicaASPNet/appsettings.Development.json"
+    },
+    {
+      "id": "59481a6b58",
+      "name": "ClinicaASPNet/appsettings.json"
+    },
+    {
+      "id": "4f23c02547",
+      "name": "ClinicaASPNet/ClinicaASPNet.csproj"
+    },
+    {
+      "id": "83b1e36176",
+      "name": "ClinicaASPNet/Program.cs"
+    },
+    {
+      "id": "1ff2df910b",
+      "name": "ClinicaASPNet/Views/_ViewImports.cshtml"
+    },
+    {
+      "id": "7091c65830",
+      "name": "ClinicaASPNet/Views/_ViewStart.cshtml"
+    },
+    {
+      "id": "d6a5625cc8",
+      "name": "ClinicaASPNet/Views/Shared/Error.cshtml"
+    },
+    {
+      "id": "fd70b92a63",
+      "name": "ClinicaASPNet/Views/Shared/_Layout.cshtml"
+    },
+    {
+      "id": "9654999dfe",
+      "name": "ClinicaASPNet/Views/Shared/_ListaPacientes.cshtml"
+    },
+    {
+      "id": "c5ea73a40a",
+      "name": "ClinicaASPNet/Views/Shared/_ValidationScriptsPartial.cshtml"
+    },
+    {
+      "id": "2de689378b",
+      "name": "ClinicaASPNet/Views/Pacientes/Create.cshtml"
+    },
+    {
+      "id": "9e130de81b",
+      "name": "ClinicaASPNet/Views/Pacientes/Delete.cshtml"
+    },
+    {
+      "id": "a30e7bfa7e",
+      "name": "ClinicaASPNet/Views/Pacientes/Details.cshtml"
+    },
+    {
+      "id": "ee7006cec4",
+      "name": "ClinicaASPNet/Views/Pacientes/Edit.cshtml"
+    },
+    {
+      "id": "5a42d25bd0",
+      "name": "ClinicaASPNet/Views/Pacientes/Index.cshtml"
+    },
+    {
+      "id": "992f52c6ab",
+      "name": "ClinicaASPNet/Views/Home/Index.cshtml"
+    },
+    {
+      "id": "d8ddb6bffa",
+      "name": "ClinicaASPNet/Views/Home/Privacy.cshtml"
+    },
+    {
+      "id": "c4d9ab6f4d",
+      "name": "ClinicaASPNet/Views/Especialidade/Create.cshtml"
+    },
+    {
+      "id": "43a69ac584",
+      "name": "ClinicaASPNet/Views/Especialidade/Index.cshtml"
+    },
+    {
+      "id": "7f240e5194",
+      "name": "ClinicaASPNet/ViewModels/EspecialidadeViewModel.cs"
+    },
+    {
+      "id": "61df2a84d5",
+      "name": "ClinicaASPNet/ViewModels/PacienteViewModel.cs"
+    },
+    {
+      "id": "815050b880",
+      "name": "ClinicaASPNet/Services/EspecialidadeService.cs"
+    },
+    {
+      "id": "8d89d77bd6",
+      "name": "ClinicaASPNet/Services/PacienteService.cs"
+    },
+    {
+      "id": "5fb716e905",
+      "name": "ClinicaASPNet/Repositories/RepositoryBase.cs"
+    },
+    {
+      "id": "5859007d82",
+      "name": "ClinicaASPNet/Repositories/RepositoryEspecialidade.cs"
+    },
+    {
+      "id": "b09d75a487",
+      "name": "ClinicaASPNet/Repositories/RepositoryPaciente.cs"
+    },
+    {
+      "id": "7914a36e44",
+      "name": "ClinicaASPNet/Properties/launchSettings.json"
+    },
+    {
+      "id": "0e31825fab",
+      "name": "ClinicaASPNet/Models/ErrorViewModel.cs"
+    },
+    {
+      "id": "bd319e499c",
+      "name": "ClinicaASPNet/Models/Especialidade.cs"
+    },
+    {
+      "id": "987ae51f48",
+      "name": "ClinicaASPNet/Models/Paciente.cs"
+    },
+    {
+      "id": "0783824b8d",
+      "name": "ClinicaASPNet/Models/Profissional.cs"
+    },
+    {
+      "id": "ebe4793438",
+      "name": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs"
+    },
+    {
+      "id": "865ebf137e",
+      "name": "ClinicaASPNet/Migrations/20260829001635_CriacaoProfissional.cs"
+    },
+    {
+      "id": "4fdc5885f0",
+      "name": "ClinicaASPNet/Migrations/20260911224542_CriarProfissionalEspecialidades.cs"
+    },
+    {
+      "id": "4e43dc1dbc",
+      "name": "ClinicaASPNet/Interfaces/IRepositotyBase.cs"
+    },
+    {
+      "id": "9841ce2bdb",
+      "name": "ClinicaASPNet/Data/ClinicaDbContext.cs"
+    },
+    {
+      "id": "a7c484af6f",
+      "name": "ClinicaASPNet/Controllers/EspecialidadeController.cs"
+    },
+    {
+      "id": "26e2729762",
+      "name": "ClinicaASPNet/Controllers/HomeController.cs"
+    },
+    {
+      "id": "a843427f4d",
+      "name": "ClinicaASPNet/Controllers/PacientesController.cs"
+    },
+    {
+      "id": "d3669e2ade",
+      "name": "Aulas (transcrição)/Aula 04-09 - Parte 1.txt"
+    },
+    {
+      "id": "238733089c",
+      "name": "Aulas (transcrição)/Aula 04-09 - Parte 2.txt"
+    },
+    {
+      "id": "a45e1cf019",
+      "name": "Aulas (transcrição)/Aula 11-09.txt"
+    },
+    {
+      "id": "fcfb224117",
+      "name": "Aulas (transcrição)/Aula 21-08 - Parte 1.txt"
+    },
+    {
+      "id": "fae7355510",
+      "name": "Aulas (transcrição)/Aula 21-08 - Parte 2.txt"
+    },
+    {
+      "id": "4e777ac299",
+      "name": "Aulas (transcrição)/Aula 28-08 - Parte 1.txt"
+    },
+    {
+      "id": "d5c146dbd9",
+      "name": "Aulas (transcrição)/Aula 28-08 - Parte 2.txt"
+    }
+  ],
+  "topics": [
+    {
+      "id": "viewmodels-e-data-annotations",
+      "name": "ViewModels e Data Annotations",
+      "summary": "Explicação de como as view models são usadas para expor dados às views, contendo propriedades com data annotations para validação e exibição.",
+      "examImportance": 5,
+      "keyPoints": [
+        "PacienteViewModel contém validações de Nome, CPF, Telefone, DataNascimento e propriedade Idade calculada.",
+        "EspecialidadeViewModel tem Nome e Descrição com atributos Required e StringLength.",
+        "Métodos estáticos assíncronos ListarTodos e SelecionarPorId acessam o DbContext.",
+        "Uso nas views via @model e nas controllers para receber dados de formulários.",
+        "Separação entre model de domínio e view model para evitar exposição direta de entidades."
+      ],
+      "chunkIds": [
+        "61df2a84d5-0",
+        "61df2a84d5-1",
+        "7f240e5194-0"
+      ]
+    },
+    {
+      "id": "padrao-repository-e-repositorybase",
+      "name": "Padrão Repository e RepositoryBase",
+      "summary": "Descreve a implementação genérica de repositório que encapsula acesso ao Entity Framework Core, fornecendo métodos CRUD síncronos e assíncronos.",
+      "examImportance": 5,
+      "keyPoints": [
+        "RepositoryBase<TEntity> implementa IRepositotyBase com métodos como IncluirAsync, AlterarAsync, ExcluirAsync, SelecionarPorIdAsync, ListarTodosAsync.",
+        "Repositórios concretos (RepositoryPaciente, RepositoryEspecialidade) herdam de RepositoryBase sem adicionar lógica específica.",
+        "Uso de DbSet<TEntity> e contexto para operações de banco.",
+        "Métodos síncronos chamam SaveChanges diretamente; assíncronos usam SaveChangesAsync.",
+        "Interface IRepositotyBase define contrato para repositórios, permitindo injeção de dependência e teste."
+      ],
+      "chunkIds": [
+        "5fb716e905-0",
+        "5859007d82-0",
+        "b09d75a487-0",
+        "4e43dc1dbc-0"
+      ]
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "name": "Injeção de Dependência e Configuração do Program.cs",
+      "summary": "Mostra como o DbContext e serviços são registrados no contêiner de injeção de dependência no Program.cs, além da configuração do pipeline de middleware.",
+      "examImportance": 5,
+      "keyPoints": [
+        "builder.Services.AddDbContext<ClinicaDbContext> options => options.UseSqlite(builder.Configuration.GetConnectionString(\"ClinicaConnection\")).",
+        "builder.Services.AddControllersWithViews() para suporte a MVC.",
+        "Middleware: UseHttpsRedirection, UseRouting, UseAuthorization, MapStaticAssets, MapControllerRoute com rota padrão {controller=Pacientes}/{action=Index}/{id?}.",
+        "Uso de builder.Configuration para ler connection strings do appsettings.json.",
+        "Registro de serviços customizados (ex: PacienteService, EspecialidadeService) não aparece no Program.cs fornecido, mas padrão seria similar."
+      ],
+      "chunkIds": [
+        "83b1e36176-0",
+        "59481a6b58-0",
+        "c4395dec37-0",
+        "4f23c02547-0"
+      ]
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "name": "Migrações EF Core e Atualização do Banco de Dados",
+      "summary": "Explica o uso dos comandos dotnet ef migrations add e dotnet database update para criar e aplicar mudanças no esquema do banco SQLite com base no DbContext e nas migrations.",
+      "examImportance": 5,
+      "keyPoints": [
+        "Comandos: dotnet ef migrations add <Nome> e dotnet database update.",
+        "Migrations geram classes que herdam de Migration com métodos Up e Down contendo criação de tabelas, índices e chaves estrangeiras.",
+        "Exemplo: migration CriacaoPacientes cria tabela Pacientes com colunas Id, Nome, Cpf, Telefone, DataNascimento, CriadoEm, AtualizadoEm e índice único em Cpf.",
+        "Migration CriarProfissionalEspecialidades cria tabelas Especialidades, Profissionais e tabela de junção ProfissionalEspecialidades com chaves estrangeiras em cascata.",
+        "O banco clínica.db é criado automaticamente na primeira atualização se não existir."
+      ],
+      "chunkIds": [
+        "ebe4793438-0",
+        "865ebf137e-0",
+        "4fdc5885f0-0",
+        "4fdc5885f0-1",
+        "4fdc5885f0-2",
+        "4fdc5885f0-3"
+      ]
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views",
+      "name": "Views Razor, Tag Helpers e Partial Views",
+      "summary": "Descreve a estrutura das views Razor, uso de tag helpers para geração de links e formulários, e a reutilização de trechos de código via partial views como _ListaPacientes.",
+      "examImportance": 5,
+      "keyPoints": [
+        "_ViewImports traz namespaces e adiciona tag helpers.",
+        "_ViewStart define layout padrão \"_Layout\".",
+        "_Layout contém menu dinâmico baseado no controller atual e renderiza @RenderBody().",
+        "Tag helpers como asp-controller, asp-action, asp-route-id geram URLs para actions.",
+        "Partial view _ListaPacientes recebe IEnumerable<PacienteViewModel> e renderiza tabela com botões de ação (Detalhes, Editar, Excluir).",
+        "Uso de @model para tipar a view e @Html.DisplayNameFor para exibir nomes de propriedades.",
+        "Formulários utilizam asp-antiforgery, asp-validation-summary, asp-validation-for e atributos de Bootstrap para estilização."
+      ],
+      "chunkIds": [
+        "1ff2df910b-0",
+        "7091c65830-0",
+        "fd70b92a63-0",
+        "9654999dfe-0",
+        "5a42d25bd0-0",
+        "2de689378b-0",
+        "ee7006cec4-0",
+        "a30e7bfa7e-0",
+        "9e130de81b-0",
+        "c5ea73a40a-0"
+      ]
+    },
+    {
+      "id": "controllers-e-acoes-crud",
+      "name": "Controllers e Ações CRUD",
+      "summary": "Explica como os controllers PacientesController e EspecialidadeController implementam as ações padrão de criação, leitura, atualização e exclusão (CRUD) utilizando repositórios e view models.",
+      "examImportance": 5,
+      "keyPoints": [
+        "Métodos Index recebem parâmetro opcional de busca e retornam view com lista de view models.",
+        "Actions Create (GET) exibem view vazia; Create (POST) validam ModelState, verificam duplicidade de CPF, incluem entidade via repositório e redirecionam para Index com mensagem de sucesso.",
+        "Actions Details e Edit (GET) selecionam entidade por ID e retornam view; Edit (POST) atualiza entidade após validação.",
+        "Action Delete (GET) exibe view de confirmação; Delete (POST) remove entidade e redireciona.",
+        "Uso de atributos [HttpGet], [HttpPost], [ValidateAntiForgeryToken] e métodos como RedirectToAction.",
+        "Uso de TempData para passar mensagens entre requisições."
+      ],
+      "chunkIds": [
+        "a843427f4d-0",
+        "a843427f4d-1",
+        "a7c484af6f-0"
+      ]
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json",
+      "name": "Configuração de Connection Strings em appsettings.json",
+      "summary": "Mostra como a string de conexão com o banco SQLite é definida em appsettings.json e utilizada pelo DbContext via injeção de dependência.",
+      "examImportance": 4,
+      "keyPoints": [
+        "Arquivo appsettings.json contém seção \"ConnectionStrings\" com chave \"ClinicaConnection\" apontando para \"Data Source=clinica.db\".",
+        "appsettings.Development.json pode sobrescrever níveis de log em ambiente de desenvolvimento.",
+        "O DbContext é configurado em Program.cs usando builder.Configuration.GetConnectionString(\"ClinicaConnection\").",
+        "Essa abordagem permite trocar a conexão sem recompilar o código.",
+        "Em desenvolvimento, o banco é criado automaticamente na primeira migração."
+      ],
+      "chunkIds": [
+        "59481a6b58-0",
+        "c4395dec37-0",
+        "83b1e36176-0"
+      ]
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "name": "Camada de Serviço e Separação de Regras de Negócio",
+      "summary": "Descreve como os serviços PacienteService e EspecialidadeService encapsulam operações de negócio, coordenando entre controllers e repositórios, mantendo os controllers leves.",
+      "examImportance": 4,
+      "keyPoints": [
+        "PacienteService possui métodos como IncluirPacienteAsync, EditarPacienteAsync, ListarTodosAsync, SelecionarPorIdAsync e ExcluirAsync que recebem PacienteViewModel ou IDs e delegam ao RepositoryPaciente ou PacienteViewModel.",
+        "EspecialidadeService contém métodos ListarTodosAsync, SelecionarAsync, ExcluirAsync, AdicionarAsync e EditarAsync que trabalham com EspecialidadeViewModel e RepositoryEspecialidade.",
+        "Os serviços recebem ClinicaDbContext via construtor e instanciam repositórios internamente.",
+        "Essa camada permite reutilização de lógica e facilita testes unitários.",
+        "Controllers chamam os serviços ao invés de acessar repositórios diretamente."
+      ],
+      "chunkIds": [
+        "8d89d77bd6-0",
+        "815050b880-0"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "viewmodels-e-data-annotations-2d070073",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "multiple-choice",
+      "question": "Qual é a principal finalidade de um ViewModel em um projeto ASP.NET Core MVC?",
+      "explanation": "ViewModels são usados para adaptar os dados do modelo de domínio às necessidades da view, incluindo validação e formatação.",
+      "memoryTip": "View = ViewModel: modelo pensado para a view.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/EspecialidadeViewModel.cs",
+        "page": 1
+      },
+      "options": [
+        "Representar diretamente as tabelas do banco de dados.",
+        "Encapsular dados e lógica de validação especificamente para uma view.",
+        "Substituir a necessidade de controllers.",
+        "Configurar rotas da aplicação."
+      ],
+      "correctAnswer": "Encapsular dados e lógica de validação especificamente para uma view."
+    },
+    {
+      "id": "viewmodels-e-data-annotations-1c36ffaa",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "multiple-choice",
+      "question": "Na classe EspecialidadeViewModel, qual atributo garante que a propriedade Nome tenha no mínimo 3 caracteres?",
+      "explanation": "O parâmetro MinimumLength do atributo StringLength define o tamanho mínimo permitido.",
+      "memoryTip": "StringLength(min,max) → mínimo e máximo.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/EspecialidadeViewModel.cs",
+        "page": 1
+      },
+      "options": [
+        "[Required]",
+        "[StringLength(100)]",
+        "[StringLength(100, MinimumLength = 3)]",
+        "[Display(Name = \"Nome\")]"
+      ],
+      "correctAnswer": "[StringLength(100, MinimumLength = 3)]"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-6e68401f",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "true-false",
+      "question": "O atributo [Display(Name = \"Nome Completo\")] altera o valor da propriedade para \"Nome Completo\".",
+      "explanation": "Display afeta apenas o nome exibido em labels e validação, não muda o valor armazenado na propriedade.",
+      "memoryTip": "Display = como mostrar, não o que guardar.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/PacienteViewModel.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Falso"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-9beae669",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "multiple-choice",
+      "question": "Qual método da classe PacienteViewModel retorna um único paciente pelo seu ID?",
+      "explanation": "O método estático async SelecionarPorId busca o paciente no contexto e retorna um PacienteViewModel preenchido.",
+      "memoryTip": "SelecionarPorId = selecionar um por ID.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/PacienteViewModel.cs",
+        "page": 1
+      },
+      "code": "public static async Task<PacienteViewModel> SelecionarPorId(\n    ClinicaDbContext db, int id)\n{ ... }",
+      "options": [
+        "ListarTodos",
+        "SelecionarPorId",
+        "Construtor padrão",
+        "Idade"
+      ],
+      "correctAnswer": "SelecionarPorId"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-9bce8412",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "calculation",
+      "question": "Se a DataNascimento de um paciente é 01/03/1990 e o ano corrente é 2025, qual será o valor de Idade calculado como DateTime.Now.Year - DataNascimento.Year?",
+      "explanation": "2025 - 1990 = 35. O cálculo ignora mês e dia, considerando apenas a diferença de anos.",
+      "memoryTip": "Subtrair anos → idade aproximada em anos completos.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/PacienteViewModel.cs",
+        "page": 1
+      },
+      "code": "Idade = DateTime.Now.Year - paciente.DataNascimento.Year;",
+      "correctAnswer": "35"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-60b6e85b",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "true-false",
+      "question": "O atributo [Phone] valida que o telefone segue um formato específico brasileiro (ex: (xx) xxxx-xxxx).",
+      "explanation": "[Phone] verifica apenas se o valor parece um número de telefone genérico, não impõe um padrão brasileiro específico.",
+      "memoryTip": "Phone = formato internacional genérico.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/PacienteViewModel.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Falso"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-e50fe3f8",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "multiple-choice",
+      "question": "Na view Create.cshtml de Pacientes, qual tag helper gera o elemento input vinculado à propriedade Nome?",
+      "explanation": "asp-for vincula o input à propriedade do modelo e gera o id e name corretos.",
+      "memoryTip": "asp-for = propriedade do model.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Views/Pacientes/Create.cshtml",
+        "page": 1
+      },
+      "code": "<label asp-for=\"Nome\" class=\"form-label\"></label>\n<input asp-for=\"Nome\" class=\"form-control\" />\n<span asp-validation-for=\"Nome\" class=\"text-danger\"></span>",
+      "options": [
+        "asp-for=\"Nome\"",
+        "asp-validation-for=\"Nome\"",
+        "label asp-for=\"Nome\"",
+        "input asp-for=\"Nome\""
+      ],
+      "correctAnswer": "asp-for=\"Nome\""
+    },
+    {
+      "id": "viewmodels-e-data-annotations-615c2f20",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "multiple-choice",
+      "question": "Qual atributo é usado para definir o nome amigável que aparecerá em labels para a propriedade DataNascimento?",
+      "explanation": "Display permite especificar o texto que será mostrado em @Html.DisplayNameFor ou labels gerados por tag helpers.",
+      "memoryTip": "Display = nome para exibição.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/PacienteViewModel.cs",
+        "page": 1
+      },
+      "options": [
+        "[DataType(DataType.Date)]",
+        "[Display(Name = \"Data de Nascimento\")]",
+        "[Required(ErrorMessage = \"Campo obrigatório\")]",
+        "[StringLength(10)]"
+      ],
+      "correctAnswer": "[Display(Name = \"Data de Nascimento\")]"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-24e6c629",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "true-false",
+      "question": "O atributo [Required] define automaticamente um valor padrão de string vazia para a propriedade.",
+      "explanation": "Required apenas exige que o campo tenha um valor; o valor padrão vem da inicialização da propriedade (ex: = string.Empty).",
+      "memoryTip": "Required = obriga presença, não define padrão.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/EspecialidadeViewModel.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Falso"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-b34a4c43",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "calculation",
+      "question": "Considerando a anotação [StringLength(100, MinimumLength = 3)] aplicada à propriedade Nome, qual é o número máximo de caracteres permitido?",
+      "explanation": "O primeiro parâmetro de StringLength estabelece o comprimento máximo permitido.",
+      "memoryTip": "StringLength(max, min) → primeiro é máximo.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/EspecialidadeViewModel.cs",
+        "page": 1
+      },
+      "code": "[StringLength(100, MinimumLength = 3)]\npublic string Nome { get; set; } = string.Empty;",
+      "correctAnswer": "100"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-d1e2aaab",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "multiple-choice",
+      "question": "Na EspecialidadeViewModel, quais atributos juntos garantem que a propriedade Descricao seja obrigatória e tenha no máximo 300 caracteres?",
+      "explanation": "Required assegura que o campo não esteja vazio; StringLength(300) limita o tamanho máximo.",
+      "memoryTip": "Required + StringLength = obrigatório e tamanho máximo.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/EspecialidadeViewModel.cs",
+        "page": 1
+      },
+      "code": "[Required(ErrorMessage = \"Campo obrigatório\")]\n[StringLength(300)]\npublic string Descricao { get; set; } = string.Empty;",
+      "options": [
+        "Apenas [Required]",
+        "Apenas [StringLength(300)]",
+        "Ambos [Required] e [StringLength(300)]",
+        "[MaxLength(300)]"
+      ],
+      "correctAnswer": "Ambos [Required] e [StringLength(300)]"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-3e6daf68",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "fill",
+      "question": "Em PacienteViewModel, a propriedade que armazena a idade do paciente chama-se ___ .",
+      "explanation": "A propriedade Idade é preenchida pelo método ListarTodos e SelecionarPorId com a diferença de anos.",
+      "memoryTip": "Idade = idade calculada.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/PacienteViewModel.cs",
+        "page": 1
+      },
+      "correctAnswer": "Idade"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-aa359720",
+      "topicId": "viewmodels-e-data-annotations",
+      "type": "multiple-choice",
+      "question": "Qual afirmação sobre ViewModels é FALSA?",
+      "explanation": "ViewModels são classes independentes; não há herança obrigatória do modelo de entidade.",
+      "memoryTip": "ViewModel é classe própria, não herda de Model.",
+      "difficulty": 3,
+      "source": {
+        "document": "ClinicaASPNet/ViewModels/PacienteViewModel.cs",
+        "page": 1
+      },
+      "options": [
+        "Eles podem conter propriedades que não existem no modelo de entidade.",
+        "Eles são usados para evitar excesso de dados (over‑fetching) nas views.",
+        "Eles herdam da classe de modelo de entidade.",
+        "Eles podem incluir Data Annotations para validação."
+      ],
+      "correctAnswer": "Eles herdam da classe de modelo de entidade."
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-fcc11fb6",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "multiple-choice",
+      "question": "O que o método AlterarAsync faz?",
+      "explanation": "O método atribui EntityState.Modified ao objeto e chama SaveChangesAsync para persistir as alterações.",
+      "memoryTip": "Async = assíncrono, Modified = modificar.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "code": "public async Task AlterarAsync(TEntity objeto)\n{\n    _context.Entry<TEntity>(objeto).State = EntityState.Modified;\n    await _context.SaveChangesAsync();\n}",
+      "options": [
+        "Marca o objeto como adicionado e salva as alterações de forma síncrona.",
+        "Define o estado do objeto como Modificado e salva as alterações de forma assíncrona.",
+        "Remove o objeto do contexto e salva as alterações.",
+        "Retorna o objeto após atualizá-lo no banco de dados.",
+        "Nenhuma das alternativas."
+      ],
+      "correctAnswer": "Define o estado do objeto como Modificado e salva as alterações de forma assíncrona."
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-cbfa5b47",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "multiple-choice",
+      "question": "O que o método IncluirAsync faz?",
+      "explanation": "AddAsync adiciona a entidade de forma assíncrona; em seguida SaveChangesAsync persiste as mudanças.",
+      "memoryTip": "AddAsync + SaveChangesAsync = inclusão assíncrona.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "code": "public async Task IncluirAsync(TEntity objeto)\n{\n   await _context.Set<TEntity>().AddAsync(objeto);\n    await _context.SaveChangesAsync();\n}",
+      "options": [
+        "Adiciona o objeto ao DbSet de forma síncrona e salva.",
+        "Adiciona o objeto de forma assíncrona e salva as alterações de forma assíncrona.",
+        "Atualiza o objeto e salva.",
+        "Remove o objeto.",
+        "Nenhuma das alternativas."
+      ],
+      "correctAnswer": "Adiciona o objeto de forma assíncrona e salva as alterações de forma assíncrona."
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-c04b21c0",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "multiple-choice",
+      "question": "Qual é a restrição de tipo aplicada ao parâmetro genérico TEntity em RepositoryBase<TEntity>?",
+      "explanation": "A classe só aceita tipos de referência (class), já que entidades são classes.",
+      "memoryTip": "Repositório trabalha com entidades, que são classes.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "options": [
+        "where TEntity : struct",
+        "where TEntity : class",
+        "where TEntity : new()",
+        "where TEntity : IRepositotyBase<TEntity>",
+        "where TEntity : DbContext"
+      ],
+      "correctAnswer": "where TEntity : class"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-dd17728b",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "true-false",
+      "question": "O método SelecionarPorIdAsync utiliza DbSet.FindAsync para buscar uma entidade pelo seu identificador inteiro.",
+      "explanation": "A implementação chama await DbSet.FindAsync([id]), que busca a entidade pela chave primária de forma assíncrona.",
+      "memoryTip": "FindAsync = busca por chave primária assíncrona.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-9338137c",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "true-false",
+      "question": "A classe RepositoryEspecialidade herda de RepositoryBase<Especialidade> e não adiciona nenhum método próprio.",
+      "explanation": "RepositoryEspecialidade apenas chama o construtor da base e não declara métodos adicionais.",
+      "memoryTip": "Herda tudo do base.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryEspecialidade.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-30a02c63",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "true-false",
+      "question": "O método CpfJaCadastrado da RepositoryPaciente utiliza ListarTodos() que retorna IReadOnlyList<Paciente> e então verifica se algum paciente possui o mesmo CPF, ignorando opcionalmente um ID.",
+      "explanation": "O método chama this.ListarTodos() (que retorna IReadOnlyList<Paciente>) e usa Any para filtrar pelo CPF e ID.",
+      "memoryTip": "ListarTodos fornece a coleção para busca.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryPaciente.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-f81ce4fb",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "fill",
+      "question": "Preencha a lacuna ___ com o nome do método síncrono que retorna um IReadOnlyList<TEntity>.",
+      "explanation": "O método síncrono ListarTodos retorna a lista completa de entidades.",
+      "memoryTip": "Síncrono sem Async retorna lista.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Interfaces/IRepositotyBase.cs",
+        "page": 1
+      },
+      "code": "IReadOnlyList<TEntity> ___();",
+      "correctAnswer": "ListarTodos"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-f4299d66",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "fill",
+      "question": "Complete a restrição de tipo genérica na declaração da classe RepositoryBase.",
+      "explanation": "A classe só aceita tipos de referência, indicado por where TEntity : class.",
+      "memoryTip": "where TEntity : class indica que TEntity deve ser uma classe.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "code": "public class RepositoryBase<TEntity> : IRepositotyBase<TEntity> where TEntity: ___",
+      "correctAnswer": "class"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-a79d7afc",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "fill",
+      "question": "Qual método é usado para adicionar uma entidade de forma assíncrona ao DbSet?",
+      "explanation": "AddAsync é o método do DbSet que adiciona uma entidade de forma assíncrona.",
+      "memoryTip": "AddAsync = inclusão assíncrona.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "code": "await _context.Set<TEntity>().___(objeto);",
+      "correctAnswer": "AddAsync"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-eae4f994",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "calculation",
+      "question": "Quantos métodos síncronos são declarados na interface IRepositotyBase<TEntity>?",
+      "explanation": "A interface declara cinco métodos síncronos: ListarTodos, SelecionarPorId, Incluir, Alterar e Excluir.",
+      "memoryTip": "Cinco operações CRUD síncronas.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Interfaces/IRepositotyBase.cs",
+        "page": 1
+      },
+      "correctAnswer": "5"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-22b3d057",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "calculation",
+      "question": "Quantos métodos assíncronos são declarados na interface IRepositotyBase<TEntity>?",
+      "explanation": "A interface declara cinco métodos assíncronos: ListarTodosAsync, SelecionarPorIdAsync, IncluirAsync, AlterarAsync e ExcluirAsync.",
+      "memoryTip": "Cada operação CRUD tem versão assíncrona.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Interfaces/IRepositotyBase.cs",
+        "page": 1
+      },
+      "correctAnswer": "5"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-f4dd40b9",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "calculation",
+      "question": "Quantos métodos no total (síncronos + assíncronos) estão definidos na interface IRepositotyBase<TEntity>?",
+      "explanation": "São 5 métodos síncronos + 5 métodos assíncronos = 10 métodos no total.",
+      "memoryTip": "Dobro das operações CRUD.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Interfaces/IRepositotyBase.cs",
+        "page": 1
+      },
+      "correctAnswer": "10"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-355a1126",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "multiple-choice",
+      "question": "O que o método ListarTodosAsync retorna?",
+      "explanation": "O método tem assinatura Task<IReadOnlyList<TEntity>> e retorna await _context.Set<TEntity>().ToListAsync().",
+      "memoryTip": "Async devolve Task.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "code": "public async Task<IReadOnlyList<TEntity>> ListarTodosAsync()\n{\n      return await _context.Set<TEntity>().ToListAsync();\n}",
+      "options": [
+        "Uma lista de objetos TEntity de forma síncrona.",
+        "Uma Task que, quando concluída, fornece uma lista somente leitura de TEntity.",
+        "Um IReadOnlyList<TEntity> preenchido imediatamente.",
+        "Um objeto único do tipo TEntity.",
+        "Nada (void)."
+      ],
+      "correctAnswer": "Uma Task que, quando concluída, fornece uma lista somente leitura de TEntity."
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-2b4075ce",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "multiple-choice",
+      "question": "O que o construtor de RepositoryBase faz?",
+      "explanation": "O construtor recebe o contexto já criado pelo DI e inicializa o DbSet para a entidade genérica.",
+      "memoryTip": "Construtor recebe contexto e prepara DbSet.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "code": "public RepositoryBase(ClinicaDbContext context)\n{\n    _context = context;\n    DbSet = context.Set<TEntity>();\n}",
+      "options": [
+        "Cria uma nova instância de ClinicaDbContext e a atribui ao campo _context.",
+        "Recebe um ClinicaDbContext via injeção de dependência, armazena‑o em _context e inicializa DbSet com o conjunto de entidades TEntity.",
+        "Registra o repositório no contêiner de serviços.",
+        "Carrega todas as entidades do banco de memória.",
+        "Nenhuma das alternativas."
+      ],
+      "correctAnswer": "Recebe um ClinicaDbContext via injeção de dependência, armazena‑o em _context e inicializa DbSet com o conjunto de entidades TEntity."
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-8c600bdb",
+      "topicId": "padrao-repository-e-repositorybase",
+      "type": "multiple-choice",
+      "question": "Qual é o objetivo principal do padrão Repository aplicado neste projeto?",
+      "explanation": "O repositório abstrai o acesso ao banco, fornecendo métodos CRUD que isolam o controller do EF Core.",
+      "memoryTip": "Repositório = intermediário entre controller e EF.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "options": [
+        "Gerenciar a navegação entre views Razor.",
+        "Centralizar o acesso aos dados, encapsulando a interação com o Entity Framework Core.",
+        "Configurar o pipeline de middleware do ASP.NET Core.",
+        "Definir rotas da aplicação.",
+        "Realizar validação de dados nas ViewModels."
+      ],
+      "correctAnswer": "Centralizar o acesso aos dados, encapsulando a interação com o Entity Framework Core."
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-25314e36",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "multiple-choice",
+      "question": "O que o trecho de código a seguir faz?",
+      "explanation": "O método Up da migration cria a tabela Pacientes definindo suas colunas, tipos, restrições e chave primária.",
+      "memoryTip": "Lembre-se: Up = subir mudanças (criar/alterar).",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs",
+        "page": 1
+      },
+      "code": "migrationBuilder.CreateTable(\n                name: \"Pacientes\",\n                columns: table => new\n                {\n                    Id = table.Column<int>(type: \"INTEGER\", nullable: false)\n                        .Annotation(\"Sqlite:Autoincrement\", true),\n                    Nome = table.Column<string>(type: \"TEXT\", maxLength: 100, nullable: false),\n                    Cpf = table.Column<string>(type: \"varchar(100)\", nullable: false),\n                    Telefone = table.Column<string>(type: \"TEXT\", maxLength: 100, nullable: false),\n                    DataNascimento = table.Column<DateTime>(type: \"date\", nullable: false),\n                    CriadoEm = table.Column<DateTime>(type: \"datetime2\", nullable: false),\n                    AtualizadoEm = table.Column<DateTime>(type: \"datetime2\", nullable: false)\n                },\n                constraints: table =>\n                {\n                    table.PrimaryKey(\"PK_Pacientes\", x => x.Id);\n                });",
+      "options": [
+        "Cria a tabela Pacientes com colunas e índices.",
+        "Remove a tabela Pacientes do banco de dados.",
+        "Altera o tipo da coluna Nome para varchar(50).",
+        "Adiciona uma coluna CPF à tabela Profissionais."
+      ],
+      "correctAnswer": "Cria a tabela Pacientes com colunas e índices."
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-50397fa4",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "true-false",
+      "question": "O método Down da migration CriacaoPacientes remove a tabela Pacientes do banco de dados.",
+      "explanation": "No método Down, há migrationBuilder.DropTable(name: \"Pacientes\");, que exclui a tabela.",
+      "memoryTip": "Down desfaz o que foi feito no Up.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-816777fa",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "fill",
+      "question": "Na migration CriacaoPacientes, a coluna Id está anotada com ___ para habilitar autoincremento no SQLite.",
+      "explanation": "A annotation .Annotation(\"Sqlite:Autoincrement\", true) faz o SQLite gerar valores automáticos para a chave primária.",
+      "memoryTip": "Pense em \"Autoincrement\" como auto‑número.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs",
+        "page": 1
+      },
+      "correctAnswer": "[Sqlite:Autoincrement]"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-d4707505",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "calculation",
+      "question": "Quantas colunas a tabela Pacientes possui na migration CriacaoPacientes?",
+      "explanation": "As colunas são: Id, Nome, Cpf, Telefone, DataNascimento, CriadoEm, AtualizadoEm.",
+      "memoryTip": "Conte as linhas dentro do bloco columns: table => new { ... }.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs",
+        "page": 1
+      },
+      "correctAnswer": "7"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-7dc6c1ba",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "multiple-choice",
+      "question": "Qual comando aplica as migrations pendentes ao banco de dados SQLite?",
+      "explanation": "O comando database update executa as migrations ainda não aplicadas, atualizando o esquema do banco.",
+      "memoryTip": "update = atualizar o banco.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "options": [
+        "dotnet ef migrations add",
+        "dotnet ef database update",
+        "dotnet ef migrations remove",
+        "dotnet ef migrations list"
+      ],
+      "correctAnswer": "dotnet ef database update"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-5051e202",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "true-false",
+      "question": "O comando dotnet ef migrations add InitialCreate gera uma classe C# que herda de Migration.",
+      "explanation": "Cada migration criada pelo EF Core é uma classe pública que herda de Microsoft.EntityFrameworkCore.Migrations.Migration.",
+      "memoryTip": "Lembre-se: migration = classe que herda de Migration.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-7a550fda",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "fill",
+      "question": "Na migration CriarProfissionalEspecialidades, a coluna CPF é ___ da tabela Profissionais.",
+      "explanation": "O método Up contém migrationBuilder.DropColumn(name: \"CPF\", table: \"Profissionais\");.",
+      "memoryTip": "DropColumn = remover coluna.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260911224542_CriarProfissionalEspecialidades.cs",
+        "page": 1
+      },
+      "correctAnswer": "removida"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-1fa65104",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "multiple-choice",
+      "question": "Qual tipo de dados é usado para a coluna Id nas migrations mostradas no material?",
+      "explanation": "Todas as migrations definem Id como table.Column<int>(type: \"INTEGER\") com annotation Sqlite:Autoincrement.",
+      "memoryTip": "No SQLite, chaves autoincrementáveis são INTEGER.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs",
+        "page": 1
+      },
+      "options": [
+        "INTEGER",
+        "BIGINT",
+        "INT",
+        "GUID"
+      ],
+      "correctAnswer": "INTEGER"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-1bf84c9e",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "calculation",
+      "question": "Quantos índices únicos são criados na tabela Pacientes na migration CriacaoPacientes?",
+      "explanation": "É criado apenas um índice único: migrationBuilder.CreateIndex(name: \"IX_Pacientes_Cpf\", table: \"Pacientes\", column: \"Cpf\", unique: true);",
+      "memoryTip": "Índice único impede valores duplicados naquela coluna.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs",
+        "page": 1
+      },
+      "correctAnswer": "1"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-0060fb0e",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "true-false",
+      "question": "O método Down de uma migration é usado para aplicar a migration ao banco de dados.",
+      "explanation": "O método Down reverte as mudanças feitas pelo Up; a aplicação é feita pelo Up (ou pelo comando update).",
+      "memoryTip": "Down = desfazer, Up = aplicar.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Falso"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-0dd21e92",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "multiple-choice",
+      "question": "Na migration CriarProfissionalEspecialidades, qual nova tabela é criada para armazenar o relacionamento muitos‑para‑muitos entre Profissionais e Especialidades?",
+      "explanation": "O código cria a tabela ProfissionalEspecialidades com chaves estrangeiras para Profissionais e Especialidades.",
+      "memoryTip": "Nome da tabela de junção costuma seguir a ordem alfabética ou a entidade que possui a lista.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260911224542_CriarProfissionalEspecialidades.cs",
+        "page": 1
+      },
+      "options": [
+        "ProfissionalEspecialidades",
+        "EspecialidadesProfissionais",
+        "Profissional_Especialidade",
+        "ProfissionalEspecialidade"
+      ],
+      "correctAnswer": "ProfissionalEspecialidades"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-f8400d4a",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "fill",
+      "question": "A annotation [Sqlite:Autoincrement] está posicionada sobre a coluna ___ da tabela Pacientes.",
+      "explanation": "No trecho, .Annotation(\"Sqlite:Autoincrement\", true) está ligado à coluna Id.",
+      "memoryTip": "A annotation fica logo após a definição da coluna que deve ser autoincrementada.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260828225424_CriacaoPacientes.cs",
+        "page": 1
+      },
+      "correctAnswer": "Id"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-34f146c4",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "multiple-choice",
+      "question": "O que a linha a seguir do Program.cs accomplishes?",
+      "explanation": "AddDbContext adiciona o serviço de DbContext; UseSqlite escolhe o provedor SQLite e obtém a string de conexão do appsettings.",
+      "memoryTip": "AddDbContext = registrar DbContext; UseSqlite = escolher provedor SQLite.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "code": "builder.Services.AddDbContext<ClinicaDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString(\"ClinicaConnection\")));",
+      "options": [
+        "Registra o ClinicaDbContext no container de injeção de dependência, configurando‑o para usar SQLite com a string de conexão \"ClinicaConnection\".",
+        "Configura o middleware de roteamento para a aplicação MVC.",
+        "Ativa o suporte a sessões em memória.",
+        "Define o caminho padrão para arquivos estáticos."
+      ],
+      "correctAnswer": "Registra o ClinicaDbContext no container de injeção de dependência, configurando‑o para usar SQLite com a string de conexão \"ClinicaConnection\"."
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-25349e60",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "true-false",
+      "question": "O comando dotnet ef migrations script gera um script SQL que pode ser aplicado a qualquer banco de dados compatível com o provedor configurado.",
+      "explanation": "O comando script produz um arquivo SQL contendo todas as migrations, útil para implantação em ambientes onde o EF Core não pode ser usado diretamente.",
+      "memoryTip": "script = gerar SQL para execução manual.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-ebc29ca4",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "type": "calculation",
+      "question": "Quantas colunas são removidas da tabela Profissionais na migration CriarProfissionalEspecialidades?",
+      "explanation": "As colunas CPF, CRM, DataNascimento e Sexo são removidas por meio de quatro chamadas a DropColumn.",
+      "memoryTip": "Conte as linhas DropColumn no método Up da migration.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Migrations/20260911224542_CriarProfissionalEspecialidades.cs",
+        "page": 1
+      },
+      "correctAnswer": "4"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-4f2027b8",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "multiple-choice",
+      "question": "No trecho abaixo do Program.cs, o que a linha destacada faz?",
+      "explanation": "A linha registra o DbContext no DI e configura o provedor SQLite usando a connection string obtida do configuration.",
+      "memoryTip": "Lembre-se de que AddDbContext liga o contexto ao banco via connection string.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "code": "builder.Services.AddDbContext<ClinicaDbContext> (options => options.UseSqlite(\n    builder.Configuration.GetConnectionString(\"ClinicaConnection\")));",
+      "options": [
+        "Configura o DbContext para usar SQLite com a string de conexão \"ClinicaConnection\".",
+        "Adiciona o serviço de logging ao contêiner.",
+        "Habilita o uso de controladores MVC.",
+        "Define a política de CORS."
+      ],
+      "correctAnswer": "Configura o DbContext para usar SQLite com a string de conexão \"ClinicaConnection\"."
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-1c577c0c",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "multiple-choice",
+      "question": "Qual é o tipo de retorno do método chamado no Program.cs abaixo?",
+      "explanation": "AddControllersWithViews retorna um IMvcBuilder, permitindo configuração adicional de MVC.",
+      "memoryTip": "Métodos que adicionam funcionalidades MVC geralmente retornam IMvcBuilder.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "code": "builder.Services.AddControllersWithViews();",
+      "options": [
+        "IServiceCollection",
+        "void",
+        "IMvcBuilder",
+        "IHostBuilder"
+      ],
+      "correctAnswer": "IMvcBuilder"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-a6137e31",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "true-false",
+      "question": "No Program.cs, a chamada app.UseHttpsRedirection(); redireciona todas as requisições HTTP para HTTPS.",
+      "explanation": "Esse middleware redireciona requisições HTTP para o equivalente HTTPS.",
+      "memoryTip": "UseHttpsRedirection = \"HTTPS Redirect\".",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-8f1b3ffe",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "calculation",
+      "question": "Quantos pacotes NuGet do Entity Framework Core estão referenciados no arquivo ClinicaASPNet.csproj?",
+      "explanation": "Os pacotes são Microsoft.EntityFrameworkCore, Microsoft.EntityFrameworkCore.Design e Microsoft.EntityFrameworkCore.Sqlite.",
+      "memoryTip": "Três pacotes EF Core principais.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/ClinicaASPNet.csproj",
+        "page": 1
+      },
+      "correctAnswer": "3"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-4cf75da7",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "multiple-choice",
+      "question": "Qual é o valor da propriedade AllowedHosts no arquivo appsettings.json?",
+      "explanation": "O valor \"*\" permite que o aplicativo aceite requisições de qualquer host.",
+      "memoryTip": "AllowedHosts = \"*\" significa \"todos os hosts\".",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/appsettings.json",
+        "page": 1
+      },
+      "code": "\"AllowedHosts\": \"*\"",
+      "options": [
+        "\"localhost\"",
+        "\"*\"",
+        "\"127.0.0.1\"",
+        "\"\""
+      ],
+      "correctAnswer": "\"*\""
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-8782bec6",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "true-false",
+      "question": "O arquivo appsettings.Development.json substitui totalmente o appsettings.json quando o ambiente é Development.",
+      "explanation": "O arquivo de desenvolvimento apenas acrescenta ou sobrescreve configurações específicas, não substitui o arquivo principal.",
+      "memoryTip": "Desenvolvimento adiciona, não substitui.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/appsettings.Development.json",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Falso"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-eca67a96",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "multiple-choice",
+      "question": "Qual método é responsável por construir o objeto WebApplication no Program.cs?",
+      "explanation": "O método Build() do WebApplicationBuilder cria a instância do WebApplication.",
+      "memoryTip": "Builder constrói, Build cria.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "code": "var app = builder.Build();",
+      "options": [
+        "CreateBuilder",
+        "Build",
+        "Run",
+        "Configure"
+      ],
+      "correctAnswer": "Build"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-150f668e",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "calculation",
+      "question": "Quantas chamadas a métodos de extensão do IServiceCollection são feitas no Program.cs para registrar serviços?",
+      "explanation": "As chamadas são AddControllersWithViews e AddDbContext.",
+      "memoryTip": "Cada serviço adicionado conta como uma chamada.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "code": "builder.Services.AddControllersWithViews();\nbuilder.Services.AddDbContext<ClinicaDbContext> (options => options.UseSqlite(\n    builder.Configuration.GetConnectionString(\"ClinicaConnection\")));",
+      "correctAnswer": "2"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-aa80e86f",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "multiple-choice",
+      "question": "O que o middleware app.UseRouting(); faz no Program.cs?",
+      "explanation": "UseRouting adiciona o middleware de roteamento que corresponde as requisições aos endpoints definidos.",
+      "memoryTip": "UseRouting = \"Roteamento\".",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "code": "app.UseRouting();",
+      "options": [
+        "Adiciona suporte a arquivos estáticos.",
+        "Define como as requisições são encaminhadas aos endpoints.",
+        "Habilita o HTTPS.",
+        "Configura o tratamento de exceções."
+      ],
+      "correctAnswer": "Define como as requisições são encaminhadas aos endpoints."
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-7aa7efa2",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "fill",
+      "question": "No Program.cs, a propriedade que indica se o aplicativo está em ambiente de desenvolvimento é ___.",
+      "explanation": "Essa propriedade retorna true quando o ambiente ASPNETCORE_ENVIRONMENT está definido como Development.",
+      "memoryTip": "IsDevelopment verifica o ambiente atual.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "correctAnswer": "app.Environment.IsDevelopment()"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-43f84ead",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "calculation",
+      "question": "Quantos métodos de middleware são chamados no Program.cs após o bloco if de desenvolvimento (incluindo UseHttpsRedirection, UseRouting, UseAuthorization, MapStaticAssets e MapControllerRoute)?",
+      "explanation": "Cada um desses métodos adiciona um componente ao pipeline de requisições.",
+      "memoryTip": "Contagem dos chamados após o if de desenvolvimento.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "code": "app.UseHttpsRedirection();\napp.UseRouting();\napp.UseAuthorization();\napp.MapStaticAssets();\napp.MapControllerRoute(\n    name: \"default\",\n    pattern: \"{controller=Pacientes}/{action=Index}/{id?}\")\n    .WithStaticAssets();",
+      "correctAnswer": "5"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-872c2748",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "multiple-choice",
+      "question": "O que o middleware app.UseAuthorization(); faz no Program.cs?",
+      "explanation": "Esse middleware verifica as políticas de autorização antes de executar o endpoint.",
+      "memoryTip": "Authorization = permissão de acesso.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "options": [
+        "Habilita o uso de arquivos estáticos.",
+        "Verifica se o usuário está autorizado para acessar os endpoints.",
+        "Redireciona HTTP para HTTPS.",
+        "Configura o tratamento de exceções."
+      ],
+      "correctAnswer": "Verifica se o usuário está autorizado para acessar os endpoints."
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-a27f4434",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "type": "multiple-choice",
+      "question": "Qual é a função do método app.MapStaticAssets(); no Program.cs?",
+      "explanation": "Esse middleware adiciona um endpoint para servir arquivos estáticos da wwwroot.",
+      "memoryTip": "StaticAssets = arquivos estáticos.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Program.cs",
+        "page": 1
+      },
+      "code": "app.MapStaticAssets();",
+      "options": [
+        "Mapeia rotas para controladores MVC.",
+        "Configura o tratamento de erros.",
+        "Faz com que arquivos estáticos (como CSS, JS, imagens) sejam servidos diretamente.",
+        "Habilita o uso de sessões."
+      ],
+      "correctAnswer": "Faz com que arquivos estáticos (como CSS, JS, imagens) sejam servidos diretamente."
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-aa0919f2",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "multiple-choice",
+      "question": "No arquivo _ViewImports.cshtml, qual é a função da linha @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers?",
+      "explanation": "Essa diretiva torna disponíveis todos os Tag Helpers da biblioteca especificada em todas as views do projeto.",
+      "memoryTip": "Lembre-se de que @addTagHelper * registra todos os Tag Helpers daquele pacote.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Views/_ViewImports.cshtml",
+        "page": 1
+      },
+      "code": "@using ClinicaASPNet\n@using ClinicaASPNet.Models\n@using ClinicaASPNet.ViewModels\n@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers",
+      "options": [
+        "Importa namespaces para uso nas views",
+        "Registra todos os Tag Helpers da biblioteca Microsoft.AspNetCore.Mvc.TagHelpers",
+        "Define o layout padrão da aplicação",
+        "Habilita a injeção de dependência nas views"
+      ],
+      "correctAnswer": "Registra todos os Tag Helpers da biblioteca Microsoft.AspNetCore.Mvc.TagHelpers"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-8bf7504b",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "multiple-choice",
+      "question": "No _Layout.cshtml, qual atributo Tag Helper define o controlador alvo de um link de navegação?",
+      "explanation": "O atributo asp-controller especifica o nome do controlador que o link deve invocar.",
+      "memoryTip": "asp-controller = controller, asp-action = ação.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Views/Shared/_Layout.cshtml",
+        "page": 1
+      },
+      "code": "<a class=\"app-brand\" asp-controller=\"Pacientes\" asp-action=\"Index\" aria-label=\"Clínica - página inicial\">\n    <span class=\"app-brand-mark\" aria-hidden=\"true\">C</span>\n    <span>Clínica</span>\n</a>",
+      "options": [
+        "asp-action",
+        "asp-controller",
+        "asp-route-id",
+        "asp-area"
+      ],
+      "correctAnswer": "asp-controller"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-4887f8b8",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "true-false",
+      "question": "O arquivo _ViewStart.cshtml é responsável por definir o layout padrão (_Layout) para todas as views, a menos que uma view o sobrescreva explicitamente.",
+      "explanation": "O _ViewStart.cshtml contém a diretiva Layout = \"_Layout\"; que se aplica a todas as views do diretório e subdiretórios.",
+      "memoryTip": "ViewStart = início da view, define o layout padrão.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Views/_ViewStart.cshtml",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-73432920",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "fill",
+      "question": "No arquivo Create.cshtml, o atributo asp-for do input de telefone deve ser preenchido com o nome da propriedade: ___.",
+      "explanation": "O asp-for vincula o input à propriedade do modelo de view, neste caso Telefone.",
+      "memoryTip": "asp-for espelha exatamente o nome da propriedade (case-sensitive).",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Views/Pacientes/Create.cshtml",
+        "page": 1
+      },
+      "correctAnswer": "Telefone"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-9cc3780e",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "calculation",
+      "question": "Quantas colunas são exibidas na tabela do partial view _ListaPacientes.cshtml (incluindo a coluna de Ações)?",
+      "explanation": "As colunas são: Nome, Cpf, Telefone, DataNascimento, Idade e Ações, totalizando 6.",
+      "memoryTip": "Conte os <th> dentro do <thead> da tabela.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Views/Shared/_ListaPacientes.cshtml",
+        "page": 1
+      },
+      "correctAnswer": "6"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-64065412",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "multiple-choice",
+      "question": "Qual arquivo é responsável por registrar os Tag Helpers para toda a aplicação ASP.NET Core MVC?",
+      "explanation": "O _ViewImports.cshtml é incluído automaticamente em todas as views e contém a diretiva @addTagHelper que registra os Tag Helpers.",
+      "memoryTip": "Imports = importações, aqui importamos Tag Helpers.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Views/_ViewImports.cshtml",
+        "page": 1
+      },
+      "code": "@using ClinicaASPNet\n@using ClinicaASPNet.Models\n@using ClinicaASPNet.ViewModels\n@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers",
+      "options": [
+        "_ViewImports.cshtml",
+        "_ViewStart.cshtml",
+        "_Layout.cshtml",
+        "Program.cs"
+      ],
+      "correctAnswer": "_ViewImports.cshtml"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-b759388b",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "multiple-choice",
+      "question": "No Edit.cshtml, qual é o propósito do input oculto <input asp-for=\"Id\" type=\"hidden\" />?",
+      "explanation": "O input hidden com asp-for=\"Id\" garante que o valor da propriedade Id seja incluído no POST, permitindo que o controlador saiba qual registro está sendo editado.",
+      "memoryTip": "Hidden = escondido, mas ainda enviado no formulário.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Views/Pacientes/Edit.cshtml",
+        "page": 1
+      },
+      "code": "<input asp-for=\"Id\" type=\"hidden\" />",
+      "options": [
+        "Exibir o ID do paciente na tela",
+        "Enviar o ID do paciente de volta ao servidor ao submeter o formulário",
+        "Gerar um link para a ação Details",
+        "Ativar a validação do campo Id"
+      ],
+      "correctAnswer": "Enviar o ID do paciente de volta ao servidor ao submeter o formulário"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-c7feacb0",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "true-false",
+      "question": "A partial view _ListaPacientes.cshtml pode ser reutilizada em qualquer view que forneça um modelo do tipo IEnumerable<PacienteViewModel>.",
+      "explanation": "A diretiva @model na partial define o tipo esperado; qualquer view que passe esse tipo pode usar <partial name=\"_ListaPacientes\" model=\"...\" />.",
+      "memoryTip": "Partial = pedaço reutilizável; modelo deve bater.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Views/Shared/_ListaPacientes.cshtml",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-21bae468",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "fill",
+      "question": "Na Index.cshtml, a tag helper que inclui a partial view _ListaPacientes usa o atributo ___ para passar o modelo atual.",
+      "explanation": "A sintaxe <partial name=\"_ListaPacientes\" model=\"@Model\" /> passa o modelo da view para a partial através do atributo model.",
+      "memoryTip": "Partial tag helper tem atributo 'model' exatamente como em Html.Partial.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Views/Pacientes/Index.cshtml",
+        "page": 1
+      },
+      "correctAnswer": "model"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-160585dc",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "multiple-choice",
+      "question": "Qual Tag Helper é usado para especificar a ação que um link deve invocar na partial _ListaPacientes?",
+      "explanation": "Nos links como <a asp-action=\"Details\" asp-route-id=\"@item.Id\">, o asp-action define o nome da ação do controlador.",
+      "memoryTip": "asp-action = ação, asp-controller = controlador.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Views/Shared/_ListaPacientes.cshtml",
+        "page": 1
+      },
+      "code": "<a asp-action=\"Details\" asp-route-id=\"@item.Id\" class=\"btn btn-sm btn-outline-primary\">Detalhes</a>",
+      "options": [
+        "asp-controller",
+        "asp-action",
+        "asp-route-id",
+        "asp-area"
+      ],
+      "correctAnswer": "asp-action"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-e4f0f56d",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "calculation",
+      "question": "No link de detalhes da partial _ListaPacientes, quantos atributos Tag Helper são utilizados?",
+      "explanation": "O link utiliza asp-action e asp-route-id, totalizando dois atributos Tag Helper.",
+      "memoryTip": "Conte os atributos que começam com 'asp-' dentro da tag.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Views/Shared/_ListaPacientes.cshtml",
+        "page": 1
+      },
+      "correctAnswer": "2"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-0d9a0b3b",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "true-false",
+      "question": "O arquivo _ValidationScriptsPartial.cshtml deve ser incluído em todas as views que utilizam validação client-side com as Tag Helpers de validação.",
+      "explanation": "Esse partial contém os scripts jQuery Validation e jQuery Validation Unobtrusive necessários para a validação client-side funcionar.",
+      "memoryTip": "ValidationScriptsPartial = scripts de validação.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Views/Shared/_ValidationScriptsPartial.cshtml",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-31b5cfb0",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "fill",
+      "question": "No Create.cshtml, o atributo da validation summary que exibe apenas erros de modelo é: asp-validation-summary=\"___\".",
+      "explanation": "ModelOnly exibe somente as mensagens de erro vinculadas ao modelo, excluindo erros de propriedade individuais.",
+      "memoryTip": "ModelOnly = apenas modelo.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Views/Pacientes/Create.cshtml",
+        "page": 1
+      },
+      "correctAnswer": "ModelOnly"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-08489ddc",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "type": "multiple-choice",
+      "question": "No formulário de exclusão (Delete.cshtml), qual método HTTP é utilizado pelo elemento <form> que confirma a exclusão?",
+      "explanation": "O formulário tem method=\"post\", portanto usa o método HTTP POST para enviar a requisição de exclusão.",
+      "memoryTip": "Forms padrão usam POST para ações que modificam dados.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Views/Pacientes/Delete.cshtml",
+        "page": 1
+      },
+      "options": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
+      "correctAnswer": "POST"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-f9b64d91",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "multiple-choice",
+      "question": "Onde está definida a string de conexão \"ClinicaConnection\" no projeto ClinicaASPNet?",
+      "explanation": "A connection string está na seção ConnectionStrings do arquivo appsettings.json.",
+      "memoryTip": "Lembre-se de que as connection strings ficam no arquivo appsettings.json (ou Development) na seção ConnectionStrings.",
+      "difficulty": 2,
+      "source": {
+        "document": "appsettings.json",
+        "page": 1
+      },
+      "options": [
+        "appsettings.Development.json",
+        "appsettings.json",
+        "Program.cs",
+        "ClinicaDbContext.cs"
+      ],
+      "correctAnswer": "appsettings.json"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-2963dc50",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "true-false",
+      "question": "O arquivo appsettings.Development.json substitui totalmente o appsettings.json quando o ambiente é Development.",
+      "explanation": "O sistema de configuração mescla os arquivos, sobrescrevendo apenas as chaves duplicadas.",
+      "memoryTip": "Pense em camadas: Development sobrepõe, não substitui.",
+      "difficulty": 2,
+      "source": {
+        "document": "appsettings.Development.json",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Falso"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-0da11c98",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "fill",
+      "question": "No Program.cs, a linha que configura o DbContext para usar SQLite está incompleta: builder.Services.AddDbContext<ClinicaDbContext>(options => options.UseSqlite(___)); Qual o trecho que deve ficar no lugar de ___?",
+      "explanation": "O método GetConnectionString recupera a string de conexão pelo nome configurado.",
+      "memoryTip": "GetConnectionString(\"nome\") pega do ConnectionStrings.",
+      "difficulty": 3,
+      "source": {
+        "document": "Program.cs",
+        "page": 1
+      },
+      "code": "builder.Services.AddDbContext<ClinicaDbContext>(options => options.UseSqlite(___));",
+      "correctAnswer": "builder.Configuration.GetConnectionString(\"ClinicaConnection\")"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-ef3e4248",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "multiple-choice",
+      "question": "Se a connection string \"ClinicaConnection\" estiver ausente no appsettings.json, o que acontece ao iniciar a aplicação?",
+      "explanation": "GetConnectionString retorna null, levando a exceção ao tentar usar UseSqlite com null.",
+      "memoryTip": "Sempre verifique se o nome está exatamente igual na seção ConnectionStrings.",
+      "difficulty": 3,
+      "source": {
+        "document": "appsettings.json",
+        "page": 1
+      },
+      "options": [
+        "A aplicação inicia normalmente e cria um banco em memória.",
+        "Lança uma exceção informando que a connection string não foi encontrada.",
+        "O DbContext usa uma string vazia e falha silenciosamente.",
+        "O Entity Framework cria um banco chamado clinica.db na raiz do projeto."
+      ],
+      "correctAnswer": "Lança uma exceção informando que a connection string não foi encontrada."
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-1649babc",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "true-false",
+      "question": "O provedor SQLite do Entity Framework Core é registrado pelo pacote Microsoft.EntityFrameworkCore.Sqlite, que já está referenciado no csproj.",
+      "explanation": "O csproj mostra PackageReference Include=\"Microsoft.EntityFrameworkCore.Sqlite\" Version=\"10.0.11\".",
+      "memoryTip": "Pacote Sqlite = .Sqlite.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet.csproj",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-725b658c",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "fill",
+      "question": "Qual é o nome exato da chave utilizada na seção ConnectionStrings para a string de conexão do SQLite no arquivo appsettings.json?",
+      "explanation": "No JSON está \"ClinicaConnection\": \"Data Source=clinica.db\".",
+      "memoryTip": "O nome da connection string costuma ser descritivo e usado no código.",
+      "difficulty": 1,
+      "source": {
+        "document": "appsettings.json",
+        "page": 1
+      },
+      "correctAnswer": "ClinicaConnection"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-b1b80352",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "multiple-choice",
+      "question": "Em qual arquivo a connection string seria sobrescrita se o ambiente for Development e o appsettings.Development.json contivesse uma entrada diferente para ClinicaConnection?",
+      "explanation": "O configuration provider de desenvolvimento tem precedência sobre o de produção para chaves duplicadas.",
+      "memoryTip": "Development sobrepõe Production.",
+      "difficulty": 2,
+      "source": {
+        "document": "appsettings.Development.json",
+        "page": 1
+      },
+      "options": [
+        "appsettings.json",
+        "appsettings.Development.json",
+        "Ambos, mantendo ambos os valores",
+        "Nenhum, pois Development não sobrescreve"
+      ],
+      "correctAnswer": "appsettings.Development.json"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-8d8aed1c",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "true-false",
+      "question": "A string de conexão SQLite \"Data Source=clinica.db\" é case-sensitive quanto ao nome do arquivo.",
+      "explanation": "Em ambientes Windows o sistema de arquivos não diferencia maiúsculas/minúsculas, então não é case-sensitive.",
+      "memoryTip": "No Windows, arquivos não são case-sensitive.",
+      "difficulty": 2,
+      "source": {
+        "document": "appsettings.json",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Falso"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-b06fa27b",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "fill",
+      "question": "Qual método da interface IConfiguration é usado no Program.cs para obter a string de conexão pelo nome \"ClinicaConnection\"?",
+      "explanation": "builder.Configuration.GetConnectionString(\"ClinicaConnection\").",
+      "memoryTip": "GetConnectionString é o atalho para Configuration[\"ConnectionStrings:ClinicaConnection\"].",
+      "difficulty": 2,
+      "source": {
+        "document": "Program.cs",
+        "page": 1
+      },
+      "correctAnswer": "GetConnectionString"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-15c77e49",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "multiple-choice",
+      "question": "Qual o valor exato da connection string \"ClinicaConnection\" presente no appsettings.json?",
+      "explanation": "Direto do arquivo appsettings.json.",
+      "memoryTip": "Copie exatamente como está.",
+      "difficulty": 1,
+      "source": {
+        "document": "appsettings.json",
+        "page": 1
+      },
+      "options": [
+        "\"Data Source=clinica.db\"",
+        "\"Server=clinica.db;Database=Clinica\"",
+        "\"Filename=clinica.db\"",
+        "\"Data Source=./clinica.db\""
+      ],
+      "correctAnswer": "\"Data Source=clinica.db\""
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-f5cfda3b",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "true-false",
+      "question": "É necessário adicionar manualmente o pacote Microsoft.EntityFrameworkCore.Design ao csproj para que a aplicação rode normalmente.",
+      "explanation": "O pacote Design é apenas para ferramentas de migração, não necessário em tempo de execução.",
+      "memoryTip": "Design = ferramentas, não runtime.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet.csproj",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Falso"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-27bede4e",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "fill",
+      "question": "No Program.cs, ao obter a string de conexão, o método GetConnectionString recebe como argumento o nome da connection string. Qual deve ser esse argumento?",
+      "explanation": "É o nome definido em appsettings.json na seção ConnectionStrings.",
+      "memoryTip": "Mesmo nome usado na seção ConnectionStrings.",
+      "difficulty": 1,
+      "source": {
+        "document": "Program.cs",
+        "page": 1
+      },
+      "correctAnswer": "\"ClinicaConnection\""
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-61545259",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "multiple-choice",
+      "question": "Se o nome da connection string no código for alterado para \"OutraConnection\" mas o appsettings.json continuar com \"ClinicaConnection\", qual será o resultado?",
+      "explanation": "GetConnectionString retorna null, provocando exceção ao usar UseSqlite com null.",
+      "memoryTip": "Nome deve bater exatamente.",
+      "difficulty": 3,
+      "source": {
+        "document": "Program.cs",
+        "page": 1
+      },
+      "options": [
+        "A aplicação usará a string vazia e falhará ao tentar acessar o banco.",
+        "O Entity Framework criará um banco chamado OutraConnection.db.",
+        "Lançará exceção pois não encontra a connection string.",
+        "O DbContext ignorará a connection string e usará o SQLite em memória."
+      ],
+      "correctAnswer": "Lançará exceção pois não encontra a connection string."
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-1721c981",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "true-false",
+      "question": "É possível usar UseSqlite com uma connection string apontando para um arquivo que não existe; o SQLite criará o arquivo automaticamente na primeira operação.",
+      "explanation": "SQLite cria o arquivo se não existir na primeira operação de acesso.",
+      "memoryTip": "SQLite auto-cria o .db.",
+      "difficulty": 2,
+      "source": {
+        "document": "Program.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-626edcc2",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "type": "fill",
+      "question": "Qual a seção do arquivo JSON onde as connection strings devem ser colocadas para serem reconhecidas pelo método GetConnectionString?",
+      "explanation": "O método GetConnectionString procura dentro da propriedade ConnectionStrings do configuration.",
+      "memoryTip": "Nome da seção é ConnectionStrings (plural).",
+      "difficulty": 1,
+      "source": {
+        "document": "appsettings.json",
+        "page": 1
+      },
+      "correctAnswer": "ConnectionStrings"
+    },
+    {
+      "id": "controllers-e-acoes-crud-95499ea2",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "multiple-choice",
+      "question": "O que o seguinte trecho de código faz?",
+      "explanation": "O método Index chama ListarTodosAsync do serviço para obter a lista de especialidades e então passa esse modelo para a view.",
+      "memoryTip": "Lembre-se: Index lista, Create cria, Details mostra, Edit atualiza, Delete exclui.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/EspecialidadeController.cs",
+        "page": 1
+      },
+      "code": "public async Task<IActionResult> Index()\n{\n    return View(await _service.ListarTodosAsync());\n}",
+      "options": [
+        "Lista as especialidades e exibe a view",
+        "Cria uma nova especialidade",
+        "Atualiza uma especialidade",
+        "Exclui uma especialidade",
+        "Exibe a view de criação"
+      ],
+      "correctAnswer": "Lista as especialidades e exibe a view"
+    },
+    {
+      "id": "controllers-e-acoes-crud-a6b9773b",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "true-false",
+      "question": "O método Create (POST) do EspecialidadeController retorna a view de criação se o modelo for inválido.",
+      "explanation": "O código verifica ModelState.IsValid e retorna a view com o modelo se houver erro de validação.",
+      "memoryTip": "Sempre verifique ModelState e retorne a view em caso de erro.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/EspecialidadeController.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "controllers-e-acoes-crud-d7d0522f",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "fill",
+      "question": "No método Create (POST) do PacientesController, após incluir o paciente, é definida uma mensagem de sucesso em ______.",
+      "explanation": "A mensagem é armazenada emTempData para ser exibida na próxima página (redirecionamento).",
+      "memoryTip": "UseTempData para mensagens entre redirecionamentos.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 1
+      },
+      "correctAnswer": "TempData[\"MensagemSucesso\"]"
+    },
+    {
+      "id": "controllers-e-acoes-crud-263c838a",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "multiple-choice",
+      "question": "Qual é a função do método CpfJaCadastrado no repositório RepositoryPaciente?",
+      "explanation": "O método verifica se existe um paciente com o mesmo CPF, exceto um id específico (útil para atualização).",
+      "memoryTip": "CpfJaCadastrado: verifica duplicidade de CPF.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryPaciente.cs",
+        "page": 1
+      },
+      "options": [
+        "Verificar se o CPF já está cadastro, opcionalmente ignorando um id",
+        "Listar todos os pacientes",
+        "Selecionar um paciente por id",
+        "Excluir um paciente",
+        "Atualizar um paciente"
+      ],
+      "correctAnswer": "Verificar se o CPF já está cadastro, opcionalmente ignorando um id"
+    },
+    {
+      "id": "controllers-e-acoes-crud-c8b6c2b2",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "true-false",
+      "question": "O controlador PacientesController usa um repositório (RepositoryPaciente) enquanto o EspecialidadeController usa um serviço (EspecialidadeService).",
+      "explanation": "PacientesController instancia RepositoryPaciente diretamente, enquanto EspecialidadeController usa EspecialidadeService que por sua vez usa RepositoryEspecialidade.",
+      "memoryTip": "Pacientes: Repository, Especialidades: Service.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "controllers-e-acoes-crud-11442d8a",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "multiple-choice",
+      "question": "O que o método Details do PacientesController retorna quando o paciente não é encontrado?",
+      "explanation": "O código verifica se o paciente é nulo e retorna NotFound(), que resulta em um erro 404.",
+      "memoryTip": "Details: se não encontrar, 返回404.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 1
+      },
+      "options": [
+        "View()",
+        "NotFound()",
+        "Redirecionamento para Index",
+        "View com modelo nulo",
+        "Erro 500"
+      ],
+      "correctAnswer": "NotFound()"
+    },
+    {
+      "id": "controllers-e-acoes-crud-cd402037",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "fill",
+      "question": "No método Edit (POST) do PacientesController, a verificação `if (id != paciente.Id)` retorna ______.",
+      "explanation": "Retorna 400 Bad Request se o id da URL não corresponder ao id do modelo.",
+      "memoryTip": "Verifique a consistência do id em atualizações.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 2
+      },
+      "correctAnswer": "BadRequest()"
+    },
+    {
+      "id": "controllers-e-acoes-crud-5653c85f",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "multiple-choice",
+      "question": "O que o seguinte trecho de código faz no contexto do EspecialidadeController?",
+      "explanation": "O método recebe um view model, válida, adiciona via serviço, define uma mensagem e redireciona para Index.",
+      "memoryTip": "Create (POST): Valida, salva, redireciona.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/EspecialidadeController.cs",
+        "page": 1
+      },
+      "code": "[HttpPost]\npublic async Task<IActionResult> Create(EspecialidadeViewModel especialidadeVM)\n{\n    if (!ModelState.IsValid)\n    {\n        return View(especialidadeVM);\n    }\n    await _service.AdicionarAsync(especialidadeVM);\n    ViewData[\"Mensagem\"] = \"Especialidade Cadastrada com sucesso\";\n    return:redirecionamento(\"Index\");\n}",
+      "options": [
+        "Cria uma nova especialidade e redireciona para a lista",
+        "Atualiza uma especialidade existente",
+        "Exclui uma especialidade",
+        "Lista as especialidades",
+        "Exibe o formulário de criação"
+      ],
+      "correctAnswer": "Cria uma nova especialidade e redireciona para a lista"
+    },
+    {
+      "id": "controllers-e-acoes-crud-01abe7f1",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "true-false",
+      "question": "No método Create (POST) do PacientesController, a validação do CPF é feita antes da validação do modelo.",
+      "explanation": "O código verifica CpfJaCadastrado antes de verificar ModelState.IsValid.",
+      "memoryTip": "Valide regras de negócio antes da validação do modelo.",
+      "difficulty": 3,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "controllers-e-acoes-crud-6725cb9e",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "fill",
+      "question": "No método Index do PacientesController, a variável ______ é usada para armazenar o nome pesquisado na view.",
+      "explanation": "ViewBag debounce é definido com o parâmetro nome para ser usado na view.",
+      "memoryTip": "UseViewBag para dados dinâmicos na view.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 1
+      },
+      "correctAnswer": "ViewBag debounce"
+    },
+    {
+      "id": "controllers-e-acoes-crud-34e1848e",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "multiple-choice",
+      "question": "Qual é o propósito do atributo [freeze] no método Create (POST) do PacientesController?",
+      "explanation": "O atributo [freeze] impede que campos não esperados no formulário sejam vinculados ao modelo (mass assignment).",
+      "memoryTip": "Use [freeze] para proteção contra mass assignment.",
+      "difficulty": 3,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 1
+      },
+      "options": [
+        "Evitar que o modelo seja vinculado a dados não confiáveis",
+        "Habilitar a validação do modelo",
+        "Definir um valor padrão para o modelo",
+        "Redirecionar após a criação",
+        "Exibir a view de criação"
+      ],
+      "correctAnswer": "Evitar que o modelo seja vinculado a dados não confiáveis"
+    },
+    {
+      "id": "controllers-e-acoes-crud-600a492d",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "true-false",
+      "question": "O método ConfirmarExclusao no PacientesController é acionado por uma requisição POST.",
+      "explanation": "O método tem os atributos [HttpPost] e [ActionName(\"Delete\")], indicando que é chamado pelo formulário de exclusão.",
+      "memoryTip": "Ações de exclusão confirmada são POST.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 2
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "controllers-e-acoes-crud-b7d07fe3",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "multiple-choice",
+      "question": "O que o método Delete (GET) do PacientesController retorna quando o paciente não é encontrado?",
+      "explanation": "Similar ao Details, verifica se o paciente é nulo e retorna NotFound().",
+      "memoryTip": "Delete (GET): confirmação, se não encontrar, 404.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 2
+      },
+      "options": [
+        "View()",
+        "NotFound()",
+        "Redirecionamento para Index",
+        "View de confirmação",
+        "Erro 500"
+      ],
+      "correctAnswer": "NotFound()"
+    },
+    {
+      "id": "controllers-e-acoes-crud-1df33204",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "multiple-choice",
+      "question": "O que o método RemoverEspacos no PacientesController faz?",
+      "explanation": "O método usa Trim() para remover espaços em branco do início e fim.",
+      "memoryTip": "Trim() remove espaços das extremidades.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/PacientesController.cs",
+        "page": 2
+      },
+      "options": [
+        "Remove espaços em branco do início e fim de uma string",
+        "Converte uma string para maiúsculas",
+        "Verifica se uma string é nula",
+        "Remove todos os espaços de uma string",
+        "Divide uma string em palavras"
+      ],
+      "correctAnswer": "Remove espaços em branco do início e fim de uma string"
+    },
+    {
+      "id": "controllers-e-acoes-crud-ba51dcbf",
+      "topicId": "controllers-e-acoes-crud",
+      "type": "fill",
+      "question": "No método Index do EspecialidadeController, o modelo da view é retornado pelo método ______ do serviço.",
+      "explanation": "O serviço é chamado para obter a lista de especialidades.",
+      "memoryTip": "ListarTodosAsync: lista everything.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Controllers/EspecialidadeController.cs",
+        "page": 1
+      },
+      "correctAnswer": "ListarTodosAsync"
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio-9d77e0f6",
+      "topicId": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "type": "multiple-choice",
+      "question": "No método PacienteService.InlcuirPacienteAsync, o que é retornado após a chamada ao repositório?",
+      "explanation": "O método é assíncrono e tem assinatura public async Task InlcuirPacienteAsync(...), portanto retorna um Task que representa a operação concluída.",
+      "memoryTip": "Lembre-se: métodos async void retornam void, async Task retornam Task, async Task<T> retornam Task<T>.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Services/PacienteService.cs",
+        "page": 1
+      },
+      "code": "public async Task InlcuirPacienteAsync(PacienteViewModel pacienteVM)\n{\n    var paciente = new Paciente()\n    {\n        Cpf = pacienteVM.Cpf,\n        DataNascimento = pacienteVM.DataNascimento,\n        Nome = pacienteVM.Nome,\n        Telefone = pacienteVM.Telefone,\n    };\n    await _repositoryPaciente.IncluirAsync(paciente);\n}",
+      "options": [
+        "Um objeto Paciente",
+        "Um objeto PacienteViewModel",
+        "Um Task",
+        "Um booleano indicando sucesso",
+        "Void (não retorna nada)"
+      ],
+      "correctAnswer": "Um Task"
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio-f14405dc",
+      "topicId": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "type": "true-false",
+      "question": "O método PacienteService.ExcluirAsync obtém o paciente diretamente do contexto (_context.Pacientes.FirstAsync) e depois delega a exclusão ao repositório (_repositoryPaciente.ExcluirAsync).",
+      "explanation": "O código mostra: var paciente = await _context.Pacientes.FirstAsync(p => p.Id == id); await _repositoryPaciente.ExcluirAsync(paciente);",
+      "memoryTip": "Quando o service busca a entidade e chama o repositório para excluir, está separando consulta da operação.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Services/PacienteService.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio-a5dee528",
+      "topicId": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "type": "calculation",
+      "question": "Se o método EspecialidadeService.AdicionarAsync for chamado 7 vezes, quantos objetos Especialidade serão instanciados dentro desse método?",
+      "explanation": "Cada chamada cria um novo objeto Especialidade com new Especialidade() {...}.",
+      "memoryTip": "Uma chamada = uma instanciação; multiplique pelo número de chamadas.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Services/EspecialidadeService.cs",
+        "page": 1
+      },
+      "correctAnswer": "7"
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio-1c89e9f8",
+      "topicId": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "type": "multiple-choice",
+      "question": "Considere o seguinte trecho de EspecialidadeService.AdicionarAsync. O que esse método retorna?",
+      "explanation": "A assinatura é public async Task AdicionarAsync(...), portanto retorna um Task que representa a operação assíncrona concluída.",
+      "memoryTip": "Métodos async sem tipo genérico retornam Task.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Services/EspecialidadeService.cs",
+        "page": 1
+      },
+      "code": "public async Task AdicionarAsync(EspecialidadeViewModel especialidadeVM)\n{\n    var especialidade = new Especialidade()\n    {\n        Descricao = especialidadeVM.Descricao,\n        Nome = especialidadeVM.Nome,\n    };\n    await _repository.IncluirAsync(especialidade);\n}",
+      "options": [
+        "Task",
+        "Especialidade",
+        "EspecialidadeViewModel",
+        "bool",
+        "void"
+      ],
+      "correctAnswer": "Task"
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio-01f9e708",
+      "topicId": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "type": "true-false",
+      "question": "PacienteService.ListarTodosAsync utiliza o método estático PacienteViewModel.ListarTodos para obter a lista de pacientes do banco de dados.",
+      "explanation": "O código mostra: return await PacienteViewModel.ListarTodos(_context, nome);",
+      "memoryTip": "Quando o service delega a consulta a um método estático da ViewModel, está reutilizando lógica de apresentação.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Services/PacienteService.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio-4112a5be",
+      "topicId": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "type": "fill",
+      "question": "Preencha o espaço em branco (___) no método PacienteService.EditarPacienteAsync para que o objeto Paciente receba o Id proveniente do ViewModel.",
+      "explanation": "Após definir as demais propriedades, é necessário definir o Id para que o repositório saiba qual registro atualizar.",
+      "memoryTip": "No padrão de edição, copie o Id do ViewModel para a entidade antes de chamar AlterarAsync.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Services/PacienteService.cs",
+        "page": 1
+      },
+      "code": "public async Task EditarPacienteAsync(PacienteViewModel pacienteVM)\n{\n    var paciente = new Paciente()\n    {\n        Cpf = pacienteVM.Cpf,\n        DataNascimento = pacienteVM.DataNascimento,\n        Nome = pacienteVM.Nome,\n        Telefone = pacienteVM.Telefone,\n        ___\n    };\n    await _repositoryPaciente.AlterarAsync(paciente);\n}",
+      "correctAnswer": "Id = pacienteVM.Id"
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio-d650f446",
+      "topicId": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "type": "multiple-choice",
+      "question": "Qual interface a classe RepositoryBase<TEntity> implementa, conforme mostrado no material?",
+      "explanation": "A declaração da classe é: public class RepositoryBase<TEntity> : IRepositotyBase<TEntity> where TEntity: class",
+      "memoryTip": "O nome da interface está exatamente na herança da classe base do repositório.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Repositories/RepositoryBase.cs",
+        "page": 1
+      },
+      "options": [
+        "IRepositotyBase<TEntity>",
+        "IDisposable",
+        "IQueryable<TEntity>",
+        "IEnumerable<TEntity>",
+        "IService"
+      ],
+      "correctAnswer": "IRepositotyBase<TEntity>"
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio-744409dc",
+      "topicId": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "type": "true-false",
+      "question": "O método EspecialidadeService.SelecionarAsync retorna um Task<Especialidade> contendo a especialidade encontrada pelo Id ou null caso não exista.",
+      "explanation": "A assinatura é public async Task<Especialidade> SelecionarAsync(int id) e o corpo chama _repository.SelecionarPorIdAsync(id), que pode retornar null.",
+      "memoryTip": "Métodos de busca por Id costumam retornar a entidade ou null dentro de um Task.",
+      "difficulty": 2,
+      "source": {
+        "document": "ClinicaASPNet/Services/EspecialidadeService.cs",
+        "page": 1
+      },
+      "options": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "correctAnswer": "Verdadeiro"
+    },
+    {
+      "id": "camada-de-servico-e-separacao-de-regras-de-negocio-648ecad4",
+      "topicId": "camada-de-servico-e-separacao-de-regras-de-negocio",
+      "type": "calculation",
+      "question": "Em uma view que lista especialidades usando @foreach(var item in Model) onde Model é o IReadOnlyList<Especialidade> retornado por EspecialidadeService.ListarTodosAsync, quantas vezes o laço será executado se o banco estiver vazio?",
+      "explanation": "Se não houver especialidades, a lista terá 0 elementos e o foreach não entrará em nenhuma iteração.",
+      "memoryTip": "Lista vazia = zero iterações em foreach.",
+      "difficulty": 1,
+      "source": {
+        "document": "ClinicaASPNet/Services/EspecialidadeService.cs",
+        "page": 1
+      },
+      "correctAnswer": "0"
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "viewmodels-e-data-annotations-fc-2c9de777",
+      "topicId": "viewmodels-e-data-annotations",
+      "front": "O que é um ViewModel?",
+      "back": "Classe que expõe dados e validação especificamente para uma view."
+    },
+    {
+      "id": "viewmodels-e-data-annotations-fc-c918a9ad",
+      "topicId": "viewmodels-e-data-annotations",
+      "front": "Qual atributo define que um campo é obrigatório e permite mensagem customizada?",
+      "back": "[Required(ErrorMessage = \"mensagem\")]"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-fc-bc410e1e",
+      "topicId": "viewmodels-e-data-annotations",
+      "front": "Qual Data Annotation garante que uma string tenha entre 3 e 100 caracteres?",
+      "back": "[StringLength(100, MinimumLength = 3)]",
+      "code": "[StringLength(100, MinimumLength = 3)]\npublic string Nome { get; set; } = string.Empty;"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-fc-f656a27e",
+      "topicId": "viewmodels-e-data-annotations",
+      "front": "Como é calculada a idade no PacienteViewModel?",
+      "back": "Idade = DateTime.Now.Year - DataNascimento.Year",
+      "code": "Idade = DateTime.Now.Year - paciente.DataNascimento.Year;"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-fc-951e0b14",
+      "topicId": "viewmodels-e-data-annotations",
+      "front": "Qual método estático async retorna um PacienteViewModel pelo ID?",
+      "back": "SelecionarPorId",
+      "code": "public static async Task<PacienteViewModel> SelecionarPorId(ClinicaDbContext db, int id) { ... }"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-fc-21c71459",
+      "topicId": "viewmodels-e-data-annotations",
+      "front": "Em uma view Razor, qual tag helper liga um input à propriedade do modelo?",
+      "back": "asp-for",
+      "code": "<input asp-for=\"Nome\" class=\"form-control\" />"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-fc-2b7ce514",
+      "topicId": "viewmodels-e-data-annotations",
+      "front": "Qual atributo indica o nome exibido em labels para a propriedade Nome?",
+      "back": "[Display(Name = \"Nome Completo\")]"
+    },
+    {
+      "id": "viewmodels-e-data-annotations-fc-072642dd",
+      "topicId": "viewmodels-e-data-annotations",
+      "front": "Qual atributo valida que o CPF contém exatamente 11 dígitos?",
+      "back": "[RegularExpression(@\"^\\d{11}$\")]",
+      "code": "[RegularExpression(@\"^\\d{11}$\", ErrorMessage = \"Informe o cpf com 11 dígitos\")]\npublic string Cpf { get; set; } = string.Empty;"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-fc-d5e10308",
+      "topicId": "padrao-repository-e-repositorybase",
+      "front": "Qual a assinatura do método síncrono que retorna uma entidade pelo ID?",
+      "back": "TEntity SelecionarPorId(int id);"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-fc-a1e80257",
+      "topicId": "padrao-repository-e-repositorybase",
+      "front": "Como se chama o método assíncrono que lista todas as entidades?",
+      "back": "Task<IReadOnlyList<TEntity>> ListarTodosAsync();"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-fc-be1feda2",
+      "topicId": "padrao-repository-e-repositorybase",
+      "front": "Qual interface define o contrato do repositório genérico?",
+      "back": "IRepositotyBase<TEntity>"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-fc-4eadde46",
+      "topicId": "padrao-repository-e-repositorybase",
+      "front": "Qual classe concretiza o repositório para Especialidade?",
+      "back": "RepositoryEspecialidade"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-fc-b582f1df",
+      "topicId": "padrao-repository-e-repositorybase",
+      "front": "Qual método da RepositoryPaciente verifica se um CPF já está cadastrado?",
+      "back": "CpfJaCadastrado"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-fc-be82a318",
+      "topicId": "padrao-repository-e-repositorybase",
+      "front": "Qual é o tipo de retorno do método ExcluirAsync?",
+      "back": "Task"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-fc-6d86ab57",
+      "topicId": "padrao-repository-e-repositorybase",
+      "front": "O que faz o seguinte trecho?",
+      "back": "Define o estado da entidade como Modificado e salva as alterações de forma assíncrona.",
+      "code": "public async Task AlterarAsync(TEntity objeto)\n{\n    _context.Entry<TEntity>(objeto).State = EntityState.Modified;\n    await _context.SaveChangesAsync();\n}"
+    },
+    {
+      "id": "padrao-repository-e-repositorybase-fc-0e289e70",
+      "topicId": "padrao-repository-e-repositorybase",
+      "front": "Qual é a restrição de tipo aplicada a TEntity em RepositoryBase?",
+      "back": "where TEntity : class",
+      "code": "public class RepositoryBase<TEntity> : IRepositotyBase<TEntity> where TEntity: class"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-fc-51c3d298",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "front": "Comando para criar uma nova migration",
+      "back": "dotnet ef migrations add <nome>"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-fc-5d2377e7",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "front": "Comando para aplicar migrations ao banco de dados",
+      "back": "dotnet ef database update"
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-fc-310a725f",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "front": "O que o método Up de uma migration faz?",
+      "back": "Aplica as mudanças ao banco de dados (cria tabelas, colunas, índices)."
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-fc-19017bbb",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "front": "O que o método Down de uma migration faz?",
+      "back": "Reverte as mudanças aplicadas pelo Up."
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-fc-352afba3",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "front": "migrationBuilder.CreateTable(name: \"Pacientes\", columns: table => new { Id = table.Column<int>(type: \"INTEGER\", nullable: false).Annotation(\"Sqlite:Autoincrement\", true), Nome = table.Column<string>(type: \"TEXT\", maxLength: 100, nullable: false), Cpf = table.Column<string>(type: \"varchar(100)\", nullable: false), Telefone = table.Column<string>(type: \"TEXT\", maxLength: 100, nullable: false), DataNascimento = table.Column<DateTime>(type: \"date\", nullable: false), CriadoEm = table.Column<DateTime>(type: \"datetime2\", nullable: false), AtualizadoEm = table.Column<DateTime>(type: \"datetime2\", nullable: false) });",
+      "back": "Cria a tabela Pacientes com colunas Id, Nome, Cpf, Telefone, DataNascimento, CriadoEm, AtualizadoEm e define Id como chave primária autoincrementada."
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-fc-6b4e1f30",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "front": "builder.Services.AddDbContext<ClinicaDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString(\"ClinicaConnection\")));",
+      "back": "Registra o ClinicaDbContext no container de DI, configurando‑o para usar SQLite com a string de conexão \"ClinicaConnection\"."
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-fc-7b0abd25",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "front": "Qual é o efeito de criar um índice único na coluna Cpf da tabela Pacientes?",
+      "back": "Garante que nenhum dois pacientes tenham o mesmo CPF (valor único)."
+    },
+    {
+      "id": "migracoes-ef-core-e-atualizacao-do-banco-de-dados-fc-a09ec32d",
+      "topicId": "migracoes-ef-core-e-atualizacao-do-banco-de-dados",
+      "front": "Na migration CriarProfissionalEspecialidades, qual nova coluna é adicionada à tabela Profissionais com valor padrão vazio?",
+      "back": "RegistroProfissional (tipo TEXT, maxLength 30, defaultValue: \"\")"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-fc-264058dd",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "front": "Qual é o propósito do método builder.Services.AddDbContext<ClinicaDbContext>?",
+      "back": "Registra o DbContext no contêiner de DI para ser resolvido via injeção de dependência, configurando-o para usar SQLite com a string de conexão \"ClinicaConnection\"."
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-fc-d3339ba6",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "front": "O que faz o middleware app.UseHttpsRedirection();?",
+      "back": "Redireciona automaticamente todas as requisições HTTP para HTTPS."
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-fc-02bbe6ef",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "front": "Qual é o valor da connection string \"ClinicaConnection\" no appsettings.json?",
+      "back": "\"Data Source=clinica.db\""
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-fc-8d2e73b7",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "front": "No Program.cs, qual método é usado para definir a rota padrão do MVC?",
+      "back": "app.MapControllerRoute com name \"default\" e pattern \"{controller=Pacientes}/{action=Index}/{id?}\"",
+      "code": "app.MapControllerRoute(name: \"default\", pattern: \"{controller=Pacientes}/{action=Index}/{id?}\");"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-fc-4523e23d",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "front": "Qual pacote NuGet fornece o provedor SQLite para Entity Framework Core no projeto?",
+      "back": "Microsoft.EntityFrameworkCore.Sqlite"
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-fc-e10e78dd",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "front": "Como o ambiente Development é indicado no launchSettings.json?",
+      "back": "Definindo a variável de ambiente ASPNETCORE_ENVIRONMENT como \"Development\"."
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-fc-86e15f24",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "front": "O que o método builder.Services.AddControllersWithViews(); retorna?",
+      "back": "IMvcBuilder, usado para configurar opções de MVC."
+    },
+    {
+      "id": "injecao-de-dependencia-e-configuracao-do-program-cs-fc-9d0f722d",
+      "topicId": "injecao-de-dependencia-e-configuracao-do-program-cs",
+      "front": "No Program.cs, qual linha configura o tratamento de exceções personalizado para ambientes não desenvolvimento?",
+      "back": "app.UseExceptionHandler(\"/Home/Error\");",
+      "code": "app.UseExceptionHandler(\"/Home/Error\");"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-fc-4892f9dd",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "front": "O que faz a diretiva @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers no _ViewImports.cshtml?",
+      "back": "Registra todos os Tag Helpers da biblioteca Microsoft.AspNetCore.Mvc.TagHelpers para uso em todas as views.",
+      "code": "@using ClinicaASPNet\n@using ClinicaASPNet.Models\n@using ClinicaASPNet.ViewModels\n@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-fc-860196f3",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "front": "Qual é o propósito do arquivo _ViewStart.cshtml em um projeto ASP.NET Core MVC?",
+      "back": "Define o layout padrão (_Layout) que será aplicado a todas as views, a menos que seja sobrescrito em uma view específica.",
+      "code": "@{\n    Layout = \"_Layout\";\n}"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-fc-f2086283",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "front": "Como criar um link para a ação Index do controlador Pacientes usando Tag Helpers?",
+      "back": "<a asp-controller=\"Pacientes\" asp-action=\"Index\">Pacientes</a>",
+      "code": "<a asp-controller=\"Pacientes\" asp-action=\"Index\">Pacientes</a>"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-fc-bb561720",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "front": "Como incluir a partial view _ListaPacientes passando o modelo atual em uma view?",
+      "back": "<partial name=\"_ListaPacientes\" model=\"@Model\" />",
+      "code": "<partial name=\"_ListaPacientes\" model=\"@Model\" />"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-fc-a607143c",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "front": "Onde estão localizados os scripts padrão de validação client-side em um projeto ASP.NET Core MVC?",
+      "back": "No arquivo _ValidationScriptsPartial.cshtml, que contém jQuery Validation e jQuery Validation Unobtrusive.",
+      "code": "<script src=\"~/lib/jquery-validation/dist/jquery.validate.min.js\"></script>\n<script src=\"~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js\"></script>"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-fc-fe12a63c",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "front": "Qual a marcação para criar um botão que leva à ação Edit de um paciente no partial _ListaPacientes?",
+      "back": "<a asp-action=\"Edit\" asp-route-id=\"@item.Id\" class=\"btn btn-sm btn-outline-secondary\">Editar</a>",
+      "code": "<a asp-action=\"Edit\" asp-route-id=\"@item.Id\" class=\"btn btn-sm btn-outline-secondary\">Editar</a>"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-fc-e61e2377",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "front": "Qual tipo de modelo a partial view _ListaPacientes.cshtml espera receber?",
+      "back": "IEnumerable<PacienteViewModel>",
+      "code": "@model IEnumerable<PacienteViewModel>"
+    },
+    {
+      "id": "views-razor-tag-helpers-e-partial-views-fc-0602e870",
+      "topicId": "views-razor-tag-helpers-e-partial-views",
+      "front": "Em um formulário de criação, qual atributo Tag Helper associa um input à propriedade Nome do modelo?",
+      "back": "asp-for=\"Nome\"",
+      "code": "<input asp-for=\"Nome\" class=\"form-control\" />"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-fc-5140c926",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "front": "Onde está definida a connection string \"ClinicaConnection\" no projeto?",
+      "back": "No arquivo appsettings.json, dentro da seção ConnectionStrings."
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-fc-88c5fc18",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "front": "Qual método do IConfiguration é usado para obter a connection string pelo nome?",
+      "back": "GetConnectionString"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-fc-964535d1",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "front": "Complete: builder.Services.AddDbContext<ClinicaDbContext>(options => options.UseSqlite(___));",
+      "back": "builder.Configuration.GetConnectionString(\"ClinicaConnection\")",
+      "code": "builder.Services.AddDbContext<ClinicaDbContext>(options => options.UseSqlite(___));"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-fc-2a80182b",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "front": "Verdadeiro ou falso? O arquivo appsettings.Development.json substitui totalmente o appsettings.json em ambiente Development.",
+      "back": "Falso. Ele apenas sobrescreve as chaves que estão presentes."
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-fc-77cd4df7",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "front": "Qual pacote NuGet fornece o provedor SQLite para EF Core no projeto ClinicaASPNet?",
+      "back": "Microsoft.EntityFrameworkCore.Sqlite"
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-fc-4f15370a",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "front": "Se a connection string estiver ausente, o que acontece ao iniciar a aplicação?",
+      "back": "Lança exceção informando que a connection string não foi encontrada."
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-fc-17c1054e",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "front": "Verdadeiro ou falso? SQLite cria o arquivo .db automaticamente se ele não existir.",
+      "back": "Verdadeiro."
+    },
+    {
+      "id": "configuracao-de-connection-strings-em-appsettings-json-fc-2169a587",
+      "topicId": "configuracao-de-connection-strings-em-appsettings-json",
+      "front": "Qual é o valor exato da connection string \"ClinicaConnection\" no appsettings.json?",
+      "back": "\"Data Source=clinica.db\""
+    },
+    {
+      "id": "controllers-e-acoes-crud-fc-0e710eae",
+      "topicId": "controllers-e-acoes-crud",
+      "front": "Qual controlador é responsável por operações CRUD de pacientes?",
+      "back": "PacientesController"
+    },
+    {
+      "id": "controllers-e-acoes-crud-fc-721547f8",
+      "topicId": "controllers-e-acoes-crud",
+      "front": "Qual controlador é responsável por operações CRUD de especialidades?",
+      "back": "EspecialidadeController"
+    },
+    {
+      "id": "controllers-e-acoes-crud-fc-0742593c",
+      "topicId": "controllers-e-acoes-crud",
+      "front": "O método Create (POST) do PacientesController recebe qual modelo?",
+      "back": "PacienteViewModel"
+    },
+    {
+      "id": "controllers-e-acoes-crud-fc-13b22863",
+      "topicId": "controllers-e-acoes-crud",
+      "front": "O método Create (POST) do EspecialidadeController recebe qual modelo?",
+      "back": "EspecialidadeViewModel"
+    },
+    {
+      "id": "controllers-e-acoes-crud-fc-eb0a66a4",
+      "topicId": "controllers-e-acoes-crud",
+      "front": "Qual é o método do repositório RepositoryPaciente usado para verificar se um CPF já está cadastro?",
+      "back": "CpfJaCadastrado"
+    },
+    {
+      "id": "controllers-e-acoes-crud-fc-4e8bc314",
+      "topicId": "controllers-e-acoes-crud",
+      "front": "Qual é o método do serviço EspecialidadeService usado para listar todas as especialidades?",
+      "back": "ListarTodosAsync"
+    },
+    {
+      "id": "controllers-e-acoes-crud-fc-5e4bb152",
+      "topicId": "controllers-e-acoes-crud",
+      "front": "O que o atributo [freeze] no método Create (POST) do PacientesController impede?",
+      "back": "Vinculação de dados não confiáveis (mass assignment)"
+    },
+    {
+      "id": "controllers-e-acoes-crud-fc-13a9097f",
+      "topicId": "controllers-e-acoes-crud",
+      "front": "O que o método Details do PacientesController retorna quando o paciente não é encontrado?",
+      "back": "NotFound()"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+@model IEnumerable<PacienteViewModel>
+@{
+    ViewData["Title"] = "Pacientes";
+}
+
+<div class="page-header">
+    <h1 class="page-title">Pacientes</h1>
+    <a asp-action="Create" class="btn btn-primary">Novo paciente</a>
+</div>
+
+@if (TempData["MensagemSucesso"] is not null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["MensagemSucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+}
+
+<section class="content-panel" aria-label="Lista de pacientes">
+    <form method="get" class="search-bar">
+        <input name="nome" value="@ViewBag.NomePesquisado" class="form-control"
+               aria-label="Nome do paciente" placeholder="Pesquisar por nome" />
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" type="submit">Pesquisar</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Limpar</a>
+        </div>
+    </form>
+    <partial name="_ListaPacientes" model="@Model" />
+   
+</section>

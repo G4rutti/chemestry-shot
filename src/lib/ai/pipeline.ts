@@ -3,6 +3,7 @@ import { z } from "zod";
 import type { MaterialChunk, OneShot, Question, StudyData, Subject, Topic } from "@/lib/types";
 import { getCachedStudy, getChunks, getOneShot, getStudy, getSubject, saveChunks, saveCurrent, saveOneShot, saveStudy } from "@/lib/store";
 import { isStaleOneShot } from "@/lib/formula";
+import { CODE } from "@/lib/materials/extract";
 import { generateJson } from "./client";
 import { askPrompt, formatChunks, moreQuestionsPrompt, oneShotPrompt, topicContentPrompt, topicsPrompt } from "./prompts";
 import {
@@ -25,7 +26,7 @@ const topicChunks = (topic: Topic, chunks: MaterialChunk[]) => chunks.filter((c)
 
 // every code chunk of the course (scripts, notebooks, code on slides): the reference for code questions
 const courseCode = (chunks: MaterialChunk[]) =>
-  formatChunks(chunks.filter((c) => !c.admin && (/\.(py|ipynb)$/i.test(c.documentName) || /^\s*(import|from)\s+\w/m.test(c.text))), 12_000);
+  formatChunks(chunks.filter((c) => !c.admin && (CODE.test(c.documentName) || /^\s*(import|from)\s+\w/m.test(c.text))), 40_000);
 
 async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>) {
   const out: PromiseSettledResult<R>[] = new Array(items.length);
@@ -66,7 +67,7 @@ export async function processMaterials(subject: string, chunks: MaterialChunk[])
     ...folder,
     name: folder.name === subject && ai?.name ? ai.name : folder.name,
     course: folder.course ?? ai?.course,
-    profile: ai?.profile,
+    profile: folder.profile ?? ai?.profile,
   };
   if (!topics.length) throw new Error("Não foi possível identificar tópicos no material.");
 

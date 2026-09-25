@@ -1,0 +1,7 @@
+{
+  "name": "Oficina ASP.NET",
+  "exam": "AV1",
+  "course": "Desenvolvimento Web com ASP.NET Core MVC",
+  "language": "pt-BR",
+  "profile": "Código C# de um projeto ASP.NET Core MVC (ClinicaASPNet) com Entity Framework Core e SQLite, mais transcrições das videoaulas. Prova: explicar o que um trecho de código faz, o que um comando (dotnet / EF Core CLI / Package Manager Console) faz, o que um método ou action retorna, e a configuração do projeto (Program.cs, injeção de dependência, appsettings, csproj, migrations, Razor views)."
+}

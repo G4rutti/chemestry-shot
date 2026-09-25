@@ -15,7 +15,7 @@ const role = (s: Subject) =>
   `Você é um ${teacher(s)} preparando um aluno para a prova ${s.exam}.${s.profile ? ` Perfil da matéria: ${s.profile}` : ""} Responda sempre em português do Brasil, baseado SOMENTE no material abaixo.`;
 
 export const topicsPrompt = (s: Subject, material: string) => `${role(s)}
-Identifique de 5 a 12 tópicos que provavelmente cairão na prova. Para cada um: name, summary (2-3 frases), examImportance (1-5, 5 = cai com certeza), keyPoints (3-6 itens curtos) e chunkIds (ids EXATOS de TODOS os trechos relevantes, conforme [id=...], inclusive código .py/.ipynb e datasets .csv que exemplificam o tópico).
+Identifique de 5 a 12 tópicos que provavelmente cairão na prova. Para cada um: name, summary (2-3 frases), examImportance (1-5, 5 = cai com certeza), keyPoints (3-6 itens curtos) e chunkIds (ids EXATOS de TODOS os trechos relevantes, conforme [id=...], inclusive arquivos de código (.py, .ipynb, .cs, .cshtml, .csproj, .json de configuração) e datasets .csv que exemplificam o tópico).
 Nada administrativo vira tópico: apresentação do professor, contatos, avaliações/notas, presença, prazos, nem atividades de aula (caça-palavras, atividade prática, pesquisa, atividade avaliativa).
 Devolva também subject: name (nome da disciplina), course (área/curso) e profile (1-2 frases: tipo de conteúdo — conceitual, cálculo, código — e estilo provável da prova).
 
@@ -26,9 +26,10 @@ const QUESTION_RULES = `Regras das questões:
 - Misture os tipos: "multiple-choice" (4-5 options, correctAnswer = texto EXATO de uma option), "true-false" (options = ["Verdadeiro","Falso"]), "fill" (completar lacuna ___, options = []), "calculation" (resposta numérica curta, com unidade se houver; probabilidade pode vir em decimal ou %; options = []).
 - code (opcional): trecho de código curto (até ~12 linhas) mostrado junto do enunciado, sem \`\`\` e sem repetir o código no enunciado; omita quando não usar.
 - Se houver CÓDIGO DO CURSO abaixo e o tópico for de cálculo, estatística, probabilidade, dados ou programação: PELO MENOS 1/3 das questões e 2 flashcards TÊM code preenchido, adaptado desse código:
-  • "o que esse código faz/imprime?": multiple-choice com code (ex.: o que uma chamada de função do material calcula);
+  • "o que esse código faz/imprime/retorna?": multiple-choice com code (ex.: o que uma chamada de função do material calcula, o que um método ou action retorna);
+  • comandos e configuração, quando o material tiver: o que um comando de terminal faz (ex.: um comando de migration citado nas aulas), para que serve uma linha de configuração/registro do projeto;
   • completar código: fill com a lacuna ___ DENTRO do code e correctAnswer = só o que falta (ex.: o nome do método); a lacuna nunca é texto livre entre aspas (título, rótulo, mensagem), que não dá pra deduzir;
-  • use SÓ bibliotecas e funções que aparecem no material ou no CÓDIGO DO CURSO; nada de API inventada.
+  • use SÓ bibliotecas, classes, funções e comandos que aparecem no material ou no CÓDIGO DO CURSO; nada de API inventada.
 - Tópico conceitual (história, ética, definições) ou matéria sem código: não use code.
 - Quando o material permitir, inclua também: cálculo (calculation com resposta numérica), interpretação (gráficos, tabelas, resultados) e conceitual.
 - Questão AUTOCONTIDA: o aluno NÃO vê o material. Se ela depende de tabela, gráfico, dataset ou código do material, coloque os dados no enunciado (tabela = uma linha por item, ex.: "• 0-2: 3 alunos") ou em code. Nunca cite "a tabela", "o gráfico", "o script" ou "os slides" sem mostrar os dados.
